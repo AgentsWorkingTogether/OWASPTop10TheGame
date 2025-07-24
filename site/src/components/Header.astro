@@ -1,0 +1,31 @@
+---
+import LanguageSelector from './LanguageSelector.astro';
+import { getTranslationKey, type Language } from '../utils/i18n';
+
+export interface Props {
+  translations: any;
+  lang: Language;
+}
+
+const { translations, lang } = Astro.props;
+---
+
+<header class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-sm z-50 border-b-2 border-black">
+    <div class="container mx-auto px-6 py-3">
+        <div class="flex justify-center items-center">
+            <h1 class="text-xl md:text-2xl font-black tracking-tighter">
+                <span set:html={getTranslationKey(translations, 'header.title')}></span> 
+                <span class="text-sm" set:html={getTranslationKey(translations, 'header.subtitle')}></span>
+            </h1>
+            <nav class="hidden md:flex space-x-8 font-bold ml-12">
+                <a href="#home" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.home')}></a>
+                <a href="#about" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.game')}></a>
+                <a href="#characters" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.characters')}></a>
+                <a href="#components" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.components')}></a>
+                <a href="#how-to-play" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.rules')}></a>
+                <a href="#team-building" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.team_building')}></a>
+            </nav>
+            <LanguageSelector lang={lang} />
+        </div>
+    </div>
+</header> 

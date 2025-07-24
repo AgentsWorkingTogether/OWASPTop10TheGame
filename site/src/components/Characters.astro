@@ -1,0 +1,296 @@
+---
+import { Image } from 'astro:assets';
+import pentesterImage from '../assets/images/pentester.png';
+import cisoImage from '../assets/images/ciso.png';
+import cloudSecurityImage from '../assets/images/cloud.png';
+import scriptKiddieImage from '../assets/images/script-kiddie.png';
+import crackerImage from '../assets/images/cracker.png';
+import cyberterroristImage from '../assets/images/ciberterrorist.png';
+import threatHunterImage from '../assets/images/threat_hunter.png';
+import hacktivistImage from '../assets/images/hacktivist.png';
+import malwareAnalystImage from '../assets/images/malware_analyst.png';
+import incidentResponderImage from '../assets/images/incident-responder.png';
+import { getTranslationKey, type Language } from '../utils/i18n';
+
+export interface Props {
+  translations: any;
+  lang: Language;
+}
+
+const { translations, lang } = Astro.props;
+
+// Definir los personajes disponibles
+const characters = [
+  { key: 'pentester', image: pentesterImage },
+  { key: 'ciso', image: cisoImage },
+  { key: 'cloud_security', image: cloudSecurityImage },
+  { key: 'script_kiddie', image: scriptKiddieImage },
+  { key: 'cracker', image: crackerImage },
+  { key: 'cyberterrorist', image: cyberterroristImage },
+  { key: 'threat_hunter', image: threatHunterImage },
+  { key: 'hacktivist', image: hacktivistImage },
+  { key: 'malware_analyst', image: malwareAnalystImage },
+  { key: 'incident_responder', image: incidentResponderImage }
+];
+---
+
+<section id="characters" class="py-20 sm:py-24" style="background-color: var(--color-primary);">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 section-title" set:html={getTranslationKey(translations, 'characters.title')}></h2>
+        
+        <!-- Personajes -->
+        <div class="mb-16">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                                       <!-- Personaje -->
+                       <div class="flex justify-center">
+                           <div class="bg-white p-3 rounded-lg border-2 border-black shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300">
+                               <div class="card-gallery w-48 md:w-64 mx-auto">
+                                   <Image
+                                       id="character-image"
+                                       src={pentesterImage}
+                                       alt="Character"
+                                       class="w-full h-full object-cover rounded-xl transition-opacity duration-500 transition-transform duration-300"
+                                   />
+                               </div>
+                               <p id="character-name" class="text-gray-800 text-lg mt-2 font-bold text-center" set:html={getTranslationKey(translations, 'characters.pentester.name')}></p>
+                           </div>
+                       </div>
+                
+                <!-- Explicación -->
+                <div class="text-left">
+                    <h4 id="character-title" class="text-xl font-bold mb-4" set:html={getTranslationKey(translations, 'characters.pentester.name')}></h4>
+                    <p id="character-description" class="text-white text-lg mb-4" set:html={getTranslationKey(translations, 'characters.pentester.description')}></p>
+                    <p id="character-details" class="text-white text-lg" set:html={getTranslationKey(translations, 'characters.pentester.details')}></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+       <style>
+           .card-gallery {
+               aspect-ratio: 2.5/3.5;
+               min-height: 200px;
+               position: relative;
+               overflow: hidden;
+           }
+
+           .card-gallery img {
+               transition: transform 0.3s ease, opacity 0.2s ease;
+           }
+
+           .card-gallery:hover img {
+               transform: scale(1.05);
+           }
+       </style>
+
+<script define:vars={{ characters, translations, lang }}>
+  // Definir quiénes son "buenos" (defensores) y "no tan buenos" (atacantes)
+  const goodGuys = ['pentester', 'ciso', 'cloud_security', 'threat_hunter', 'malware_analyst', 'incident_responder'];
+  const badGuys = ['script_kiddie', 'cracker', 'cyberterrorist', 'hacktivist'];
+
+  // Datos de los personajes
+  const characterData = {
+    pentester: {
+      image: characters[0].image.src,
+      name: translations.characters.pentester.name,
+      description: translations.characters.pentester.description,
+      details: translations.characters.pentester.details,
+      type: 'good'
+    },
+    ciso: {
+      image: characters[1].image.src,
+      name: translations.characters.ciso.name,
+      description: translations.characters.ciso.description,
+      details: translations.characters.ciso.details,
+      type: 'good'
+    },
+    cloud_security: {
+      image: characters[2].image.src,
+      name: translations.characters.cloud_security.name,
+      description: translations.characters.cloud_security.description,
+      details: translations.characters.cloud_security.details,
+      type: 'good'
+    },
+    script_kiddie: {
+      image: characters[3].image.src,
+      name: translations.characters.script_kiddie.name,
+      description: translations.characters.script_kiddie.description,
+      details: translations.characters.script_kiddie.details,
+      type: 'bad'
+    },
+    cracker: {
+      image: characters[4].image.src,
+      name: translations.characters.cracker.name,
+      description: translations.characters.cracker.description,
+      details: translations.characters.cracker.details,
+      type: 'bad'
+    },
+    cyberterrorist: {
+      image: characters[5].image.src,
+      name: translations.characters.cyberterrorist.name,
+      description: translations.characters.cyberterrorist.description,
+      details: translations.characters.cyberterrorist.details,
+      type: 'bad'
+    },
+    threat_hunter: {
+      image: characters[6].image.src,
+      name: translations.characters.threat_hunter.name,
+      description: translations.characters.threat_hunter.description,
+      details: translations.characters.threat_hunter.details,
+      type: 'good'
+    },
+    hacktivist: {
+      image: characters[7].image.src,
+      name: translations.characters.hacktivist.name,
+      description: translations.characters.hacktivist.description,
+      details: translations.characters.hacktivist.details,
+      type: 'bad'
+    },
+    malware_analyst: {
+      image: characters[8].image.src,
+      name: translations.characters.malware_analyst.name,
+      description: translations.characters.malware_analyst.description,
+      details: translations.characters.malware_analyst.details,
+      type: 'good'
+    },
+    incident_responder: {
+      image: characters[9].image.src,
+      name: translations.characters.incident_responder.name,
+      description: translations.characters.incident_responder.description,
+      details: translations.characters.incident_responder.details,
+      type: 'good'
+    }
+  };
+
+  // Función para mezclar array (Fisher-Yates shuffle)
+  function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+
+  // Función para iniciar una nueva secuencia de 10 personajes
+  function startNewSequence() {
+    characterOrder = shuffleArray(Object.keys(characterData));
+    currentCharacterIndex = 0;
+    console.log('=== NUEVA SECUENCIA DE 10 PERSONAJES ===');
+    console.log('Orden aleatorio:', characterOrder);
+    updateCharacter();
+  }
+
+  // Variables de control
+  let characterOrder = [];
+  let currentCharacterIndex = 0;
+  let autoChangeInterval = null;
+  let isAutoMode = true;
+  let isChanging = false;
+  
+  // Iniciar la primera secuencia
+  startNewSequence();
+
+  function updateCharacter() {
+    const characterKey = characterOrder[currentCharacterIndex];
+    const character = characterData[characterKey];
+    
+    const imageElement = document.getElementById('character-image');
+    const nameElement = document.getElementById('character-name');
+    const titleElement = document.getElementById('character-title');
+    const descriptionElement = document.getElementById('character-description');
+    const detailsElement = document.getElementById('character-details');
+    
+    if (imageElement && nameElement && titleElement && descriptionElement && detailsElement) {
+      // Cambiar imagen con transición suave usando opacity
+      imageElement.style.opacity = '0.7';
+      
+      setTimeout(() => {
+        imageElement.src = character.image;
+        imageElement.alt = character.name;
+        imageElement.style.opacity = '1';
+        
+        // Actualizar texto
+        nameElement.innerHTML = character.name;
+        titleElement.innerHTML = character.name;
+        descriptionElement.innerHTML = character.description;
+        detailsElement.innerHTML = character.details;
+        
+        // Cambiar color del título según el tipo de personaje
+        if (character.type === 'good') {
+          titleElement.className = 'text-xl font-bold text-green-300 mb-4';
+        } else {
+          titleElement.className = 'text-xl font-bold text-red-300 mb-4';
+        }
+      }, 100);
+    }
+  }
+
+  function nextCharacter() {
+    if (isChanging) return; // Evitar múltiples cambios simultáneos
+    
+    isChanging = true;
+    
+    // Avanzar al siguiente personaje
+    currentCharacterIndex++;
+    
+    // Si hemos completado los 10 personajes, iniciar nueva secuencia
+    if (currentCharacterIndex >= characterOrder.length) {
+      startNewSequence();
+      isChanging = false;
+      return;
+    }
+    
+    const currentCharacter = characterOrder[currentCharacterIndex];
+    console.log(`Personaje ${currentCharacterIndex + 1}/10:`, currentCharacter);
+    updateCharacter();
+    
+    // Permitir el siguiente cambio después de un pequeño delay
+    setTimeout(() => {
+      isChanging = false;
+    }, 200);
+  }
+
+  function handleCharacterClick() {
+    // Si está en modo automático, parar el timer
+    if (isAutoMode) {
+      clearInterval(autoChangeInterval);
+      autoChangeInterval = null;
+      isAutoMode = false;
+    }
+    
+    // Pasar al siguiente personaje
+    nextCharacter();
+  }
+
+  // Función para cambiar automáticamente
+  function startAutoChange() {
+    if (!isAutoMode) {
+      isAutoMode = true;
+      autoChangeInterval = setInterval(nextCharacter, 8000);
+    }
+  }
+
+  // Iniciar cambio automático
+  autoChangeInterval = setInterval(nextCharacter, 8000);
+
+           // Agregar event listener al clic en la tarjeta
+         document.addEventListener('DOMContentLoaded', () => {
+           const characterCard = document.querySelector('.bg-white.p-3.rounded-lg');
+           if (characterCard) {
+             characterCard.addEventListener('click', handleCharacterClick);
+           }
+         });
+
+  // Función para cambiar automáticamente
+  function startAutoChange() {
+    if (!isAutoMode) {
+      isAutoMode = true;
+      autoChangeInterval = setInterval(nextCharacter, 8000);
+    }
+  }
+
+  // Iniciar cambio automático
+  autoChangeInterval = setInterval(nextCharacter, 8000);
+</script> 

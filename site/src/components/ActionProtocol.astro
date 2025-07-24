@@ -1,0 +1,33 @@
+---
+import { getTranslationKey, type Language } from '../utils/i18n';
+
+export interface Props {
+  translations: any;
+  lang: Language;
+}
+
+const { translations, lang } = Astro.props;
+---
+
+<section id="how-to-play" class="py-20 sm:py-24" style="background-color: var(--color-primary);">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-white section-title" set:html={getTranslationKey(translations, 'components.action_protocol.title')}></h2>
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+            <div class="card-bg p-6 rounded-lg">
+                <h3 class="text-2xl font-bold mb-2" style="color: var(--color-accent-red);" set:html={getTranslationKey(translations, 'components.action_protocol.kickoff_title')}></h3>
+                <p set:html={getTranslationKey(translations, 'components.action_protocol.kickoff_desc')}></p>
+            </div>
+            <div class="card-bg p-6 rounded-lg">
+                <h3 class="text-2xl font-bold mb-2" style="color: var(--color-accent-red);" set:html={getTranslationKey(translations, 'components.action_protocol.followup_title')}></h3>
+                <p set:html={getTranslationKey(translations, 'components.action_protocol.followup_desc')}></p>
+            </div>
+            <div class="card-bg p-6 rounded-lg">
+                <h3 class="text-2xl font-bold mb-2" style="color: var(--color-accent-red);" set:html={getTranslationKey(translations, 'components.action_protocol.retrospective_title')}></h3>
+                <p set:html={getTranslationKey(translations, 'components.action_protocol.retrospective_desc')}></p>
+            </div>
+        </div>
+         <div class="text-center mt-16">
+            <a href="#rules" class="btn-primary py-3 px-8 rounded-md text-lg" set:html={getTranslationKey(translations, 'components.action_protocol.button')}></a>
+        </div>
+    </div>
+</section> 

@@ -1,0 +1,19 @@
+{
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.autoImports": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.associations": {
+    "*.astro": "astro"
+  },
+  "astro.language-server.enabled": true,
+  "tailwindCSS.includeLanguages": {
+    "astro": "html"
+  },
+  "emmet.includeLanguages": {
+    "astro": "html"
+  }
+} 

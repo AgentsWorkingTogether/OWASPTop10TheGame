@@ -1,0 +1,36 @@
+{
+  "name": "owasp-top-10-game-site",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "OWASP Top 10 The Game - Interactive learning platform",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "eslint . --ext .astro,.js,.ts,.jsx,.tsx",
+    "lint:fix": "eslint . --ext .astro,.js,.ts,.jsx,.tsx --fix",
+    "format": "prettier --write .",
+    "type-check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/react": "^3.0.0",
+    "@astrojs/tailwind": "^6.0.0",
+    "astro": "^5.12.3",
+    "i18next": "^25.3.2",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sharp": "^0.34.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint": "^8.0.0",
+    "eslint-plugin-astro": "^0.34.0",
+    "prettier": "^3.0.0",
+    "prettier-plugin-astro": "^0.13.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.0.0"
+  }
+}

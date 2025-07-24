@@ -1,0 +1,41 @@
+---
+import type { Language } from '../utils/i18n';
+
+export interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+---
+
+<div class="flex items-center gap-4 ml-12">
+    <div class="lang-selector">
+        <a href="/es" class={`${lang === 'es' ? 'active' : ''}`} data-lang="es">ES</a>
+        <a href="/en" class={`${lang === 'en' ? 'active' : ''}`} data-lang="en">EN</a>
+    </div>
+</div>
+
+<script>
+  // Interceptar clicks en los enlaces de idioma para mantener la posición
+  document.addEventListener('DOMContentLoaded', () => {
+    const langLinks = document.querySelectorAll('.lang-selector a[data-lang]');
+    
+    langLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const targetLang = link.getAttribute('data-lang');
+        const currentPath = window.location.pathname;
+        
+        // Obtener la sección actual (hash)
+        const currentHash = window.location.hash || '#home';
+        
+        // Construir la nueva URL manteniendo la sección
+        const newUrl = `/${targetLang}${currentHash}`;
+        
+        // Navegar a la nueva URL
+        window.location.href = newUrl;
+      });
+    });
+  });
+</script> 

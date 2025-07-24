@@ -1,0 +1,17 @@
+---
+import { getTranslationKey, type Language } from '../utils/i18n';
+
+export interface Props {
+  translations: any;
+  lang: Language;
+}
+
+const { translations, lang } = Astro.props;
+---
+
+<footer class="bg-white/80 border-t-2 border-black py-6">
+    <div class="container mx-auto px-6 text-center text-gray-600 text-sm">
+        <p set:html={getTranslationKey(translations, 'footer.copy')}></p>
+        <p class="mt-2" set:html={getTranslationKey(translations, 'footer.owasp')}></p>
+    </div>
+</footer> 

@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import gameLogo from '../assets/images/game-logo.png';
+import { getTranslationKey, type Language } from '../utils/i18n';
+
+export interface Props {
+  translations: any;
+  lang: Language;
+}
+
+const { translations, lang } = Astro.props;
+---
+
+<section id="home" class="min-h-screen flex items-center justify-center text-center p-4">
+    <div class="relative z-10">
+        <Image src={gameLogo} alt="Logo de OWASP Top 10 The Game" class="mx-auto mb-6 mt-16 w-48 md:w-64" />
+        <h2 class="text-4xl md:text-6xl font-black uppercase" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'home.title')}></h2>
+        <p class="text-lg md:text-xl mt-4 max-w-4xl mx-auto whitespace-nowrap" set:html={getTranslationKey(translations, 'home.subtitle')}></p>
+        <p class="text-lg md:text-xl mt-2 max-w-4xl mx-auto" set:html={getTranslationKey(translations, 'home.subtitle2')}></p>
+        <div class="mt-8">
+            <a href="#community" class="btn-primary py-3 px-8 rounded-md text-lg" set:html={getTranslationKey(translations, 'home.button')}></a>
+        </div>
+    </div>
+</section> 

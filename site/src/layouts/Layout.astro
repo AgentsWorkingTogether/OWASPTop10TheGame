@@ -1,0 +1,26 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  lang?: string;
+}
+
+const { title, description = "OWASP Top 10 The Game - El Juego de Mesa de Ciberseguridad", lang = "es" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={lang} class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+</head>
+<body class="antialiased">
+    <slot />
+</body>
+</html> 

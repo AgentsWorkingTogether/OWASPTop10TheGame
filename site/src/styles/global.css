@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700;900&family=Special+Elite&display=swap');
+
+:root {
+    --color-bg: #F3EADF;
+    --color-text: #3D405B;
+    --color-primary: #0A4D68;
+    --color-accent-red: #D9534F;
+    --color-border: #4A4A4A;
+}
+
+body {
+    font-family: 'Special Elite', monospace;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.04"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Slab', serif;
+    color: var(--color-primary);
+}
+
+.card-bg {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid #000000;
+    box-shadow: 4px 4px 0px #000;
+    transition: all 0.2s ease-in-out;
+}
+
+.card-bg:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+}
+
+.btn-primary {
+    background-color: var(--color-accent-red);
+    color: white;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0px #000;
+    transition: all 0.2s ease-in-out;
+    font-family: 'Roboto Slab', serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px #000;
+}
+
+.btn-secondary {
+    background-color: #333;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #000;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--color-accent-red);
+    margin: 1rem auto;
+}
+
+.lang-selector a {
+    padding: 0.25rem 0.5rem;
+    border: 2px solid var(--color-border);
+    font-family: 'Roboto Slab', serif;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: all 0.2s ease-in-out;
+}
+
+.lang-selector a:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.lang-selector a.active {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* Estilos para las cartas de la galería */
+.card-gallery {
+    aspect-ratio: 2.5/3.5;
+    min-height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-gallery img {
+    transition: transform 0.3s ease;
+}
+
+.card-gallery:hover img {
+    transform: scale(1.05);
+}
+
+.card-placeholder {
+    background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-weight: bold;
+} 

@@ -1,0 +1,547 @@
+---
+import { Image } from 'astro:assets';
+import type { Language } from '../utils/i18n';
+import { getTranslationKey } from '../utils/i18n';
+import teamBuildingImage from '../assets/images/team_building.png';
+import confidenceImage from '../assets/images/confidence.png';
+
+interface Props {
+  lang: Language;
+  translations: any;
+}
+
+const { lang, translations } = Astro.props;
+---
+
+<section id="rules" class="py-20 sm:py-24">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 section-title" set:html={getTranslationKey(translations, 'rules.title')}></h2>
+    
+    <div class="max-w-4xl mx-auto space-y-8">
+      
+      <!-- Fase de Selección de Mapa -->
+      <div class="card-bg p-6 rounded-lg">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.map_selection.title')}></h3>
+        <p class="text-lg mb-4" set:html={getTranslationKey(translations, 'rules.map_selection.desc')}></p>
+        <ul class="list-disc list-inside space-y-2 text-lg">
+          <li set:html={getTranslationKey(translations, 'rules.map_selection.qr_info')}></li>
+          <li set:html={getTranslationKey(translations, 'rules.map_selection.numbers_info')}></li>
+          <li set:html={getTranslationKey(translations, 'rules.map_selection.base_info')}></li>
+          <li set:html={getTranslationKey(translations, 'rules.map_selection.exponent_info')}></li>
+        </ul>
+      </div>
+
+      <!-- Fase de Contratación -->
+      <div class="card-bg p-6 rounded-lg">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.hiring.title')}></h3>
+        <p class="text-lg mb-4" set:html={getTranslationKey(translations, 'rules.hiring.desc')}></p>
+        
+        <div class="overflow-x-auto mb-4">
+          <table class="w-full border-2 border-black">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border border-black p-3 font-bold" set:html={getTranslationKey(translations, 'rules.hiring.table.experts')}></th>
+                <th class="border border-black p-3 font-bold" set:html={getTranslationKey(translations, 'rules.hiring.table.good')}></th>
+                <th class="border border-black p-3 font-bold" set:html={getTranslationKey(translations, 'rules.hiring.table.not_good')}></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-black p-3 text-center">5</td><td class="border border-black p-3 text-center">3</td><td class="border border-black p-3 text-center">2</td></tr>
+              <tr><td class="border border-black p-3 text-center">6</td><td class="border border-black p-3 text-center">4</td><td class="border border-black p-3 text-center">2</td></tr>
+              <tr><td class="border border-black p-3 text-center">7</td><td class="border border-black p-3 text-center">4</td><td class="border border-black p-3 text-center">3</td></tr>
+              <tr><td class="border border-black p-3 text-center">8</td><td class="border border-black p-3 text-center">5</td><td class="border border-black p-3 text-center">3</td></tr>
+              <tr><td class="border border-black p-3 text-center">9</td><td class="border border-black p-3 text-center">6</td><td class="border border-black p-3 text-center">3</td></tr>
+              <tr><td class="border border-black p-3 text-center">10</td><td class="border border-black p-3 text-center">6</td><td class="border border-black p-3 text-center">4</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-4">
+          <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.hiring.procedure.title')}></strong></p>
+          <ul class="list-disc list-inside space-y-1 mt-2">
+            <li set:html={getTranslationKey(translations, 'rules.hiring.procedure.step1')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.hiring.procedure.step2')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.hiring.procedure.step3')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.hiring.procedure.step4')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.hiring.procedure.step5')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.hiring.procedure.step6')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.hiring.procedure.step7')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.hiring.procedure.step8')}></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Fase de Secretos -->
+      <div class="card-bg p-6 rounded-lg">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.secrets.title')}></h3>
+        <div class="space-y-4">
+          <div class="bg-blue-100 border-l-4 border-blue-500 p-4">
+            <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.secrets.standard_procedure.title')}></strong></p>
+            <ol class="list-decimal list-inside space-y-1 mt-2">
+              <li set:html={getTranslationKey(translations, 'rules.secrets.standard_procedure.step1')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.secrets.standard_procedure.step2')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.secrets.standard_procedure.step3')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.secrets.standard_procedure.step4')}></li>
+            </ol>
+          </div>
+          <div class="bg-green-100 border-l-4 border-green-500 p-4">
+            <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.title')}></strong></p>
+            <ol class="list-decimal list-inside space-y-1 mt-2">
+              <li set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.step1')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.step2')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.step3')}></li>
+            </ol>
+          </div>
+          <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.secrets.note')}></strong> <span set:html={getTranslationKey(translations, 'rules.secrets.secrets_note')}></span></p>
+        </div>
+      </div>
+
+      <!-- Reunión de Kickoff -->
+      <div class="card-bg p-6 rounded-lg">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.kickoff.title')}></h3>
+        <p class="text-lg mb-6" set:html={getTranslationKey(translations, 'rules.kickoff.desc')}></p>
+        
+        <div class="space-y-6">
+          <!-- Estudio del Sistema -->
+          <div>
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.kickoff.system_study.title')}></h4>
+            <p class="text-lg" set:html={getTranslationKey(translations, 'rules.kickoff.system_study.desc')}></p>
+          </div>
+          
+          <!-- Elección del Líder -->
+          <div>
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.kickoff.leader_election.title')}></h4>
+            <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.kickoff.leader_election.desc')}></p>
+            <ul class="list-disc list-inside space-y-1 text-lg">
+              <li set:html={getTranslationKey(translations, 'rules.kickoff.leader_election.step1')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.kickoff.leader_election.step2')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.kickoff.leader_election.step3')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.kickoff.leader_election.step4')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.kickoff.leader_election.step5')}></li>
+            </ul>
+          </div>
+          
+          <!-- Selección de Amenaza y Equipo -->
+          <div>
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.kickoff.threat_selection.title')}></h4>
+            <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.kickoff.threat_selection.desc1')}></p>
+            <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.kickoff.threat_selection.desc2')}></p>
+            <p class="text-lg" set:html={getTranslationKey(translations, 'rules.kickoff.threat_selection.desc3')}></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fase de Acción -->
+      <div class="card-bg p-6 rounded-lg">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.action_phase.title')}></h3>
+        <p class="text-lg mb-4" set:html={getTranslationKey(translations, 'rules.action_phase.desc')}></p>
+        
+        <div class="grid md:grid-cols-2 gap-4 mb-4">
+          <div class="bg-green-100 border-l-4 border-green-500 p-4">
+            <h4 class="font-bold text-lg" set:html={getTranslationKey(translations, 'rules.action_phase.good_guys')}></h4>
+            <p set:html={getTranslationKey(translations, 'rules.action_phase.good_guys_desc')}></p>
+          </div>
+          <div class="bg-red-100 border-l-4 border-red-500 p-4">
+            <h4 class="font-bold text-lg" set:html={getTranslationKey(translations, 'rules.action_phase.bad_guys')}></h4>
+            <p set:html={getTranslationKey(translations, 'rules.action_phase.bad_guys_desc')}></p>
+          </div>
+        </div>
+        
+        <p class="text-lg" set:html={getTranslationKey(translations, 'rules.action_phase.final_desc')}></p>
+      </div>
+
+      <!-- Fase Informe de Resultados -->
+      <div class="card-bg p-6 rounded-lg">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.results_phase.title')}></h3>
+        <p class="text-lg mb-4" set:html={getTranslationKey(translations, 'rules.results_phase.desc')}></p>
+        
+        <div class="grid md:grid-cols-2 gap-4 mb-4">
+          <div class="bg-red-100 border-l-4 border-red-500 p-4">
+            <h4 class="font-bold text-lg" set:html={getTranslationKey(translations, 'rules.results_phase.threat_exploited.title')}></h4>
+            <p set:html={getTranslationKey(translations, 'rules.results_phase.threat_exploited.desc')}></p>
+          </div>
+          <div class="bg-green-100 border-l-4 border-green-500 p-4">
+            <h4 class="font-bold text-lg" set:html={getTranslationKey(translations, 'rules.results_phase.threat_contained.title')}></h4>
+            <p set:html={getTranslationKey(translations, 'rules.results_phase.threat_contained.desc')}></p>
+          </div>
+        </div>
+        
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-4">
+          <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.results_phase.important_notes.title')}></strong></p>
+          <ul class="list-disc list-inside space-y-1 mt-2">
+            <li set:html={getTranslationKey(translations, 'rules.results_phase.important_notes.note1')}></li>
+            <li><strong set:html={getTranslationKey(translations, 'rules.results_phase.important_notes.variant_title')}></strong> <span set:html={getTranslationKey(translations, 'rules.results_phase.important_notes.variant_desc')}></span></li>
+          </ul>
+        </div>
+        
+        <div class="bg-blue-100 border-l-4 border-blue-500 p-4">
+          <h4 class="font-bold text-lg mb-2" set:html={getTranslationKey(translations, 'rules.results_phase.protection_layers.title')}></h4>
+          <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.results_phase.protection_layers.desc')}></p>
+          <ul class="list-disc list-inside space-y-1">
+            <li set:html={getTranslationKey(translations, 'rules.results_phase.protection_layers.level1')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.results_phase.protection_layers.level3')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.results_phase.protection_layers.protection')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.results_phase.protection_layers.exploited')}></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Reunión de Retrospectiva -->
+      <div class="card-bg p-6 rounded-lg">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.retrospective.title')}></h3>
+        <p class="text-lg mb-4" set:html={getTranslationKey(translations, 'rules.retrospective.desc')}></p>
+        
+        <div class="grid md:grid-cols-2 gap-4 mb-4">
+          <div class="bg-green-100 border-l-4 border-green-500 p-4">
+            <h4 class="font-bold text-lg" set:html={getTranslationKey(translations, 'rules.retrospective.good_guys_victory')}></h4>
+            <p set:html={getTranslationKey(translations, 'rules.retrospective.good_guys_victory_desc')}></p>
+          </div>
+          <div class="bg-red-100 border-l-4 border-red-500 p-4">
+            <h4 class="font-bold text-lg" set:html={getTranslationKey(translations, 'rules.retrospective.bad_guys_victory')}></h4>
+            <p set:html={getTranslationKey(translations, 'rules.retrospective.bad_guys_victory_desc')}></p>
+          </div>
+        </div>
+        
+        <div class="bg-purple-100 border-l-4 border-purple-500 p-4 mb-4">
+          <h4 class="font-bold text-lg mb-2" set:html={getTranslationKey(translations, 'rules.retrospective.last_chance')}></h4>
+          <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.retrospective.last_chance_desc')}></p>
+          <ol class="list-decimal list-inside space-y-1">
+            <li set:html={getTranslationKey(translations, 'rules.retrospective.last_chance_step1')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.retrospective.last_chance_step2')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.retrospective.last_chance_step3')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.retrospective.last_chance_step4')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.retrospective.last_chance_step5')}></li>
+          </ol>
+          <p class="text-lg mt-4"><strong set:html={getTranslationKey(translations, 'rules.retrospective.important_note')}></strong> <span set:html={getTranslationKey(translations, 'rules.retrospective.important_note_desc')}></span></p>
+        </div>
+      </div>
+
+      <!-- Reunión de Seguimiento -->
+      <div class="card-bg p-6 rounded-lg">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.followup.title')}></h3>
+        <p class="text-lg mb-4" set:html={getTranslationKey(translations, 'rules.followup.desc')}></p>
+        
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4">
+          <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.followup.procedure_title')}></strong></p>
+          <ol class="list-decimal list-inside space-y-1 mt-2">
+            <li set:html={getTranslationKey(translations, 'rules.followup.step1')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.followup.step2')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.followup.step3')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.followup.step4')}></li>
+            <li set:html={getTranslationKey(translations, 'rules.followup.step5')}></li>
+          </ol>
+        </div>
+            </div>
+
+      <!-- Extensión - Team Building -->
+      <div id="team-building" class="card-bg p-6 rounded-lg scroll-mt-20">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.team_building.title')}></h3>
+        <p class="text-lg mb-6" set:html={getTranslationKey(translations, 'rules.team_building.desc')}></p>
+        
+        <div class="space-y-6">
+          <!-- Preparación del Mazo -->
+          <div>
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.deck_preparation.title')}></h4>
+            <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.deck_preparation.desc1')}></p>
+            <p class="text-lg" set:html={getTranslationKey(translations, 'rules.team_building.deck_preparation.desc2')}></p>
+          </div>
+          
+          <!-- Reparto de Cartas -->
+          <div>
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.card_distribution.title')}></h4>
+            <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.card_distribution.desc1')}></p>
+            <ul class="list-disc list-inside space-y-1 text-lg">
+              <li><strong set:html={getTranslationKey(translations, 'rules.team_building.card_distribution.cards_3')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.card_distribution.for_8to10')}></span></li>
+              <li><strong set:html={getTranslationKey(translations, 'rules.team_building.card_distribution.cards_2')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.card_distribution.for_5to7')}></span></li>
+            </ul>
+            <p class="text-lg mt-2" set:html={getTranslationKey(translations, 'rules.team_building.card_distribution.desc2')}></p>
+          </div>
+          
+          <!-- Uso de las Cartas -->
+          <div>
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.card_usage.title')}></h4>
+            <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.card_usage.desc1')}></p>
+            <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.card_usage.desc2')}></p>
+            <p class="text-lg" set:html={getTranslationKey(translations, 'rules.team_building.card_usage.desc3')}></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Listado de Cartas de Team Building -->
+      <div class="card-bg p-6 rounded-lg">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.title')}></h3>
+        
+        <div class="space-y-6">
+          <!-- Confidence -->
+          <div class="border-l-4 border-blue-500 pl-4">
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.confidence.title')}></h4>
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div id="confidence-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.confidence.desc')}></p>
+                <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.team_building.cards_list.confidence.effect')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.cards_list.confidence.effect_desc')}></span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Take Control -->
+          <div class="border-l-4 border-red-500 pl-4">
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.take_control.title')}></h4>
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div id="take-control-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.take_control.desc')}></p>
+                <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.team_building.cards_list.take_control.effect')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.cards_list.take_control.effect_desc')}></span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rejection -->
+          <div class="border-l-4 border-orange-500 pl-4">
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.rejection.title')}></h4>
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div id="rejection-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.rejection.desc')}></p>
+                <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.team_building.cards_list.rejection.effect')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.cards_list.rejection.effect_desc')}></span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Peer Review -->
+          <div class="border-l-4 border-green-500 pl-4">
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.peer_review.title')}></h4>
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div id="peer-review-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.peer_review.desc')}></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- To Accept Responsibility -->
+          <div class="border-l-4 border-purple-500 pl-4">
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.accept_responsibility.title')}></h4>
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div id="accept-responsibility-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.accept_responsibility.desc')}></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Random Seed -->
+          <div class="border-l-4 border-indigo-500 pl-4">
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.random_seed.title')}></h4>
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div id="random-seed-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.random_seed.desc')}></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shadower -->
+          <div class="border-l-4 border-teal-500 pl-4">
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.shadower.title')}></h4>
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div id="shadower-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.shadower.desc')}></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Busted -->
+          <div class="border-l-4 border-red-600 pl-4">
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.busted.title')}></h4>
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div id="busted-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.busted.desc')}></p>
+                <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.team_building.cards_list.busted.effect')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.cards_list.busted.effect_desc')}></span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Perseverance -->
+          <div class="border-l-4 border-green-600 pl-4">
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.perseverance.title')}></h4>
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div id="perseverance-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.perseverance.desc')}></p>
+                <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.team_building.cards_list.perseverance.effect')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.cards_list.perseverance.effect_desc')}></span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Security Tool -->
+          <div class="border-l-4 border-yellow-600 pl-4">
+            <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.security_tool.title')}></h4>
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div id="security-tool-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.security_tool.desc')}></p>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.security_tool.desc2')}></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-building-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.6s ease-in-out;
+    position: relative;
+    width: 12rem; /* w-48 */
+    height: 15rem; /* h-60 - exactamente como en el original */
+  }
+
+  .team-building-card.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-front,
+  .card-back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+  }
+
+  @media (min-width: 768px) {
+    .team-building-card {
+      width: 12rem; /* w-48 - mantener el mismo tamaño en desktop */
+      height: 15rem; /* h-60 - mantener el mismo tamaño en desktop */
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const teamBuildingCards = [
+      'confidence-card',
+      'take-control-card',
+      'rejection-card',
+      'peer-review-card',
+      'accept-responsibility-card',
+      'random-seed-card',
+      'shadower-card',
+      'busted-card',
+      'perseverance-card',
+      'security-tool-card'
+    ];
+
+    teamBuildingCards.forEach(cardId => {
+      const card = document.getElementById(cardId);
+      if (card) {
+        card.addEventListener('click', () => {
+          card.classList.toggle('flipped');
+        });
+      }
+    });
+  });
+</script> 
