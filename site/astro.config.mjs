@@ -10,7 +10,6 @@ export default defineConfig({
     react()
   ],
   site: 'https://agentsworkingtogether.github.io',
-  base: '/OWASPTop10TheGame',
   trailingSlash: 'ignore',
   build: {
     assets: 'assets'
