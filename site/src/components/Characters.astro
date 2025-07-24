@@ -177,8 +177,6 @@ const characters = [
   function startNewSequence() {
     characterOrder = shuffleArray(Object.keys(characterData));
     currentCharacterIndex = 0;
-    console.log('=== NUEVA SECUENCIA DE 10 PERSONAJES ===');
-    console.log('Orden aleatorio:', characterOrder);
     updateCharacter();
   }
 
@@ -243,7 +241,6 @@ const characters = [
     }
     
     const currentCharacter = characterOrder[currentCharacterIndex];
-    console.log(`Personaje ${currentCharacterIndex + 1}/10:`, currentCharacter);
     updateCharacter();
     
     // Permitir el siguiente cambio después de un pequeño delay
