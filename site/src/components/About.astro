@@ -11,25 +11,47 @@ export interface Props {
 const { translations, lang } = Astro.props;
 ---
 
-<section id="about" class="py-20 sm:py-24">
-    <div class="container mx-auto px-6">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+<section id="about" class="py-12 sm:py-16 md:py-20 lg:py-24">
+    <div class="container mx-auto px-4 sm:px-6">
+        <!-- Versión móvil: título, separador, imagen, texto -->
+        <div class="lg:hidden">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 section-title text-center" set:html={getTranslationKey(translations, 'about.title')}></h2>
+            <div class="mb-6">
                 <Image 
                     src={accessImage} 
                     alt="Componentes del juego OWASP Top 10" 
-                    class="rounded-2xl border-2 border-black shadow-lg mx-auto w-full max-w-2xl"
+                    class="rounded-2xl border-2 border-black shadow-lg mx-auto w-full max-w-sm sm:max-w-md md:max-w-lg"
                 />
             </div>
-            <div class="text-left">
-                <h2 class="text-3xl sm:text-4xl font-bold mb-4 section-title text-center md:text-left" set:html={getTranslationKey(translations, 'about.title')}></h2>
-                <p class="text-lg mb-4">
+            <div class="text-left px-4 sm:px-0">
+                <p class="text-sm sm:text-base md:text-lg mb-4 leading-relaxed">
                     <strong set:html={getTranslationKey(translations, 'about.subject')}></strong> 
                     <span set:html={getTranslationKey(translations, 'about.game_name')}></span><br>
                     <strong set:html={getTranslationKey(translations, 'about.objective')}></strong>
                     <span set:html={getTranslationKey(translations, 'about.objective_desc')}></span>
                 </p>
-                <p class="text-lg" set:html={getTranslationKey(translations, 'about.description')}></p>
+                <p class="text-sm sm:text-base md:text-lg leading-relaxed" set:html={getTranslationKey(translations, 'about.description')}></p>
+            </div>
+        </div>
+
+        <!-- Versión desktop: grid con texto a la izquierda e imagen a la derecha -->
+        <div class="hidden lg:grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+            <div class="text-left px-4 sm:px-0">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 section-title text-center lg:text-left" set:html={getTranslationKey(translations, 'about.title')}></h2>
+                <p class="text-sm sm:text-base md:text-lg mb-4 leading-relaxed">
+                    <strong set:html={getTranslationKey(translations, 'about.subject')}></strong> 
+                    <span set:html={getTranslationKey(translations, 'about.game_name')}></span><br>
+                    <strong set:html={getTranslationKey(translations, 'about.objective')}></strong>
+                    <span set:html={getTranslationKey(translations, 'about.objective_desc')}></span>
+                </p>
+                <p class="text-sm sm:text-base md:text-lg leading-relaxed" set:html={getTranslationKey(translations, 'about.description')}></p>
+            </div>
+            <div>
+                <Image 
+                    src={accessImage} 
+                    alt="Componentes del juego OWASP Top 10" 
+                    class="rounded-2xl border-2 border-black shadow-lg mx-auto w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl"
+                />
             </div>
         </div>
     </div>

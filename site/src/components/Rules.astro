@@ -13,17 +13,17 @@ interface Props {
 const { lang, translations } = Astro.props;
 ---
 
-<section id="rules" class="py-20 sm:py-24">
-  <div class="container mx-auto px-6">
-    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 section-title" set:html={getTranslationKey(translations, 'rules.title')}></h2>
+<section id="rules" class="py-12 sm:py-16 md:py-20 lg:py-24">
+  <div class="container mx-auto px-4 sm:px-6">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 section-title" set:html={getTranslationKey(translations, 'rules.title')}></h2>
     
-    <div class="max-w-4xl mx-auto space-y-8">
+          <div class="max-w-4xl mx-auto space-y-6 sm:space-y-8">
       
       <!-- Fase de Selección de Mapa -->
-      <div class="card-bg p-6 rounded-lg">
-        <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.map_selection.title')}></h3>
-        <p class="text-lg mb-4" set:html={getTranslationKey(translations, 'rules.map_selection.desc')}></p>
-        <ul class="list-disc list-inside space-y-2 text-lg">
+      <div class="card-bg p-4 sm:p-6 rounded-lg">
+        <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.map_selection.title')}></h3>
+        <p class="text-sm sm:text-lg mb-3 sm:mb-4 leading-relaxed" set:html={getTranslationKey(translations, 'rules.map_selection.desc')}></p>
+        <ul class="list-disc list-inside space-y-1 sm:space-y-2 text-sm sm:text-lg">
           <li set:html={getTranslationKey(translations, 'rules.map_selection.qr_info')}></li>
           <li set:html={getTranslationKey(translations, 'rules.map_selection.numbers_info')}></li>
           <li set:html={getTranslationKey(translations, 'rules.map_selection.base_info')}></li>
@@ -275,7 +275,27 @@ const { lang, translations } = Astro.props;
           <!-- Confidence -->
           <div class="border-l-4 border-blue-500 pl-4">
             <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.confidence.title')}></h4>
-            <div class="flex gap-4">
+            
+            <!-- Versión móvil: carta primero, luego texto -->
+            <div class="lg:hidden">
+              <div class="flex justify-center mb-4">
+                <div id="confidence-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.confidence.desc')}></p>
+                <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.team_building.cards_list.confidence.effect')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.cards_list.confidence.effect_desc')}></span></p>
+              </div>
+            </div>
+
+            <!-- Versión desktop: carta y texto lado a lado -->
+            <div class="hidden lg:flex gap-4">
               <div class="flex-shrink-0">
                 <div id="confidence-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
@@ -296,7 +316,27 @@ const { lang, translations } = Astro.props;
           <!-- Take Control -->
           <div class="border-l-4 border-red-500 pl-4">
             <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.take_control.title')}></h4>
-            <div class="flex gap-4">
+            
+            <!-- Versión móvil: carta primero, luego texto -->
+            <div class="lg:hidden">
+              <div class="flex justify-center mb-4">
+                <div id="take-control-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.take_control.desc')}></p>
+                <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.team_building.cards_list.take_control.effect')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.cards_list.take_control.effect_desc')}></span></p>
+              </div>
+            </div>
+
+            <!-- Versión desktop: carta y texto lado a lado -->
+            <div class="hidden lg:flex gap-4">
               <div class="flex-shrink-0">
                 <div id="take-control-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
@@ -317,7 +357,27 @@ const { lang, translations } = Astro.props;
           <!-- Rejection -->
           <div class="border-l-4 border-orange-500 pl-4">
             <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.rejection.title')}></h4>
-            <div class="flex gap-4">
+            
+            <!-- Versión móvil: carta primero, luego texto -->
+            <div class="lg:hidden">
+              <div class="flex justify-center mb-4">
+                <div id="rejection-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.rejection.desc')}></p>
+                <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.team_building.cards_list.rejection.effect')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.cards_list.rejection.effect_desc')}></span></p>
+              </div>
+            </div>
+
+            <!-- Versión desktop: carta y texto lado a lado -->
+            <div class="hidden lg:flex gap-4">
               <div class="flex-shrink-0">
                 <div id="rejection-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
@@ -338,7 +398,26 @@ const { lang, translations } = Astro.props;
           <!-- Peer Review -->
           <div class="border-l-4 border-green-500 pl-4">
             <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.peer_review.title')}></h4>
-            <div class="flex gap-4">
+            
+            <!-- Versión móvil: carta primero, luego texto -->
+            <div class="lg:hidden">
+              <div class="flex justify-center mb-4">
+                <div id="peer-review-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.peer_review.desc')}></p>
+              </div>
+            </div>
+
+            <!-- Versión desktop: carta y texto lado a lado -->
+            <div class="hidden lg:flex gap-4">
               <div class="flex-shrink-0">
                 <div id="peer-review-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
@@ -358,7 +437,26 @@ const { lang, translations } = Astro.props;
           <!-- To Accept Responsibility -->
           <div class="border-l-4 border-purple-500 pl-4">
             <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.accept_responsibility.title')}></h4>
-            <div class="flex gap-4">
+            
+            <!-- Versión móvil: carta primero, luego texto -->
+            <div class="lg:hidden">
+              <div class="flex justify-center mb-4">
+                <div id="accept-responsibility-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.accept_responsibility.desc')}></p>
+              </div>
+            </div>
+
+            <!-- Versión desktop: carta y texto lado a lado -->
+            <div class="hidden lg:flex gap-4">
               <div class="flex-shrink-0">
                 <div id="accept-responsibility-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
@@ -378,7 +476,26 @@ const { lang, translations } = Astro.props;
           <!-- Random Seed -->
           <div class="border-l-4 border-indigo-500 pl-4">
             <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.random_seed.title')}></h4>
-            <div class="flex gap-4">
+            
+            <!-- Versión móvil: carta primero, luego texto -->
+            <div class="lg:hidden">
+              <div class="flex justify-center mb-4">
+                <div id="random-seed-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.random_seed.desc')}></p>
+              </div>
+            </div>
+
+            <!-- Versión desktop: carta y texto lado a lado -->
+            <div class="hidden lg:flex gap-4">
               <div class="flex-shrink-0">
                 <div id="random-seed-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
@@ -398,7 +515,26 @@ const { lang, translations } = Astro.props;
           <!-- Shadower -->
           <div class="border-l-4 border-teal-500 pl-4">
             <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.shadower.title')}></h4>
-            <div class="flex gap-4">
+            
+            <!-- Versión móvil: carta primero, luego texto -->
+            <div class="lg:hidden">
+              <div class="flex justify-center mb-4">
+                <div id="shadower-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.shadower.desc')}></p>
+              </div>
+            </div>
+
+            <!-- Versión desktop: carta y texto lado a lado -->
+            <div class="hidden lg:flex gap-4">
               <div class="flex-shrink-0">
                 <div id="shadower-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
@@ -418,7 +554,27 @@ const { lang, translations } = Astro.props;
           <!-- Busted -->
           <div class="border-l-4 border-red-600 pl-4">
             <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.busted.title')}></h4>
-            <div class="flex gap-4">
+            
+            <!-- Versión móvil: carta primero, luego texto -->
+            <div class="lg:hidden">
+              <div class="flex justify-center mb-4">
+                <div id="busted-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.busted.desc')}></p>
+                <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.team_building.cards_list.busted.effect')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.cards_list.busted.effect_desc')}></span></p>
+              </div>
+            </div>
+
+            <!-- Versión desktop: carta y texto lado a lado -->
+            <div class="hidden lg:flex gap-4">
               <div class="flex-shrink-0">
                 <div id="busted-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
@@ -439,7 +595,27 @@ const { lang, translations } = Astro.props;
           <!-- Perseverance -->
           <div class="border-l-4 border-green-600 pl-4">
             <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.perseverance.title')}></h4>
-            <div class="flex gap-4">
+            
+            <!-- Versión móvil: carta primero, luego texto -->
+            <div class="lg:hidden">
+              <div class="flex justify-center mb-4">
+                <div id="perseverance-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.perseverance.desc')}></p>
+                <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.team_building.cards_list.perseverance.effect')}></strong> <span set:html={getTranslationKey(translations, 'rules.team_building.cards_list.perseverance.effect_desc')}></span></p>
+              </div>
+            </div>
+
+            <!-- Versión desktop: carta y texto lado a lado -->
+            <div class="hidden lg:flex gap-4">
               <div class="flex-shrink-0">
                 <div id="perseverance-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
@@ -460,7 +636,27 @@ const { lang, translations } = Astro.props;
           <!-- Security Tool -->
           <div class="border-l-4 border-yellow-600 pl-4">
             <h4 class="text-xl font-bold mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.security_tool.title')}></h4>
-            <div class="flex gap-4">
+            
+            <!-- Versión móvil: carta primero, luego texto -->
+            <div class="lg:hidden">
+              <div class="flex justify-center mb-4">
+                <div id="security-tool-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
+                  <div class="card-front">
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                  <div class="card-back">
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.security_tool.desc')}></p>
+                <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.security_tool.desc2')}></p>
+              </div>
+            </div>
+
+            <!-- Versión desktop: carta y texto lado a lado -->
+            <div class="hidden lg:flex gap-4">
               <div class="flex-shrink-0">
                 <div id="security-tool-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
@@ -524,15 +720,25 @@ const { lang, translations } = Astro.props;
   document.addEventListener('DOMContentLoaded', () => {
     const teamBuildingCards = [
       'confidence-card',
+      'confidence-card-mobile',
       'take-control-card',
+      'take-control-card-mobile',
       'rejection-card',
+      'rejection-card-mobile',
       'peer-review-card',
+      'peer-review-card-mobile',
       'accept-responsibility-card',
+      'accept-responsibility-card-mobile',
       'random-seed-card',
+      'random-seed-card-mobile',
       'shadower-card',
+      'shadower-card-mobile',
       'busted-card',
+      'busted-card-mobile',
       'perseverance-card',
-      'security-tool-card'
+      'perseverance-card-mobile',
+      'security-tool-card',
+      'security-tool-card-mobile'
     ];
 
     teamBuildingCards.forEach(cardId => {

@@ -20,64 +20,125 @@ export interface Props {
 const { translations, lang } = Astro.props;
 ---
 
-<section id="components" class="py-20 sm:py-24">
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-4 section-title" set:html={getTranslationKey(translations, 'components.title')}></h2>
+<section id="components" class="py-12 sm:py-16 md:py-20 lg:py-24">
+    <div class="container mx-auto px-4 sm:px-6 text-center">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 section-title" set:html={getTranslationKey(translations, 'components.title')}></h2>
         
         <!-- Cartas de Acción/Defensa -->
-        <div class="mb-16 mt-12">
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                                       <!-- Cartas -->
-                       <div class="flex justify-center items-center gap-8 md:gap-12">
-                           <div id="protection-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 action-card">
-                               <div class="card-front">
-                                   <Image
-                                       src={protectedCardImage}
-                                       alt="Carta de defensa"
-                                       class="w-48 md:w-64 rounded-xl"
-                                   />
-                               </div>
-                               <div class="card-back">
-                                   <Image
-                                       src={attackCardImage}
-                                       alt="Reverso carta de defensa"
-                                       class="w-48 md:w-64 rounded-xl"
-                                   />
-                               </div>
-                           </div>
-                           <div id="attack-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 action-card">
-                               <div class="card-front">
-                                   <Image
-                                       src={attackCardImage}
-                                       alt="Carta de ataque"
-                                       class="w-48 md:w-64 rounded-xl"
-                                   />
-                               </div>
-                               <div class="card-back">
-                                   <Image
-                                       src={attackedCardImage}
-                                       alt="Reverso carta de ataque"
-                                       class="w-48 md:w-64 rounded-xl"
-                                   />
-                               </div>
-                           </div>
-                       </div>
+        <div class="mb-12 sm:mb-16 mt-8 sm:mt-12">
+            <!-- Versión móvil: título, cartas, luego explicación -->
+            <div class="lg:hidden">
+                <!-- Título de la sección -->
+                <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-center" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.action_cards.title')}></h4>
+                <div class="w-16 sm:w-24 h-1 bg-red-600 mb-6 mx-auto"></div>
                 
+                <!-- Cartas -->
+                <div class="flex justify-center items-center gap-4 sm:gap-6 md:gap-8 mb-6 w-full px-4 max-w-sm sm:max-w-md md:max-w-lg mx-auto">
+                    <div id="protection-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 action-card">
+                        <div class="card-front">
+                            <Image
+                                src={protectedCardImage}
+                                alt="Carta de defensa"
+                                class="w-32 sm:w-40 md:w-48 rounded-xl"
+                            />
+                        </div>
+                        <div class="card-back">
+                            <Image
+                                src={attackCardImage}
+                                alt="Reverso carta de defensa"
+                                class="w-32 sm:w-40 md:w-48 rounded-xl"
+                            />
+                        </div>
+                    </div>
+                    <div id="attack-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 action-card">
+                        <div class="card-front">
+                            <Image
+                                src={attackCardImage}
+                                alt="Carta de ataque"
+                                class="w-32 sm:w-40 md:w-48 rounded-xl"
+                            />
+                        </div>
+                        <div class="card-back">
+                            <Image
+                                src={attackedCardImage}
+                                alt="Reverso carta de ataque"
+                                class="w-32 sm:w-40 md:w-48 rounded-xl"
+                            />
+                        </div>
+                    </div>
+                </div>
+        
                 <!-- Explicación -->
-                <div class="text-left">
-                    <h4 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.action_cards.title')}></h4>
-                    <div class="w-24 h-1 bg-red-600 mb-4"></div>
-                    <p class="text-lg mb-4" set:html={getTranslationKey(translations, 'components.action_cards.description')}></p>
+                <div class="text-left px-4 sm:px-0">
+                    <p class="text-sm sm:text-lg mb-3 sm:mb-4 leading-relaxed" set:html={getTranslationKey(translations, 'components.action_cards.description')}></p>
                     
-                    <div class="space-y-4">
-                        <div class="bg-green-100 border-l-4 border-green-500 p-4">
-                            <h5 class="font-bold text-lg text-green-800" set:html={getTranslationKey(translations, 'components.action_cards.protection.title')}></h5>
-                            <p class="text-green-700" set:html={getTranslationKey(translations, 'components.action_cards.protection.description')}></p>
+                    <div class="space-y-3 sm:space-y-4">
+                        <div class="bg-green-100 border-l-4 border-green-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-green-800" set:html={getTranslationKey(translations, 'components.action_cards.protection.title')}></h5>
+                            <p class="text-green-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.action_cards.protection.description')}></p>
                         </div>
                         
-                        <div class="bg-red-100 border-l-4 border-red-500 p-4">
-                            <h5 class="font-bold text-lg text-red-800" set:html={getTranslationKey(translations, 'components.action_cards.attack.title')}></h5>
-                            <p class="text-red-700" set:html={getTranslationKey(translations, 'components.action_cards.attack.description')}></p>
+                        <div class="bg-red-100 border-l-4 border-red-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-red-800" set:html={getTranslationKey(translations, 'components.action_cards.attack.title')}></h5>
+                            <p class="text-red-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.action_cards.attack.description')}></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Versión desktop: grid con explicación a la izquierda y cartas a la derecha -->
+            <div class="hidden lg:grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
+                <!-- Explicación -->
+                <div class="text-left px-4 sm:px-0">
+                    <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.action_cards.title')}></h4>
+                    <div class="w-16 sm:w-24 h-1 bg-red-600 mb-3 sm:mb-4"></div>
+                    <p class="text-sm sm:text-lg mb-3 sm:mb-4 leading-relaxed" set:html={getTranslationKey(translations, 'components.action_cards.description')}></p>
+                    
+                    <div class="space-y-3 sm:space-y-4">
+                        <div class="bg-green-100 border-l-4 border-green-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-green-800" set:html={getTranslationKey(translations, 'components.action_cards.protection.title')}></h5>
+                            <p class="text-green-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.action_cards.protection.description')}></p>
+                        </div>
+                        
+                        <div class="bg-red-100 border-l-4 border-red-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-red-800" set:html={getTranslationKey(translations, 'components.action_cards.attack.title')}></h5>
+                            <p class="text-red-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.action_cards.attack.description')}></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cartas -->
+                <div class="flex justify-center items-center gap-8 lg:gap-12">
+                    <div id="protection-card-desktop" class="cursor-pointer hover:scale-105 transition-transform duration-300 action-card">
+                        <div class="card-front">
+                            <Image
+                                src={protectedCardImage}
+                                alt="Carta de defensa"
+                                class="w-48 lg:w-64 rounded-xl"
+                            />
+                        </div>
+                        <div class="card-back">
+                            <Image
+                                src={attackCardImage}
+                                alt="Reverso carta de defensa"
+                                class="w-48 lg:w-64 rounded-xl"
+                            />
+                        </div>
+                    </div>
+                    <div id="attack-card-desktop" class="cursor-pointer hover:scale-105 transition-transform duration-300 action-card">
+                        <div class="card-front">
+                            <Image
+                                src={attackCardImage}
+                                alt="Carta de ataque"
+                                class="w-48 lg:w-64 rounded-xl"
+                            />
+                        </div>
+                        <div class="card-back">
+                            <Image
+                                src={attackedCardImage}
+                                alt="Reverso carta de ataque"
+                                class="w-48 lg:w-64 rounded-xl"
+                            />
                         </div>
                     </div>
                 </div>
@@ -85,185 +146,344 @@ const { translations, lang } = Astro.props;
         </div>
         
         <!-- Líder -->
-        <div class="mb-20 mt-32">
-            <div class="flex flex-col md:flex-row gap-8">
+        <div class="mb-16 sm:mb-20 mt-16 sm:mt-20 lg:mt-32">
+            <!-- Versión móvil: texto primero, luego imagen -->
+            <div class="lg:hidden">
                 <!-- Explicación -->
-                <div class="text-left md:w-1/2">
-                    <h4 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.leader.title')}></h4>
-                    <div class="w-24 h-1 bg-red-600 mb-4"></div>
-                    <p class="text-lg mb-4" set:html={getTranslationKey(translations, 'components.leader.description')}></p>
+                <div class="text-left px-4 sm:px-0">
+                    <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.leader.title')}></h4>
+                    <div class="w-16 sm:w-24 h-1 bg-red-600 mb-3 sm:mb-4"></div>
+                    <p class="text-sm sm:text-lg mb-3 sm:mb-4 leading-relaxed" set:html={getTranslationKey(translations, 'components.leader.description')}></p>
                     
-                    <div class="space-y-4">
-                        <div class="bg-blue-100 border-l-4 border-blue-500 p-4">
-                            <h5 class="font-bold text-lg text-blue-800" set:html={getTranslationKey(translations, 'components.leader.responsibilities.title')}></h5>
-                            <p class="text-blue-700" set:html={getTranslationKey(translations, 'components.leader.responsibilities.description')}></p>
+                    <div class="space-y-3 sm:space-y-4">
+                        <div class="bg-blue-100 border-l-4 border-blue-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-blue-800" set:html={getTranslationKey(translations, 'components.leader.responsibilities.title')}></h5>
+                            <p class="text-blue-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.leader.responsibilities.description')}></p>
                         </div>
                         
-                        <div class="bg-purple-100 border-l-4 border-purple-500 p-4">
-                            <h5 class="font-bold text-lg text-purple-800" set:html={getTranslationKey(translations, 'components.leader.skills.title')}></h5>
-                            <p class="text-purple-700" set:html={getTranslationKey(translations, 'components.leader.skills.description')}></p>
+                        <div class="bg-purple-100 border-l-4 border-purple-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-purple-800" set:html={getTranslationKey(translations, 'components.leader.skills.title')}></h5>
+                            <p class="text-purple-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.leader.skills.description')}></p>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Imagen del Líder -->
-                <div class="md:w-1/2 flex justify-center items-center">
+                <div class="flex justify-center items-center mt-6">
                     <div class="hover:scale-105 transition-transform duration-300">
                         <Image 
                             src={leaderImage} 
                             alt="Ficha del Líder" 
-                            class="w-48 md:w-64 object-cover rounded-xl shadow-inner"
+                            class="w-32 sm:w-40 md:w-48 object-cover rounded-xl shadow-inner"
                             style="box-shadow: inset 0 0 30px rgba(0,0,0,0.6);"
                         />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Versión desktop: flex con imagen a la izquierda y texto a la derecha -->
+            <div class="hidden lg:flex lg:flex-row gap-6 sm:gap-8">
+                <!-- Imagen del Líder -->
+                <div class="lg:w-1/2 flex justify-center items-center">
+                    <div class="hover:scale-105 transition-transform duration-300">
+                        <Image 
+                            src={leaderImage} 
+                            alt="Ficha del Líder" 
+                            class="w-48 lg:w-64 object-cover rounded-xl shadow-inner"
+                            style="box-shadow: inset 0 0 30px rgba(0,0,0,0.6);"
+                        />
+                    </div>
+                </div>
+
+                <!-- Explicación -->
+                <div class="text-left lg:w-1/2 px-4 sm:px-0">
+                    <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.leader.title')}></h4>
+                    <div class="w-16 sm:w-24 h-1 bg-red-600 mb-3 sm:mb-4"></div>
+                    <p class="text-sm sm:text-lg mb-3 sm:mb-4 leading-relaxed" set:html={getTranslationKey(translations, 'components.leader.description')}></p>
+                    
+                    <div class="space-y-3 sm:space-y-4">
+                        <div class="bg-blue-100 border-l-4 border-blue-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-blue-800" set:html={getTranslationKey(translations, 'components.leader.responsibilities.title')}></h5>
+                            <p class="text-blue-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.leader.responsibilities.description')}></p>
+                        </div>
+                        
+                        <div class="bg-purple-100 border-l-4 border-purple-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-purple-800" set:html={getTranslationKey(translations, 'components.leader.skills.title')}></h5>
+                            <p class="text-purple-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.leader.skills.description')}></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
         <!-- Marcador de Confianza -->
-        <div class="mb-20 mt-20">
-            <div class="flex flex-col md:flex-row gap-8">
-                <!-- Imagen del Marcador de Confianza -->
-                <div class="md:w-1/2 flex flex-col items-center justify-center">
-                    <Image 
-                        src={trustIndicatorImage} 
-                        alt="Marcador de Confianza" 
-                        class="w-96 md:w-[28rem] object-cover rounded-xl mb-6"
-                    />
-                    <!-- Fichas team blue en orden horizontal -->
-                    <div class="flex gap-3">
-                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-12 h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
-                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-12 h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
-                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-12 h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
-                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-12 h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
-                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-12 h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+        <div class="mb-16 sm:mb-20 mt-12 sm:mt-16 lg:mt-20">
+            <!-- Versión móvil: texto primero, luego imágenes -->
+            <div class="lg:hidden">
+                <!-- Explicación -->
+                <div class="text-left px-4 sm:px-0">
+                    <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.trust_indicator.title')}></h4>
+                    <div class="w-16 sm:w-24 h-1 bg-red-600 mb-3 sm:mb-4"></div>
+                    <p class="text-sm sm:text-lg mb-3 sm:mb-4 leading-relaxed" set:html={getTranslationKey(translations, 'components.trust_indicator.description')}></p>
+                    
+                    <div class="space-y-3 sm:space-y-4">
+                        <div class="bg-green-100 border-l-4 border-green-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-green-800" set:html={getTranslationKey(translations, 'components.trust_indicator.high.title')}></h5>
+                            <p class="text-green-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.trust_indicator.high.description')}></p>
+                        </div>
+                        
+                        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-yellow-800" set:html={getTranslationKey(translations, 'components.trust_indicator.medium.title')}></h5>
+                            <p class="text-yellow-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.trust_indicator.medium.description')}></p>
+                        </div>
+                        
+                        <div class="bg-red-100 border-l-4 border-red-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-red-800" set:html={getTranslationKey(translations, 'components.trust_indicator.low.title')}></h5>
+                            <p class="text-red-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.trust_indicator.low.description')}></p>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Imagen del Marcador de Confianza -->
+                <div class="flex flex-col items-center justify-center mt-6">
+                    <Image 
+                        src={trustIndicatorImage} 
+                        alt="Marcador de Confianza" 
+                        class="w-64 sm:w-80 md:w-96 object-cover rounded-xl mb-4 sm:mb-6"
+                    />
+                    <!-- Fichas team blue en orden horizontal -->
+                    <div class="flex gap-2 sm:gap-3">
+                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Versión desktop: flex con texto a la izquierda e imágenes a la derecha -->
+            <div class="hidden lg:flex lg:flex-row gap-6 sm:gap-8">
                 <!-- Explicación -->
-                <div class="text-left md:w-1/2">
-                    <h4 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.trust_indicator.title')}></h4>
-                    <div class="w-24 h-1 bg-red-600 mb-4"></div>
-                    <p class="text-lg mb-4" set:html={getTranslationKey(translations, 'components.trust_indicator.description')}></p>
+                <div class="text-left lg:w-1/2 px-4 sm:px-0">
+                    <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.trust_indicator.title')}></h4>
+                    <div class="w-16 sm:w-24 h-1 bg-red-600 mb-3 sm:mb-4"></div>
+                    <p class="text-sm sm:text-lg mb-3 sm:mb-4 leading-relaxed" set:html={getTranslationKey(translations, 'components.trust_indicator.description')}></p>
                     
-                    <div class="space-y-4">
-                        <div class="bg-green-100 border-l-4 border-green-500 p-4">
-                            <h5 class="font-bold text-lg text-green-800" set:html={getTranslationKey(translations, 'components.trust_indicator.high.title')}></h5>
-                            <p class="text-green-700" set:html={getTranslationKey(translations, 'components.trust_indicator.high.description')}></p>
+                    <div class="space-y-3 sm:space-y-4">
+                        <div class="bg-green-100 border-l-4 border-green-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-green-800" set:html={getTranslationKey(translations, 'components.trust_indicator.high.title')}></h5>
+                            <p class="text-green-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.trust_indicator.high.description')}></p>
                         </div>
                         
-                        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4">
-                            <h5 class="font-bold text-lg text-yellow-800" set:html={getTranslationKey(translations, 'components.trust_indicator.medium.title')}></h5>
-                            <p class="text-yellow-700" set:html={getTranslationKey(translations, 'components.trust_indicator.medium.description')}></p>
+                        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-yellow-800" set:html={getTranslationKey(translations, 'components.trust_indicator.medium.title')}></h5>
+                            <p class="text-yellow-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.trust_indicator.medium.description')}></p>
                         </div>
                         
-                        <div class="bg-red-100 border-l-4 border-red-500 p-4">
-                            <h5 class="font-bold text-lg text-red-800" set:html={getTranslationKey(translations, 'components.trust_indicator.low.title')}></h5>
-                            <p class="text-red-700" set:html={getTranslationKey(translations, 'components.trust_indicator.low.description')}></p>
+                        <div class="bg-red-100 border-l-4 border-red-500 p-3 sm:p-4">
+                            <h5 class="font-bold text-sm sm:text-lg text-red-800" set:html={getTranslationKey(translations, 'components.trust_indicator.low.title')}></h5>
+                            <p class="text-red-700 text-xs sm:text-base" set:html={getTranslationKey(translations, 'components.trust_indicator.low.description')}></p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Imagen del Marcador de Confianza -->
+                <div class="lg:w-1/2 flex flex-col items-center justify-center">
+                    <Image 
+                        src={trustIndicatorImage} 
+                        alt="Marcador de Confianza" 
+                        class="w-[28rem] object-cover rounded-xl mb-4 sm:mb-6"
+                    />
+                    <!-- Fichas team blue en orden horizontal -->
+                    <div class="flex gap-2 sm:gap-3">
+                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={teamBlueImage} alt="Ficha Team Blue" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
                     </div>
                 </div>
             </div>
         </div>
         
         <!-- El Mapa de Sistema -->
-        <div class="mb-16 mt-12">
-            <div class="flex flex-col md:flex-row gap-8">
+        <div class="mb-12 sm:mb-16 mt-8 sm:mt-12">
+            <!-- Versión móvil: texto primero, luego imágenes -->
+            <div class="lg:hidden">
                 <!-- Explicación -->
-                <div class="text-left md:w-1/3">
-                    <h4 class="text-2xl font-bold mb-2" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.system_map.title')}></h4>
-                    <div class="w-24 h-1 bg-red-600 mb-2"></div>
-                    <p class="text-lg mb-2" set:html={getTranslationKey(translations, 'components.system_map.desc')}></p>
+                <div class="text-left px-4 sm:px-0">
+                    <h4 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.system_map.title')}></h4>
+                    <div class="w-16 sm:w-24 h-1 bg-red-600 mb-2 sm:mb-3"></div>
+                    <p class="text-sm sm:text-lg mb-2 sm:mb-3 leading-relaxed" set:html={getTranslationKey(translations, 'components.system_map.desc')}></p>
                     
-                    <div class="space-y-2">
-                        <div class="bg-blue-100 border-l-4 border-blue-500 p-2">
-                            <h5 class="font-bold text-sm text-blue-800" set:html={getTranslationKey(translations, 'components.system_map.threat_areas.title')}></h5>
-                            <p class="text-blue-700 text-sm" set:html={getTranslationKey(translations, 'components.system_map.threat_areas.desc')}></p>
+                    <div class="space-y-2 sm:space-y-3">
+                        <div class="bg-blue-100 border-l-4 border-blue-500 p-2 sm:p-3">
+                            <h5 class="font-bold text-xs sm:text-sm text-blue-800" set:html={getTranslationKey(translations, 'components.system_map.threat_areas.title')}></h5>
+                            <p class="text-blue-700 text-xs sm:text-sm" set:html={getTranslationKey(translations, 'components.system_map.threat_areas.desc')}></p>
                         </div>
                         
-                        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-2">
-                            <h5 class="font-bold text-sm text-yellow-800" set:html={getTranslationKey(translations, 'components.system_map.qr_codes.title')}></h5>
-                            <p class="text-yellow-700 text-sm" set:html={getTranslationKey(translations, 'components.system_map.qr_codes.desc')}></p>
+                        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-2 sm:p-3">
+                            <h5 class="font-bold text-xs sm:text-sm text-yellow-800" set:html={getTranslationKey(translations, 'components.system_map.qr_codes.title')}></h5>
+                            <p class="text-yellow-700 text-xs sm:text-sm" set:html={getTranslationKey(translations, 'components.system_map.qr_codes.desc')}></p>
                         </div>
                         
-                        <div class="bg-green-100 border-l-4 border-green-500 p-2">
-                            <h5 class="font-bold text-sm text-green-800" set:html={getTranslationKey(translations, 'components.system_map.green_tokens.title')}></h5>
-                            <p class="text-green-700 text-sm" set:html={getTranslationKey(translations, 'components.system_map.green_tokens.desc')}></p>
+                        <div class="bg-green-100 border-l-4 border-green-500 p-2 sm:p-3">
+                            <h5 class="font-bold text-xs sm:text-sm text-green-800" set:html={getTranslationKey(translations, 'components.system_map.green_tokens.title')}></h5>
+                            <p class="text-green-700 text-xs sm:text-sm" set:html={getTranslationKey(translations, 'components.system_map.green_tokens.desc')}></p>
                         </div>
                         
-                        <div class="bg-red-100 border-l-4 border-red-500 p-2">
-                            <h5 class="font-bold text-sm text-red-800" set:html={getTranslationKey(translations, 'components.system_map.red_tokens.title')}></h5>
-                            <p class="text-red-700 text-sm" set:html={getTranslationKey(translations, 'components.system_map.red_tokens.desc')}></p>
+                        <div class="bg-red-100 border-l-4 border-red-500 p-2 sm:p-3">
+                            <h5 class="font-bold text-xs sm:text-sm text-red-800" set:html={getTranslationKey(translations, 'components.system_map.red_tokens.title')}></h5>
+                            <p class="text-red-700 text-xs sm:text-sm" set:html={getTranslationKey(translations, 'components.system_map.red_tokens.desc')}></p>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Imagen del Mapa de Sistema -->
-                <div class="md:w-2/3 flex justify-center items-center">
+                <div class="flex flex-col items-center mt-6">
                     <div class="relative">
                         <Image 
                             src={systemMapImage} 
                             alt="Mapa de Sistema" 
-                            class="w-full md:w-[40rem] object-cover rounded-xl cursor-pointer transition-transform duration-300" 
+                            class="w-full max-w-sm sm:max-w-md md:max-w-lg object-cover rounded-xl cursor-pointer transition-transform duration-300" 
+                            style="transform-style: preserve-3d; box-shadow: inset 0 0 30px rgba(0,0,0,0.6); border: 3px solid #213242;"
+                        />
+                    </div>
+                    <!-- Fichas OWASP ordenadas debajo del mapa -->
+                    <div class="flex gap-2 mt-4">
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Versión desktop: flex con texto a la izquierda e imágenes a la derecha -->
+            <div class="hidden lg:flex lg:flex-row gap-6 sm:gap-8">
+                <!-- Explicación -->
+                <div class="text-left lg:w-1/3 px-4 sm:px-0">
+                    <h4 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'components.system_map.title')}></h4>
+                    <div class="w-16 sm:w-24 h-1 bg-red-600 mb-2 sm:mb-3"></div>
+                    <p class="text-sm sm:text-lg mb-2 sm:mb-3 leading-relaxed" set:html={getTranslationKey(translations, 'components.system_map.desc')}></p>
+                    
+                    <div class="space-y-2 sm:space-y-3">
+                        <div class="bg-blue-100 border-l-4 border-blue-500 p-2 sm:p-3">
+                            <h5 class="font-bold text-xs sm:text-sm text-blue-800" set:html={getTranslationKey(translations, 'components.system_map.threat_areas.title')}></h5>
+                            <p class="text-blue-700 text-xs sm:text-sm" set:html={getTranslationKey(translations, 'components.system_map.threat_areas.desc')}></p>
+                        </div>
+                        
+                        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-2 sm:p-3">
+                            <h5 class="font-bold text-xs sm:text-sm text-yellow-800" set:html={getTranslationKey(translations, 'components.system_map.qr_codes.title')}></h5>
+                            <p class="text-yellow-700 text-xs sm:text-sm" set:html={getTranslationKey(translations, 'components.system_map.qr_codes.desc')}></p>
+                        </div>
+                        
+                        <div class="bg-green-100 border-l-4 border-green-500 p-2 sm:p-3">
+                            <h5 class="font-bold text-xs sm:text-sm text-green-800" set:html={getTranslationKey(translations, 'components.system_map.green_tokens.title')}></h5>
+                            <p class="text-green-700 text-xs sm:text-sm" set:html={getTranslationKey(translations, 'components.system_map.green_tokens.desc')}></p>
+                        </div>
+                        
+                        <div class="bg-red-100 border-l-4 border-red-500 p-2 sm:p-3">
+                            <h5 class="font-bold text-xs sm:text-sm text-red-800" set:html={getTranslationKey(translations, 'components.system_map.red_tokens.title')}></h5>
+                            <p class="text-red-700 text-xs sm:text-sm" set:html={getTranslationKey(translations, 'components.system_map.red_tokens.desc')}></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Imagen del Mapa de Sistema -->
+                <div class="lg:w-2/3 flex justify-center items-center">
+                    <div class="relative">
+                        <Image 
+                            src={systemMapImage} 
+                            alt="Mapa de Sistema" 
+                            class="w-full max-w-2xl xl:max-w-4xl object-cover rounded-xl cursor-pointer transition-transform duration-300" 
                             style="transform-style: preserve-3d; box-shadow: inset 0 0 30px rgba(0,0,0,0.6); border: 3px solid #213242;"
                         />
                         <!-- Imágenes OWASP superpuestas -->
-                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-12 left-4 w-8 h-8 object-cover rounded-full shadow-lg z-10" />
-                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-12 left-16 w-8 h-8 object-cover rounded-full shadow-lg z-10" />
-                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-12 left-28 w-8 h-8 object-cover rounded-full shadow-lg z-10" />
-                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-12 left-40 w-8 h-8 object-cover rounded-full shadow-lg z-10" />
-                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-12 left-52 w-8 h-8 object-cover rounded-full shadow-lg z-10" />
-                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-12 right-4 w-8 h-8 object-cover rounded-full shadow-lg z-10" />
-                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-12 right-16 w-8 h-8 object-cover rounded-full shadow-lg z-10" />
-                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-12 right-28 w-8 h-8 object-cover rounded-full shadow-lg z-10" />
-                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-12 right-40 w-8 h-8 object-cover rounded-full shadow-lg z-10" />
-                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-12 right-52 w-8 h-8 object-cover rounded-full shadow-lg z-10" />
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-8 sm:-bottom-12 left-2 sm:left-4 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-8 sm:-bottom-12 left-8 sm:left-16 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-8 sm:-bottom-12 left-14 sm:left-28 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-8 sm:-bottom-12 left-20 sm:left-40 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-8 sm:-bottom-12 left-26 sm:left-52 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspGreenToken} alt="OWASP Green" class="absolute -bottom-8 sm:-bottom-12 left-32 sm:left-64 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-8 sm:-bottom-12 right-2 sm:right-4 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-8 sm:-bottom-12 right-8 sm:right-16 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-8 sm:-bottom-12 right-14 sm:right-28 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-8 sm:-bottom-12 right-20 sm:right-40 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-8 sm:-bottom-12 right-26 sm:right-52 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+                        <Image src={owaspRedToken} alt="OWASP Red" class="absolute -bottom-8 sm:-bottom-12 right-32 sm:right-64 w-6 h-6 sm:w-8 sm:h-8 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable z-10" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
                     </div>
                 </div>
             </div>
         </div>
    </section>
 
-       <style>
-           .action-card {
-               transform-style: preserve-3d;
-               perspective: 1000px;
-               transition: transform 0.6s ease-in-out;
-               position: relative;
-               width: 16rem; /* w-64 */
-               height: 16rem; /* h-64 */
-           }
+<style>
+    .action-card {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+        transition: transform 0.6s ease-in-out;
+        position: relative;
+        width: 12rem; /* w-48 */
+        height: 12rem; /* h-48 */
+    }
 
-           .action-card.flipped {
-               transform: rotateY(180deg);
-           }
+    .action-card.flipped {
+        transform: rotateY(180deg);
+    }
 
-           .card-front,
-           .card-back {
-               backface-visibility: hidden;
-               position: absolute;
-               top: 0;
-               left: 0;
-               width: 100%;
-               height: 100%;
-           }
+    .card-front,
+    .card-back {
+        backface-visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 
-           .card-back {
-               transform: rotateY(180deg);
-           }
+    .card-back {
+        transform: rotateY(180deg);
+    }
 
-           @media (max-width: 768px) {
-               .action-card {
-                   width: 12rem; /* w-48 */
-                   height: 12rem; /* h-48 */
-               }
-           }
-       </style>
+    @media (min-width: 640px) {
+        .action-card {
+            width: 16rem; /* w-64 */
+            height: 16rem; /* h-64 */
+        }
+    }
+
+    @media (min-width: 768px) {
+        .action-card {
+            width: 18rem; /* w-72 */
+            height: 18rem; /* h-72 */
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .action-card {
+            width: 16rem; /* w-64 */
+            height: 16rem; /* h-64 */
+        }
+    }
+</style>
 
        <script>
            document.addEventListener('DOMContentLoaded', () => {
+               // Cartas móviles
                const protectionCard = document.getElementById('protection-card');
                const attackCard = document.getElementById('attack-card');
+
+               // Cartas desktop
+               const protectionCardDesktop = document.getElementById('protection-card-desktop');
+               const attackCardDesktop = document.getElementById('attack-card-desktop');
 
                if (protectionCard) {
                    protectionCard.addEventListener('click', () => {
@@ -274,6 +494,18 @@ const { translations, lang } = Astro.props;
                if (attackCard) {
                    attackCard.addEventListener('click', () => {
                        attackCard.classList.toggle('flipped');
+                   });
+               }
+
+               if (protectionCardDesktop) {
+                   protectionCardDesktop.addEventListener('click', () => {
+                       protectionCardDesktop.classList.toggle('flipped');
+                   });
+               }
+
+               if (attackCardDesktop) {
+                   attackCardDesktop.addEventListener('click', () => {
+                       attackCardDesktop.classList.toggle('flipped');
                    });
                }
 
@@ -289,48 +521,52 @@ const { translations, lang } = Astro.props;
                    let xOffset = 0;
                    let yOffset = 0;
 
-                   token.addEventListener('mousedown', dragStart);
-                   document.addEventListener('mousemove', drag);
-                   document.addEventListener('mouseup', dragEnd);
+                   token.addEventListener('mousedown', dragStart as EventListener);
+                   document.addEventListener('mousemove', drag as EventListener);
+                   document.addEventListener('mouseup', dragEnd as EventListener);
 
                    // Touch events para móviles
-                   token.addEventListener('touchstart', dragStart);
-                   document.addEventListener('touchmove', drag);
-                   document.addEventListener('touchend', dragEnd);
+                   token.addEventListener('touchstart', dragStart as EventListener);
+                   document.addEventListener('touchmove', drag as EventListener);
+                   document.addEventListener('touchend', dragEnd as EventListener);
 
-                   function dragStart(e) {
+                   function dragStart(e: MouseEvent | TouchEvent) {
                        e.preventDefault();
                        isDragging = true;
                        
                        if (e.type === 'touchstart') {
-                           initialX = e.touches[0].clientX - xOffset;
-                           initialY = e.touches[0].clientY - yOffset;
+                           const touchEvent = e as TouchEvent;
+                           initialX = touchEvent.touches[0].clientX - xOffset;
+                           initialY = touchEvent.touches[0].clientY - yOffset;
                        } else {
-                           initialX = e.clientX - xOffset;
-                           initialY = e.clientY - yOffset;
+                           const mouseEvent = e as MouseEvent;
+                           initialX = mouseEvent.clientX - xOffset;
+                           initialY = mouseEvent.clientY - yOffset;
                        }
                    }
 
-                   function drag(e) {
+                   function drag(e: MouseEvent | TouchEvent) {
                        if (isDragging) {
                            e.preventDefault();
 
                            if (e.type === 'touchmove') {
-                               currentX = e.touches[0].clientX - initialX;
-                               currentY = e.touches[0].clientY - initialY;
+                               const touchEvent = e as TouchEvent;
+                               currentX = touchEvent.touches[0].clientX - initialX;
+                               currentY = touchEvent.touches[0].clientY - initialY;
                            } else {
-                               currentX = e.clientX - initialX;
-                               currentY = e.clientY - initialY;
+                               const mouseEvent = e as MouseEvent;
+                               currentX = mouseEvent.clientX - initialX;
+                               currentY = mouseEvent.clientY - initialY;
                            }
 
                            xOffset = currentX;
                            yOffset = currentY;
 
-                           token.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+                           (token as HTMLElement).style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
                        }
                    }
 
-                   function dragEnd(e) {
+                   function dragEnd() {
                        isDragging = false;
                    }
                });

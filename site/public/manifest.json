@@ -1,0 +1,21 @@
+{
+  "name": "OWASP Top 10 The Game",
+  "short_name": "OWASP Game",
+  "description": "El Juego de Mesa de Ciberseguridad - OWASP Top 10",
+  "start_url": "/OWASPTop10TheGame/",
+  "display": "standalone",
+  "background_color": "#F3EADF",
+  "theme_color": "#0A4D68",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/OWASPTop10TheGame/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "games"],
+  "lang": "es",
+  "dir": "ltr"
+} 

@@ -34,55 +34,61 @@ const characters = [
 ];
 ---
 
-<section id="characters" class="py-20 sm:py-24" style="background-color: var(--color-primary);">
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 section-title" set:html={getTranslationKey(translations, 'characters.title')}></h2>
+<section id="characters" class="py-12 sm:py-16 md:py-20 lg:py-24" style="background-color: var(--color-primary);">
+    <div class="container mx-auto px-4 sm:px-6 text-center">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8 sm:mb-12 section-title" set:html={getTranslationKey(translations, 'characters.title')}></h2>
         
         <!-- Personajes -->
-        <div class="mb-16">
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                                       <!-- Personaje -->
-                       <div class="flex justify-center">
-                           <div class="bg-white p-3 rounded-lg border-2 border-black shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300">
-                               <div class="card-gallery w-48 md:w-64 mx-auto">
-                                   <Image
-                                       id="character-image"
-                                       src={pentesterImage}
-                                       alt="Character"
-                                       class="w-full h-full object-cover rounded-xl transition-opacity duration-500 transition-transform duration-300"
-                                   />
-                               </div>
-                               <p id="character-name" class="text-gray-800 text-lg mt-2 font-bold text-center" set:html={getTranslationKey(translations, 'characters.pentester.name')}></p>
-                           </div>
-                       </div>
-                
+        <div class="mb-12 sm:mb-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
+                <!-- Personaje -->
+                <div class="flex justify-center order-2 lg:order-1">
+                    <div class="bg-white p-2 sm:p-3 rounded-lg border-2 border-black shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300">
+                        <div class="card-gallery w-32 sm:w-40 md:w-48 lg:w-64 mx-auto">
+                            <Image
+                                id="character-image"
+                                src={pentesterImage}
+                                alt="Character"
+                                class="w-full h-full object-cover rounded-xl transition-opacity duration-500 transition-transform duration-300"
+                            />
+                        </div>
+                        <p id="character-name" class="text-gray-800 text-sm sm:text-lg mt-2 font-bold text-center" set:html={getTranslationKey(translations, 'characters.pentester.name')}></p>
+                    </div>
+                </div>
+        
                 <!-- Explicación -->
-                <div class="text-left">
-                    <h4 id="character-title" class="text-xl font-bold mb-4" set:html={getTranslationKey(translations, 'characters.pentester.name')}></h4>
-                    <p id="character-description" class="text-white text-lg mb-4" set:html={getTranslationKey(translations, 'characters.pentester.description')}></p>
-                    <p id="character-details" class="text-white text-lg" set:html={getTranslationKey(translations, 'characters.pentester.details')}></p>
+                <div class="text-left order-1 lg:order-2 px-4 sm:px-0">
+                    <h4 id="character-title" class="text-lg sm:text-xl font-bold mb-3 sm:mb-4" set:html={getTranslationKey(translations, 'characters.pentester.name')}></h4>
+                    <p id="character-description" class="text-white text-sm sm:text-lg mb-3 sm:mb-4 leading-relaxed" set:html={getTranslationKey(translations, 'characters.pentester.description')}></p>
+                    <p id="character-details" class="text-white text-sm sm:text-lg leading-relaxed" set:html={getTranslationKey(translations, 'characters.pentester.details')}></p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-       <style>
-           .card-gallery {
-               aspect-ratio: 2.5/3.5;
-               min-height: 200px;
-               position: relative;
-               overflow: hidden;
-           }
+<style>
+    .card-gallery {
+        aspect-ratio: 2.5/3.5;
+        min-height: 160px;
+        position: relative;
+        overflow: hidden;
+    }
 
-           .card-gallery img {
-               transition: transform 0.3s ease, opacity 0.2s ease;
-           }
+    .card-gallery img {
+        transition: transform 0.3s ease, opacity 0.2s ease;
+    }
 
-           .card-gallery:hover img {
-               transform: scale(1.05);
-           }
-       </style>
+    .card-gallery:hover img {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 640px) {
+        .card-gallery {
+            min-height: 140px;
+        }
+    }
+</style>
 
 <script define:vars={{ characters, translations, lang }}>
   // Definir quiénes son "buenos" (defensores) y "no tan buenos" (atacantes)
@@ -272,22 +278,12 @@ const characters = [
   // Iniciar cambio automático
   autoChangeInterval = setInterval(nextCharacter, 8000);
 
-           // Agregar event listener al clic en la tarjeta
-         document.addEventListener('DOMContentLoaded', () => {
-           const characterCard = document.querySelector('.bg-white.p-3.rounded-lg');
-           if (characterCard) {
-             characterCard.addEventListener('click', handleCharacterClick);
-           }
-         });
-
-  // Función para cambiar automáticamente
-  function startAutoChange() {
-    if (!isAutoMode) {
-      isAutoMode = true;
-      autoChangeInterval = setInterval(nextCharacter, 8000);
+  // Agregar event listener al clic en la imagen del personaje
+  document.addEventListener('DOMContentLoaded', () => {
+    const characterImage = document.getElementById('character-image');
+    if (characterImage) {
+      characterImage.addEventListener('click', handleCharacterClick);
+      characterImage.style.cursor = 'pointer';
     }
-  }
-
-  // Iniciar cambio automático
-  autoChangeInterval = setInterval(nextCharacter, 8000);
+  });
 </script> 

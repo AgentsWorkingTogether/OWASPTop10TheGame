@@ -10,22 +10,76 @@ export interface Props {
 const { translations, lang } = Astro.props;
 ---
 
-<header class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-sm z-50 border-b-2 border-black">
-    <div class="container mx-auto px-6 py-3">
-        <div class="flex justify-center items-center">
-            <h1 class="text-xl md:text-2xl font-black tracking-tighter">
-                <span set:html={getTranslationKey(translations, 'header.title')}></span> 
-                <span class="text-sm" set:html={getTranslationKey(translations, 'header.subtitle')}></span>
-            </h1>
-            <nav class="hidden md:flex space-x-8 font-bold ml-12">
-                <a href="#home" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.home')}></a>
-                <a href="#about" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.game')}></a>
-                <a href="#characters" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.characters')}></a>
-                <a href="#components" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.components')}></a>
-                <a href="#how-to-play" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.rules')}></a>
-                <a href="#team-building" class="hover:text-red-700 transition-colors duration-300" set:html={getTranslationKey(translations, 'nav.team_building')}></a>
+<header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b-2 border-black shadow-lg">
+    <div class="container mx-auto px-4 sm:px-6 py-3">
+        <div class="flex justify-between items-center">
+            <!-- Logo y título -->
+            <div class="flex items-center">
+                <a href="#home" class="hover:text-red-700 transition-colors duration-300 cursor-pointer">
+                    <h1 class="text-lg sm:text-xl md:text-2xl font-black tracking-tighter">
+                        <span set:html={getTranslationKey(translations, 'header.title')}></span> 
+                        <span class="text-xs sm:text-sm" set:html={getTranslationKey(translations, 'header.subtitle')}></span>
+                    </h1>
+                </a>
+            </div>
+
+            <!-- Navegación desktop -->
+            <nav class="hidden lg:flex space-x-4 xl:space-x-8 font-bold">
+                <a href="#about" class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.game')}></a>
+                <a href="#characters" class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.characters')}></a>
+                <a href="#components" class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.components')}></a>
+                <a href="#how-to-play" class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.rules')}></a>
+                <a href="#team-building" class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.team_building')}></a>
             </nav>
-            <LanguageSelector lang={lang} />
+
+            <!-- Selector de idioma y menú móvil -->
+            <div class="flex items-center space-x-4">
+                <LanguageSelector lang={lang} />
+                
+                <!-- Botón menú móvil -->
+                <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú móvil -->
+        <div id="mobile-menu" class="lg:hidden hidden mt-4 pb-4 border-t border-gray-200">
+            <nav class="flex flex-col space-y-3 pt-4">
+                <a href="#about" class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.game')}></a>
+                <a href="#characters" class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.characters')}></a>
+                <a href="#components" class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.components')}></a>
+                <a href="#how-to-play" class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.rules')}></a>
+                <a href="#team-building" class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.team_building')}></a>
+            </nav>
         </div>
     </div>
-</header> 
+</header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Cerrar menú al hacer clic en un enlace
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Cerrar menú al hacer scroll
+            window.addEventListener('scroll', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        }
+    });
+</script> 
