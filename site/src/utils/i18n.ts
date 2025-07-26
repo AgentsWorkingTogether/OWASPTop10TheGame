@@ -25,7 +25,7 @@ export const translations = {
       title: "La Ciberseguridad <br>Nunca fue tan divertida.",
       subtitle: "El juego de mesa <strong>Print & Play</strong> para aprender sobre las listas de amenazas OWASP Top 10.",
       subtitle2: "Defiende tus sistemas, explota las amenazas y conviértete en una leyenda",
-      button: "Descargar y Jugar"
+      button: "Descarga, Imprime y Juega"
     },
     about: {
       title: "CONFIDENCIAL: <br>Informe de Situación",
@@ -469,7 +469,7 @@ export const translations = {
       title: "Cybersecurity<br>Has Never Been This Fun.",
       subtitle: "The <strong>Print & Play</strong> board game to learn about the OWASP Top 10 threat lists.",
       subtitle2: "Defend your systems, exploit threats and become a legend",
-      button: "Download & Play"
+      button: "Download, Print & Play"
     },
     about: {
       title: "CONFIDENTIAL:<br>Situation Report",
