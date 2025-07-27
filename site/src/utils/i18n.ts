@@ -389,6 +389,7 @@ export const translations = {
            },
            cards_list: {
              title: "Listado de Cartas de Team Building",
+             download_button: "Descarga, imprime y disfruta",
              confidence: {
                title: "Confidence (Inmediatamente)",
                desc: "Si el líder te asigna esta carta tendrás que pedirle que enseñe su carta de empleado a cualquier empleado que tu decidas, incluso a ti mismo. (En el caso en que la fase de secretos se hubieran conocido los no tan buenos es el líder el que elige a quien enseñársela)",
@@ -763,6 +764,7 @@ export const translations = {
            },
            cards_list: {
              title: "Team Building Cards List",
+             download_button: "Download, print and enjoy",
              confidence: {
                title: "Confidence (Immediately)",
                desc: "If the leader assigns you this card, you will have to ask them to show their employee card to any employee you decide, including yourself. (In the case that the bad guys were known in the secrets phase, it is the leader who chooses who to show it to)",

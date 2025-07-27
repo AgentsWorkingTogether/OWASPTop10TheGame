@@ -4,6 +4,15 @@ import type { Language } from '../utils/i18n';
 import { getTranslationKey } from '../utils/i18n';
 import teamBuildingImage from '../assets/images/team_building.png';
 import confidenceImage from '../assets/images/confidence.png';
+import takeControlImage from '../assets/images/take_control.png';
+import rejectionImage from '../assets/images/reject.png';
+import peerReviewImage from '../assets/images/peer_review.png';
+import toAcceptResponsibilityImage from '../assets/images/to_accept_responsability.png';
+import randomSeedImage from '../assets/images/random_seed.png';
+import shadowerImage from '../assets/images/shadower.png';
+import bustedImage from '../assets/images/busted.png';
+import perseveranceImage from '../assets/images/perseverance.png';
+import securityToolImage from '../assets/images/security_tool.png';
 
 interface Props {
   lang: Language;
@@ -271,6 +280,10 @@ const { lang, translations } = Astro.props;
       <div class="card-bg p-6 rounded-lg">
         <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.title')}></h3>
         
+        <div class="text-center mb-6">
+          <a href="https://raw.githubusercontent.com/AgentsWorkingTogether/OWASPTop10TheGame/main/extensions/team-building/team_building_cards.pdf" class="btn-primary py-2 px-4 sm:py-3 sm:px-6 md:py-3 md:px-8 rounded-md text-base sm:text-lg inline-block" target="_blank" rel="noopener noreferrer" set:html={getTranslationKey(translations, 'rules.team_building.cards_list.download_button')}></a>
+        </div>
+        
         <div class="space-y-6">
           <!-- Confidence -->
           <div class="border-l-4 border-blue-500 pl-4">
@@ -281,10 +294,10 @@ const { lang, translations } = Astro.props;
               <div class="flex justify-center mb-4">
                 <div id="confidence-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -299,10 +312,10 @@ const { lang, translations } = Astro.props;
               <div class="flex-shrink-0">
                 <div id="confidence-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -322,10 +335,10 @@ const { lang, translations } = Astro.props;
               <div class="flex justify-center mb-4">
                 <div id="take-control-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={takeControlImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -340,10 +353,10 @@ const { lang, translations } = Astro.props;
               <div class="flex-shrink-0">
                 <div id="take-control-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={takeControlImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -363,10 +376,10 @@ const { lang, translations } = Astro.props;
               <div class="flex justify-center mb-4">
                 <div id="rejection-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={rejectionImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -381,10 +394,10 @@ const { lang, translations } = Astro.props;
               <div class="flex-shrink-0">
                 <div id="rejection-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={rejectionImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -404,10 +417,10 @@ const { lang, translations } = Astro.props;
               <div class="flex justify-center mb-4">
                 <div id="peer-review-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={peerReviewImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -421,10 +434,10 @@ const { lang, translations } = Astro.props;
               <div class="flex-shrink-0">
                 <div id="peer-review-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={peerReviewImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -443,10 +456,10 @@ const { lang, translations } = Astro.props;
               <div class="flex justify-center mb-4">
                 <div id="accept-responsibility-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={toAcceptResponsibilityImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -460,10 +473,10 @@ const { lang, translations } = Astro.props;
               <div class="flex-shrink-0">
                 <div id="accept-responsibility-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={toAcceptResponsibilityImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -482,10 +495,10 @@ const { lang, translations } = Astro.props;
               <div class="flex justify-center mb-4">
                 <div id="random-seed-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={randomSeedImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -499,10 +512,10 @@ const { lang, translations } = Astro.props;
               <div class="flex-shrink-0">
                 <div id="random-seed-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={randomSeedImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -521,10 +534,10 @@ const { lang, translations } = Astro.props;
               <div class="flex justify-center mb-4">
                 <div id="shadower-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={shadowerImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -538,10 +551,10 @@ const { lang, translations } = Astro.props;
               <div class="flex-shrink-0">
                 <div id="shadower-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={shadowerImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -560,10 +573,10 @@ const { lang, translations } = Astro.props;
               <div class="flex justify-center mb-4">
                 <div id="busted-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={bustedImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -578,10 +591,10 @@ const { lang, translations } = Astro.props;
               <div class="flex-shrink-0">
                 <div id="busted-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={bustedImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -601,10 +614,10 @@ const { lang, translations } = Astro.props;
               <div class="flex justify-center mb-4">
                 <div id="perseverance-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={perseveranceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -619,10 +632,10 @@ const { lang, translations } = Astro.props;
               <div class="flex-shrink-0">
                 <div id="perseverance-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={perseveranceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -642,10 +655,10 @@ const { lang, translations } = Astro.props;
               <div class="flex justify-center mb-4">
                 <div id="security-tool-card-mobile" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={securityToolImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -660,10 +673,10 @@ const { lang, translations } = Astro.props;
               <div class="flex-shrink-0">
                 <div id="security-tool-card" class="cursor-pointer hover:scale-105 transition-transform duration-300 team-building-card">
                   <div class="card-front">
-                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={securityToolImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                   <div class="card-back">
-                    <Image src={confidenceImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
+                    <Image src={teamBuildingImage} alt="Carta Team Building" class="w-48 h-60 object-contain rounded-2xl flex-shrink-0" />
                   </div>
                 </div>
               </div>
@@ -688,10 +701,11 @@ const { lang, translations } = Astro.props;
     position: relative;
     width: 12rem; /* w-48 */
     height: 15rem; /* h-60 - exactamente como en el original */
+    transform: rotateY(180deg); /* Inicialmente volteadas para mostrar el back */
   }
 
   .team-building-card.flipped {
-    transform: rotateY(180deg);
+    transform: rotateY(0deg); /* Cuando está flipped, muestra el front */
   }
 
   .card-front,
