@@ -1,0 +1,696 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{etoolbox}
+\usepackage{fontspec}
+
+% Configuración de página
+\geometry{margin=0.5cm}
+\setlength{\parindent}{0pt}
+
+% Configurar fuente Roboto Slab
+\setmainfont{Roboto Slab}
+
+% Definir colores del juego
+\definecolor{gamePrimary}{RGB}{10, 77, 104}  % #0A4D68
+\definecolor{gameBackground}{RGB}{243, 234, 223}  % #F3EADF
+\definecolor{cardBorder}{RGB}{0, 0, 0}  % Negro
+\definecolor{cardParchment}{RGB}{245, 245, 220}  % Color pergamino
+\definecolor{cardBackground}{RGB}{255, 255, 0}  % Amarillo para visualizar el área
+
+% Comando para generar una carta de rol de equipo individual
+% Parámetros: #1=role_id
+\newcommand{\generateTeamRoleCard}[1]{
+    \begin{tikzpicture}
+        % Fondo de la carta (imagen de background) - ocupa todo el espacio disponible
+        \node[anchor=center] at (2.85,4.3) {
+            \includegraphics[width=6.5cm,height=9.0cm]{images/backgrounds/team_building_background.png}
+        };
+        
+        % Imagen del rol de equipo (ocupando toda la carta)
+        \ifstrequal{#1}{take_control}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/take_control.png}
+            };
+        }{}
+        \ifstrequal{#1}{confidence}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/confidence.png}
+            };
+        }{}
+        \ifstrequal{#1}{busted}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/busted.png}
+            };
+        }{}
+        \ifstrequal{#1}{peer_review}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/peer_review.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (3.35,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+        }{}
+        \ifstrequal{#1}{perseverance}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/perseverance.png}
+            };
+        }{}
+        \ifstrequal{#1}{random_seed}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/random_seed.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (3.35,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+        }{}
+        \ifstrequal{#1}{random_seed_page3_pos7}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/random_seed.png}
+            };
+        }{}
+        \ifstrequal{#1}{peer_review_page3}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/peer_review.png}
+            };
+        }{}
+        \ifstrequal{#1}{random_seed_page3}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/random_seed.png}
+            };
+        }{}
+        \ifstrequal{#1}{shadower_page3}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/shadower.png}
+            };
+        }{}
+        \ifstrequal{#1}{random_seed_page3}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/random_seed.png}
+            };
+            % Imagen few_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (3.35,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/few_1.png}
+            };
+        }{}
+        \ifstrequal{#1}{shadower_page3_with_few}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/shadower.png}
+            };
+            % Imagen few_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (3.35,1.20) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/few_1.png}
+            };
+        }{}
+        \ifstrequal{#1}{peer_review_page3_with_all}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/peer_review.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (3.35,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+        }{}
+        \ifstrequal{#1}{random_seed_page3_pos7_with_all}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/random_seed.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (3.35,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+        }{}
+        \ifstrequal{#1}{confidence_page3_with_all}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/confidence.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (1.85,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+        }{}
+        \ifstrequal{#1}{busted_page3_with_all}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/busted.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (1.85,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+            % Imagen down_trust.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (4.25,1.00) {
+                \includegraphics[width=1.80cm,height=1.80cm,keepaspectratio=true]{images/trust/down_trust.png}
+            };
+        }{}
+        \ifstrequal{#1}{perseverance_page3_with_all}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/perseverance.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (1.85,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+        }{}
+        \ifstrequal{#1}{perseverance_page3_with_all_and_up_trust}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/perseverance.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (1.85,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+            % Imagen up_trust.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (4.25,1.00) {
+                \includegraphics[width=1.80cm,height=1.80cm,keepaspectratio=true]{images/trust/up_trust.png}
+            };
+        }{}
+        \ifstrequal{#1}{busted_page1_with_few}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/busted.png}
+            };
+            % Imagen few_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (1.85,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/few_1.png}
+            };
+            % Imagen down_trust.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (4.25,1.00) {
+                \includegraphics[width=1.80cm,height=1.80cm,keepaspectratio=true]{images/trust/down_trust.png}
+            };
+        }{}
+        \ifstrequal{#1}{perseverance_page1_with_few}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/perseverance.png}
+            };
+            % Imagen few_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (1.85,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/few_1.png}
+            };
+            % Imagen up_trust.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (4.25,1.00) {
+                \includegraphics[width=1.80cm,height=1.80cm,keepaspectratio=true]{images/trust/up_trust.png}
+            };
+        }{}
+        \ifstrequal{#1}{take_control_page1_with_all_now}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/take_control.png}
+            };
+            % Imagen all_now.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (1.85,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_now.png}
+            };
+            % Imagen down_trust.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (4.25,1.00) {
+                \includegraphics[width=1.80cm,height=1.80cm,keepaspectratio=true]{images/trust/down_trust.png}
+            };
+        }{}
+        \ifstrequal{#1}{confidence_page1_with_all_now}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/confidence.png}
+            };
+            % Imagen all_now.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (1.85,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_now.png}
+            };
+            % Imagen up_trust.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (4.25,1.00) {
+                \includegraphics[width=1.80cm,height=1.80cm,keepaspectratio=true]{images/trust/up_trust.png}
+            };
+        }{}
+        \ifstrequal{#1}{rejection_page3_with_all}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/rejection.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (1.85,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+            % Imagen down_trust.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (4.25,1.00) {
+                \includegraphics[width=1.80cm,height=1.80cm,keepaspectratio=true]{images/trust/down_trust.png}
+            };
+        }{}
+        \ifstrequal{#1}{confidence_page3_with_few_now}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/confidence.png}
+            };
+            % Imagen few_now.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (1.85,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/few_now.png}
+            };
+            % Imagen up_trust.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (4.25,1.00) {
+                \includegraphics[width=1.80cm,height=1.80cm,keepaspectratio=true]{images/trust/up_trust.png}
+            };
+        }{}
+        \ifstrequal{#1}{security_tool}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/security_tool.png}
+            };
+            % Imagen infinity.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (3.35,1.1) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/infinity.png}
+            };
+        }{}
+        \ifstrequal{#1}{shadower}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/shadower.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (3.35,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+        }{}
+        \ifstrequal{#1}{to_accept_responsability}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/to_accept_resposability.png}
+            };
+            % Imagen all_1.png centrada en la parte inferior de la carta
+            \node[anchor=center] at (3.35,1.15) {
+                \includegraphics[width=2.5cm,height=2.5cm,keepaspectratio=true]{images/hiring/all_1.png}
+            };
+        }{}
+        \ifstrequal{#1}{rejection}{
+            \node[anchor=center] at (2.85,4.3) {
+                \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/cards/rejection.png}
+            };
+        }{}
+        
+
+        
+        % Línea horizontal que conecta la esquina superior izquierda con el borde izquierdo (solo para la primera carta, script kiddie y threat hunter)
+        \ifstrequal{#1}{take_control}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+        }{}
+        \ifstrequal{#1}{rejection}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+        }{}
+        \ifstrequal{#1}{peer_review}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+        }{}
+        \ifstrequal{#1}{peer_review_page3}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+        }{}
+        \ifstrequal{#1}{security_tool}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+        }{}
+        
+        % Línea horizontal que conecta la esquina inferior izquierda con el borde izquierdo (solo para la primera carta, script kiddie y threat hunter)
+        \ifstrequal{#1}{take_control}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+        }{}
+        \ifstrequal{#1}{rejection}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+        }{}
+        \ifstrequal{#1}{peer_review}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+        }{}
+        \ifstrequal{#1}{peer_review_page3}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+        }{}
+        \ifstrequal{#1}{security_tool}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+        }{}
+        
+        % Línea horizontal que conecta la esquina superior derecha con el borde derecho (solo para cloud security, cyberterrorist y malware analyst)
+        \ifstrequal{#1}{busted}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+        }{}
+        \ifstrequal{#1}{random_seed}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+        }{}
+        \ifstrequal{#1}{to_accept_responsability}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+        }{}
+        
+        % Línea horizontal que conecta la esquina inferior derecha con el borde derecho (solo para cloud security, cyberterrorist y malware analyst)
+        \ifstrequal{#1}{busted}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+        }{}
+        \ifstrequal{#1}{random_seed}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+        }{}
+        \ifstrequal{#1}{to_accept_responsability}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+        }{}
+        
+        % Línea vertical que conecta la esquina superior izquierda con el borde superior (solo para pentester, ciso y cloud security)
+        \ifstrequal{#1}{take_control}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+        }{}
+        \ifstrequal{#1}{rejection}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+        }{}
+        \ifstrequal{#1}{confidence}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+        }{}
+        \ifstrequal{#1}{busted}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+        }{}
+        
+        % Línea vertical que conecta la esquina superior derecha con el borde superior (solo para pentester, ciso y cloud security)
+        \ifstrequal{#1}{take_control}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+        \ifstrequal{#1}{rejection}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+        \ifstrequal{#1}{confidence}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+        \ifstrequal{#1}{busted}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+
+        
+        % Línea vertical que conecta la esquina inferior izquierda con el borde inferior (solo para threat hunter, hacktivist y malware analyst)
+        \ifstrequal{#1}{security_tool}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+        }{}
+        \ifstrequal{#1}{shadower}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+        }{}
+        \ifstrequal{#1}{to_accept_responsability}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+        }{}
+        
+        % Línea vertical que conecta la esquina inferior derecha con el borde inferior (solo para threat hunter, hacktivist y malware analyst)
+        \ifstrequal{#1}{security_tool}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+        \ifstrequal{#1}{shadower}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+        \ifstrequal{#1}{to_accept_responsability}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+    \end{tikzpicture}
+}
+
+% Comando para generar una carta trasera individual (logo ocupando toda la carta)
+% Parámetros: #1=role_id (para líneas de corte)
+\newcommand{\generateTeamBackgroundCard}[1]{
+    \begin{tikzpicture}
+        % Fondo de la carta (imagen de background) - ocupa todo el espacio disponible
+        \node[anchor=center] at (2.85,4.3) {
+            \includegraphics[width=6.5cm,height=9.0cm]{images/backgrounds/team_building_background.png}
+        };
+        
+        % Borde negro con esquinas redondeadas como naipes (COMENTADO)
+        % \draw[color=cardBorder, line width=0.08cm, rounded corners=0.3cm] (0,0) rectangle (5.7,8.6);
+        
+        % Logo del equipo (ocupando toda la caja con borde) - por encima del background
+        \node[anchor=center] at (2.85,4.3) {
+            \includegraphics[width=5.7cm,height=8.6cm,keepaspectratio=false]{images/backs/back_team_building.png}
+        };
+        
+        % Línea de corte que pasa por los bordes de la caja (5.7cm x 8.6cm) - COMENTADA
+        % \draw[color=red, line width=0.02cm, dashed] (0,0) rectangle (5.7,8.6);
+        
+        % Línea horizontal que conecta la esquina superior izquierda con el borde izquierdo (solo para la primera carta, script kiddie y threat hunter)
+        \ifstrequal{#1}{take_control}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+        }{}
+        \ifstrequal{#1}{peer_review}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+        }{}
+        \ifstrequal{#1}{security_tool}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+        }{}
+        
+        % Línea horizontal que conecta la esquina inferior izquierda con el borde izquierdo (solo para la primera carta, script kiddie y threat hunter)
+        \ifstrequal{#1}{take_control}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+        }{}
+        \ifstrequal{#1}{peer_review}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+        }{}
+        \ifstrequal{#1}{security_tool}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+        }{}
+        
+        % Línea horizontal que conecta la esquina superior derecha con el borde derecho (solo para cloud security, cyberterrorist y malware analyst)
+        \ifstrequal{#1}{busted}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+        }{}
+        \ifstrequal{#1}{random_seed}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+        }{}
+        \ifstrequal{#1}{to_accept_responsability}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+        }{}
+        
+        % Línea horizontal que conecta la esquina inferior derecha con el borde derecho (solo para cloud security, cyberterrorist y malware analyst)
+        \ifstrequal{#1}{busted}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+        }{}
+        \ifstrequal{#1}{random_seed}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+        }{}
+        \ifstrequal{#1}{to_accept_responsability}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+        }{}
+        
+        % Línea vertical que conecta la esquina superior izquierda con el borde superior (solo para pentester, ciso y cloud security)
+        \ifstrequal{#1}{take_control}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+        }{}
+        \ifstrequal{#1}{confidence}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+        }{}
+        \ifstrequal{#1}{busted}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+        }{}
+        
+        % Línea vertical que conecta la esquina superior derecha con el borde superior (solo para pentester, ciso y cloud security)
+        \ifstrequal{#1}{take_control}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+        \ifstrequal{#1}{confidence}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+        \ifstrequal{#1}{busted}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+
+        
+        % Línea vertical que conecta la esquina inferior izquierda con el borde inferior (solo para threat hunter, hacktivist y malware analyst)
+        \ifstrequal{#1}{security_tool}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+        }{}
+        \ifstrequal{#1}{shadower}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+        }{}
+        \ifstrequal{#1}{to_accept_responsability}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+        }{}
+        
+        % Línea vertical que conecta la esquina inferior derecha con el borde inferior (solo para threat hunter, hacktivist y malware analyst)
+        \ifstrequal{#1}{security_tool}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+        \ifstrequal{#1}{shadower}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+        \ifstrequal{#1}{to_accept_responsability}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+    \end{tikzpicture}
+}
+
+% Comando para generar una carta trasera individual (logo ocupando toda la carta)
+% Parámetros: #1=role_id (para líneas de corte)
+\newcommand{\generateTeamCardBack}[1]{
+    \begin{tikzpicture}
+        % Borde negro con esquinas redondeadas como las cartas de personajes
+        \draw[color=cardBorder, line width=0.08cm, rounded corners=0.3cm] (0,0) rectangle (5.7,8.6);
+        
+        % Logo del equipo (con margen interno proporcional)
+        \node[anchor=center] at (2.85,4.3) {
+            \includegraphics[width=5.3cm,height=8.0cm,keepaspectratio=false]{images/backs/back_team_building.png}
+        };
+        
+        % Líneas de corte para take_control
+        \ifstrequal{#1}{take_control}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+        
+        % Líneas de corte para confidence
+        \ifstrequal{#1}{confidence}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+        
+        % Líneas de corte para busted
+        \ifstrequal{#1}{busted}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+        
+        % Líneas de corte para peer_review
+        \ifstrequal{#1}{peer_review}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+        
+        % Líneas de corte para perseverance
+        \ifstrequal{#1}{perseverance}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+        
+        % Líneas de corte para random_seed
+        \ifstrequal{#1}{random_seed}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+        % Líneas de corte para random_seed_page3_pos7 (todas las líneas)
+        \ifstrequal{#1}{random_seed_page3_pos7}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-3,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-3);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+        
+        % Líneas de corte para security_tool
+        \ifstrequal{#1}{security_tool}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (0,-2);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (5.7,-2);
+        }{}
+        
+        % Líneas de corte para shadower
+        \ifstrequal{#1}{shadower}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (7.7,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,0) -- (7.7,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+        
+        % Líneas de corte para to_accept_responsability
+        \ifstrequal{#1}{to_accept_responsability}{
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (-2,8.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,0) -- (-2,0);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (0,8.6) -- (0,10.6);
+            \draw[color=black, line width=0.05cm, remember picture,overlay] (5.7,8.6) -- (5.7,10.6);
+        }{}
+    \end{tikzpicture}
+}
+
+\begin{document}
+\pagestyle{empty}
+
+% ===== PÁGINA 1: CARAS DE ROLES DE EQUIPO (9 cartas) =====
+\begin{center}
+\begin{tikzpicture}
+    % Fila 1
+            \node[anchor=north west] at (0,0) {\generateTeamRoleCard{take_control_page1_with_all_now}};
+        \node[anchor=north west] at (6.5,0) {\generateTeamRoleCard{confidence_page1_with_all_now}};
+        \node[anchor=north west] at (13.0,0) {\generateTeamRoleCard{busted_page1_with_few}};
+    
+            % Fila 2
+        \node[anchor=north west] at (0,-9.0) {\generateTeamRoleCard{peer_review}};
+        \node[anchor=north west] at (6.5,-9.0) {\generateTeamRoleCard{perseverance_page1_with_few}};
+        \node[anchor=north west] at (13.0,-9.0) {\generateTeamRoleCard{random_seed}};
+    
+            % Fila 3
+        \node[anchor=north west] at (0,-18.0) {\generateTeamRoleCard{security_tool}};
+        \node[anchor=north west] at (6.5,-18.0) {\generateTeamRoleCard{shadower}};
+        \node[anchor=north west] at (13.0,-18.0) {\generateTeamRoleCard{to_accept_responsability}};
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% ===== PÁGINA 2: BACKS DE ROLES DE EQUIPO (9 cartas) =====
+\begin{center}
+\begin{tikzpicture}
+    % Fila 1
+    \node[anchor=north west] at (0,0) {\generateTeamBackgroundCard{take_control}};
+    \node[anchor=north west] at (6.5,0) {\generateTeamBackgroundCard{confidence}};
+    \node[anchor=north west] at (13.0,0) {\generateTeamBackgroundCard{busted}};
+    
+    % Fila 2
+    \node[anchor=north west] at (0,-9.0) {\generateTeamBackgroundCard{peer_review}};
+    \node[anchor=north west] at (6.5,-9.0) {\generateTeamBackgroundCard{perseverance}};
+    \node[anchor=north west] at (13.0,-9.0) {\generateTeamBackgroundCard{random_seed}};
+    
+    % Fila 3
+    \node[anchor=north west] at (0,-18.0) {\generateTeamBackgroundCard{security_tool}};
+    \node[anchor=north west] at (6.5,-18.0) {\generateTeamBackgroundCard{shadower}};
+    \node[anchor=north west] at (13.0,-18.0) {\generateTeamBackgroundCard{to_accept_responsability}};
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% ===== PÁGINA 3: CARAS DE ROLES DE EQUIPO (9 cartas) - COPIA EXACTA DE PÁGINA 1 =====
+\begin{center}
+\begin{tikzpicture}
+    % Fila 1
+            \node[anchor=north west] at (0,0) {\generateTeamRoleCard{rejection_page3_with_all}};
+        \node[anchor=north west] at (6.5,0) {\generateTeamRoleCard{confidence_page3_with_few_now}};
+        \node[anchor=north west] at (13.0,0) {\generateTeamRoleCard{busted_page3_with_all}};
+    
+            % Fila 2
+        \node[anchor=north west] at (0,-9.0) {\generateTeamRoleCard{peer_review_page3_with_all}};
+        \node[anchor=north west] at (6.5,-9.0) {\generateTeamRoleCard{perseverance_page3_with_all_and_up_trust}};
+        \node[anchor=north west] at (13.0,-9.0) {\generateTeamRoleCard{random_seed_page3}};
+    
+            % Fila 3
+        \node[anchor=north west] at (0,-18.0) {\generateTeamRoleCard{random_seed_page3_pos7_with_all}};
+        \node[anchor=north west] at (6.5,-18.0) {\generateTeamRoleCard{shadower_page3_with_few}};
+        \node[anchor=north west] at (13.0,-18.0) {\generateTeamRoleCard{shadower_page3_with_few}};
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% ===== PÁGINA 4: BACKS DE ROLES DE EQUIPO (9 cartas) - COPIA EXACTA DE PÁGINA 2 =====
+\begin{center}
+\begin{tikzpicture}
+    % Fila 1
+    \node[anchor=north west] at (0,0) {\generateTeamBackgroundCard{take_control}};
+    \node[anchor=north west] at (6.5,0) {\generateTeamBackgroundCard{confidence}};
+    \node[anchor=north west] at (13.0,0) {\generateTeamBackgroundCard{busted}};
+    
+    % Fila 2
+    \node[anchor=north west] at (0,-9.0) {\generateTeamBackgroundCard{peer_review}};
+    \node[anchor=north west] at (6.5,-9.0) {\generateTeamBackgroundCard{perseverance}};
+    \node[anchor=north west] at (13.0,-9.0) {\generateTeamBackgroundCard{random_seed}};
+    
+    % Fila 3
+    \node[anchor=north west] at (0,-18.0) {\generateTeamBackgroundCard{security_tool}};
+    \node[anchor=north west] at (6.5,-18.0) {\generateTeamBackgroundCard{shadower}};
+    \node[anchor=north west] at (13.0,-18.0) {\generateTeamBackgroundCard{to_accept_responsability}};
+\end{tikzpicture}
+\end{center}
+
+\end{document} 
