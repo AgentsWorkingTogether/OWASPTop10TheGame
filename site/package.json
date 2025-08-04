@@ -11,7 +11,8 @@
     "lint": "eslint . --ext .astro,.js,.ts,.jsx,.tsx",
     "lint:fix": "eslint . --ext .astro,.js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write .",
-    "type-check": "astro check"
+    "type-check": "astro check",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -27,8 +28,13 @@
   "devDependencies": {
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
     "eslint": "^8.0.0",
     "eslint-plugin-astro": "^0.34.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "husky": "^8.0.0",
     "prettier": "^3.0.0",
     "prettier-plugin-astro": "^0.13.0",
     "tailwindcss": "^3.4.0",

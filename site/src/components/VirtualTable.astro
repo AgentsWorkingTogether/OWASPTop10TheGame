@@ -1,0 +1,488 @@
+---
+import { getTranslationKey, type Language } from '../utils/i18n';
+import { Image } from 'astro:assets';
+import trustIndicatorImage from '../assets/images/trust_indicator.png';
+import teamBlueImage from '../assets/images/team_blue.png';
+import pentesterImage from '../assets/images/pentester.png';
+import cisoImage from '../assets/images/ciso.png';
+import cloudSecurityImage from '../assets/images/cloud.png';
+import scriptKiddieImage from '../assets/images/script-kiddie.png';
+import crackerImage from '../assets/images/cracker.png';
+import cyberterroristImage from '../assets/images/ciberterrorist.png';
+import threatHunterImage from '../assets/images/threat_hunter.png';
+import hacktivistImage from '../assets/images/hacktivist.png';
+import malwareAnalystImage from '../assets/images/malware_analyst.png';
+import incidentResponderImage from '../assets/images/incident-responder.png';
+
+interface Props {
+  lang: Language;
+  translations: any;
+}
+
+const { lang, translations } = Astro.props;
+
+// Definir los personajes disponibles
+const characters = [
+  { key: 'pentester', image: pentesterImage },
+  { key: 'ciso', image: cisoImage },
+  { key: 'cloud_security', image: cloudSecurityImage },
+  { key: 'script_kiddie', image: scriptKiddieImage },
+  { key: 'cracker', image: crackerImage },
+  { key: 'cyberterrorist', image: cyberterroristImage },
+  { key: 'threat_hunter', image: threatHunterImage },
+  { key: 'hacktivist', image: hacktivistImage },
+  { key: 'malware_analyst', image: malwareAnalystImage },
+  { key: 'incident_responder', image: incidentResponderImage }
+];
+---
+
+<div class="min-h-screen w-full pt-2" style="background-color: var(--color-primary);">
+  <!-- Versión móvil -->
+  <div class="block md:hidden">
+    <div class="flex flex-col items-center justify-center min-h-screen p-4 pt-20">
+      <!-- Título Tu Personaje -->
+      <div id="your-character-section" class="mb-8 text-center mt-8">
+        <h4 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white" set:html={getTranslationKey(translations, 'virtualTable.yourCharacter')}></h4>
+        <div class="w-20 sm:w-32 h-1.5 bg-red-600 mx-auto mb-4 sm:mb-6"></div>
+      </div>
+      
+      <!-- Visor de Cartas de Personaje -->
+      <div class="mb-10">
+        <div class="bg-white p-4 sm:p-6 rounded-xl border-3 border-black shadow-xl cursor-pointer hover:scale-105 transition-transform duration-300">
+          <div class="card-gallery w-40 sm:w-56 md:w-64 lg:w-80 mx-auto">
+            <Image
+              id="character-image"
+              src={pentesterImage}
+              alt="Character"
+              class="w-full h-full object-cover rounded-xl transition-opacity duration-500 transition-transform duration-300"
+            />
+          </div>
+          <p id="character-name" class="text-gray-800 text-base sm:text-xl md:text-2xl mt-4 font-bold text-center" set:html={getTranslationKey(translations, 'characters.pentester.name')}></p>
+        </div>
+      </div>
+      
+      <!-- Título Marcador de Confianza -->
+      <div id="trust-indicator-section" class="mb-6 text-center">
+        <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white" set:html={getTranslationKey(translations, 'virtualTable.trustIndicator')}></h4>
+        <div class="w-16 sm:w-24 h-1 bg-red-600 mx-auto mb-3 sm:mb-4"></div>
+      </div>
+      
+      <!-- Trust Indicator -->
+      <div class="relative">
+        <Image 
+          src={trustIndicatorImage} 
+          alt="Trust Indicator"
+        />
+        <!-- Fichas azules con posicionamiento absoluto -->
+        <div id="blue-token-1" class="absolute" style="bottom: 68px; left: 10%;">
+          <Image src={teamBlueImage} alt="Ficha Team Blue 1" class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable bg-white" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+        </div>
+        <div id="blue-token-2" class="absolute" style="bottom: 68px; left: 27%;">
+          <Image src={teamBlueImage} alt="Ficha Team Blue 2" class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable bg-white" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+        </div>
+        <div id="blue-token-3" class="absolute" style="bottom: 68px; left: 43.5%;">
+          <Image src={teamBlueImage} alt="Ficha Team Blue 3" class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable bg-white" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+        </div>
+        <div id="blue-token-4" class="absolute" style="bottom: 68px; left: 60%;">
+          <Image src={teamBlueImage} alt="Ficha Team Blue 4" class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable bg-white" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+        </div>
+        <div id="blue-token-5" class="absolute" style="bottom: 68px; left: 76.5%;">
+          <Image src={teamBlueImage} alt="Ficha Team Blue 5" class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-cover rounded-full border-2 border-white shadow-xl cursor-move draggable bg-white" style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);" />
+        </div>
+      </div>
+      
+      <!-- Título Mapa de Sistema -->
+      <div id="system-map-section" class="mb-6 text-center mt-10">
+        <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-white" set:html={getTranslationKey(translations, 'virtualTable.systemMap')}></h4>
+        <div class="w-16 sm:w-24 h-1 bg-red-600 mx-auto mb-3 sm:mb-4"></div>
+      </div>
+      
+      <!-- System Map Placeholder -->
+      <div class="bg-white p-4 rounded-lg border-2 border-black shadow-lg">
+        <p class="text-gray-800 text-center font-bold" set:html={getTranslationKey(translations, 'virtualTable.notImplemented')}></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Versión desktop/tablet -->
+  <div class="hidden md:block">
+    <div class="flex items-center justify-center min-h-screen">
+      <div class="text-center p-4">
+        <h1 class="text-3xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'virtualTable.title')}></h1>
+        <p class="text-xl" set:html={getTranslationKey(translations, 'virtualTable.notImplemented')}></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .card-gallery {
+    aspect-ratio: 2.5/3.5;
+    min-height: 200px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-gallery img {
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+
+  .card-gallery:hover img {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 640px) {
+    .card-gallery {
+      min-height: 180px;
+    }
+  }
+</style>
+
+<script define:vars={{ characters, translations, lang }}>
+  // Definir quiénes son "buenos" (defensores) y "no tan buenos" (atacantes)
+  const goodGuys = ['pentester', 'ciso', 'cloud_security', 'threat_hunter', 'malware_analyst', 'incident_responder'];
+  const badGuys = ['script_kiddie', 'cracker', 'cyberterrorist', 'hacktivist'];
+
+  // Datos de los personajes
+  const characterData = {
+    pentester: {
+      image: characters[0].image.src,
+      name: translations.characters.pentester.name,
+      type: 'good'
+    },
+    ciso: {
+      image: characters[1].image.src,
+      name: translations.characters.ciso.name,
+      type: 'good'
+    },
+    cloud_security: {
+      image: characters[2].image.src,
+      name: translations.characters.cloud_security.name,
+      type: 'good'
+    },
+    script_kiddie: {
+      image: characters[3].image.src,
+      name: translations.characters.script_kiddie.name,
+      type: 'bad'
+    },
+    cracker: {
+      image: characters[4].image.src,
+      name: translations.characters.cracker.name,
+      type: 'bad'
+    },
+    cyberterrorist: {
+      image: characters[5].image.src,
+      name: translations.characters.cyberterrorist.name,
+      type: 'bad'
+    },
+    threat_hunter: {
+      image: characters[6].image.src,
+      name: translations.characters.threat_hunter.name,
+      type: 'good'
+    },
+    hacktivist: {
+      image: characters[7].image.src,
+      name: translations.characters.hacktivist.name,
+      type: 'bad'
+    },
+    malware_analyst: {
+      image: characters[8].image.src,
+      name: translations.characters.malware_analyst.name,
+      type: 'good'
+    },
+    incident_responder: {
+      image: characters[9].image.src,
+      name: translations.characters.incident_responder.name,
+      type: 'good'
+    }
+  };
+
+  // Función para mezclar array (Fisher-Yates shuffle)
+  function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+
+  // Variables de control
+  let characterOrder = shuffleArray(Object.keys(characterData));
+  let currentCharacterIndex = 0;
+  let isChanging = false;
+
+  // Array para el estado de las fichas azules (0 = arriba, 1 = abajo)
+  let blueTokensState = [0, 0, 0, 0, 0]; // Inicialmente todas arriba
+
+  // Función para obtener el parámetro upto de la URL
+  // Ejemplos de uso:
+  // ?upto=3 o ?upTo=3 -> fichas 1,2,3 arriba; 4,5 abajo
+  // ?upto=1 o ?upTo=1 -> ficha 1 arriba; 2,3,4,5 abajo
+  // ?upto=5 o ?upTo=5 -> todas las fichas arriba (valor por defecto)
+  // ?upto=0 o ?upTo=0 -> todas las fichas abajo
+  // ?upto=4 o ?upTo=4 -> fichas 1,2,3,4 arriba; 5 abajo
+  // Sin parámetro -> todas las fichas arriba (equivalente a ?upto=5)
+  function getUptoParameter() {
+    console.log('=== DEBUGGING getUptoParameter ===');
+    console.log('window.location.href:', window.location.href);
+    console.log('window.location.search:', window.location.search);
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log('urlParams:', urlParams);
+    console.log('urlParams.toString():', urlParams.toString());
+    
+    // Intentar primero 'upto' (minúsculas), luego 'upTo' (camelCase)
+    let uptoRaw = urlParams.get('upto');
+    if (uptoRaw === null) {
+      uptoRaw = urlParams.get('upTo');
+      console.log('Probando upTo (camelCase):', uptoRaw);
+    } else {
+      console.log('Encontrado upto (minúsculas):', uptoRaw);
+    }
+    
+    console.log('uptoRaw final:', uptoRaw);
+    console.log('typeof uptoRaw:', typeof uptoRaw);
+    
+    const upto = parseInt(uptoRaw);
+    console.log('upto parseado:', upto);
+    console.log('typeof upto:', typeof upto);
+    console.log('isNaN(upto):', isNaN(upto));
+    console.log('=== FIN DEBUGGING ===');
+    
+    return upto;
+  }
+
+  // Función para configurar el estado inicial de las fichas
+  function initializeBlueTokensState() {
+    const upto = getUptoParameter();
+    console.log('Parámetro upto recibido:', upto);
+    console.log('Tipo de upto:', typeof upto);
+    console.log('¿Es NaN?', isNaN(upto));
+    
+    // Validar el parámetro (debe estar entre 0 y 5)
+    if (upto >= 0 && upto <= 5 && !isNaN(upto)) {
+      console.log('Parámetro válido, configurando estado...');
+      // Configurar el estado: fichas 1 a upto arriba, el resto abajo
+      // upto=0: todas abajo, upto=5: todas arriba
+      for (let i = 0; i < 5; i++) {
+        blueTokensState[i] = i < upto ? 0 : 1;
+        console.log(`Ficha ${i+1}: ${i < upto ? 'arriba' : 'abajo'} (${blueTokensState[i]})`);
+      }
+      console.log('Estado inicial configurado:', blueTokensState);
+      
+      // Aplicar las posiciones visuales
+      applyBlueTokensPositions();
+    } else {
+      console.log('Parámetro upto inválido o no proporcionado, usando valor por defecto: 5');
+      console.log('Valor recibido:', upto);
+      console.log('Condición de validación:', upto >= 0 && upto <= 5 && !isNaN(upto));
+      // Valor por defecto: 5 (todas las fichas arriba)
+      blueTokensState = [0, 0, 0, 0, 0];
+      applyBlueTokensPositions();
+    }
+  }
+
+  // Función para aplicar las posiciones visuales de las fichas
+  function applyBlueTokensPositions() {
+    const basePosition = 68; // Posición base en píxeles
+    const movePercentage = 0.75; // 75% de la posición actual
+    
+    console.log('Aplicando posiciones visuales...');
+    console.log('Estado actual del array:', blueTokensState);
+    
+    for (let i = 1; i <= 5; i++) {
+      const token = document.getElementById(`blue-token-${i}`);
+      if (token) {
+        const tokenIndex = i - 1;
+        const isDown = blueTokensState[tokenIndex] === 1;
+        
+        if (isDown) {
+          // Ficha abajo: mover un 75% hacia abajo desde la posición base
+          const moveDistance = basePosition * movePercentage;
+          const newPosition = basePosition - moveDistance;
+          token.style.bottom = newPosition + 'px';
+          console.log(`Ficha ${i} (abajo): ${newPosition}px`);
+        } else {
+          // Ficha arriba: posición base
+          token.style.bottom = basePosition + 'px';
+          console.log(`Ficha ${i} (arriba): ${basePosition}px`);
+        }
+        token.style.transition = 'bottom 0.3s ease';
+      } else {
+        console.log(`ERROR: No se encontró el elemento blue-token-${i}`);
+      }
+    }
+    console.log('Posiciones aplicadas correctamente');
+  }
+
+  function updateCharacter() {
+    const characterKey = characterOrder[currentCharacterIndex];
+    const character = characterData[characterKey];
+    
+    const imageElement = document.getElementById('character-image');
+    const nameElement = document.getElementById('character-name');
+    
+    if (imageElement && nameElement) {
+      // Cambiar imagen con transición suave
+      imageElement.style.opacity = '0.7';
+      
+      setTimeout(() => {
+        imageElement.src = character.image;
+        imageElement.alt = character.name;
+        imageElement.style.opacity = '1';
+        
+        // Actualizar texto
+        nameElement.innerHTML = character.name;
+      }, 100);
+    }
+  }
+
+  function nextCharacter() {
+    if (isChanging) return;
+    
+    isChanging = true;
+    
+    // Avanzar al siguiente personaje
+    currentCharacterIndex++;
+    
+    // Si hemos completado todos los personajes, iniciar nueva secuencia
+    if (currentCharacterIndex >= characterOrder.length) {
+      characterOrder = shuffleArray(Object.keys(characterData));
+      currentCharacterIndex = 0;
+    }
+    
+    updateCharacter();
+    
+    setTimeout(() => {
+      isChanging = false;
+    }, 200);
+  }
+
+  function handleCharacterClick() {
+    nextCharacter();
+  }
+
+  // Función para verificar si una ficha puede moverse
+  function canTokenMove(tokenIndex) {
+    const isDown = blueTokensState[tokenIndex] === 1;
+    
+    if (isDown) {
+      // Para subir: la ficha anterior debe estar ARRIBA
+      if (tokenIndex === 4) { // Ficha 5
+        return blueTokensState[3] === 0; // Ficha 4 debe estar arriba
+      } else if (tokenIndex === 3) { // Ficha 4
+        return blueTokensState[2] === 0; // Ficha 3 debe estar arriba
+      } else if (tokenIndex === 2) { // Ficha 3
+        return blueTokensState[1] === 0; // Ficha 2 debe estar arriba
+      } else if (tokenIndex === 1) { // Ficha 2
+        return blueTokensState[0] === 0; // Ficha 1 debe estar arriba
+      } else if (tokenIndex === 0) { // Ficha 1
+        return true; // Ficha 1 siempre puede subir
+      }
+    } else {
+      // Para bajar: la ficha siguiente debe estar abajo
+      if (tokenIndex === 0) { // Ficha 1
+        return blueTokensState[1] === 1; // Ficha 2 debe estar abajo
+      } else if (tokenIndex === 1) { // Ficha 2
+        return blueTokensState[2] === 1; // Ficha 3 debe estar abajo
+      } else if (tokenIndex === 2) { // Ficha 3
+        return blueTokensState[3] === 1; // Ficha 4 debe estar abajo
+      } else if (tokenIndex === 3) { // Ficha 4
+        return blueTokensState[4] === 1; // Ficha 5 debe estar abajo
+      } else if (tokenIndex === 4) { // Ficha 5
+        return true; // Ficha 5 siempre puede bajar
+      }
+    }
+    return false;
+  }
+
+  // Función para manejar el clic en las fichas azules
+  function handleBlueTokenClick(event) {
+    const token = event.currentTarget;
+    const tokenId = token.id;
+    const tokenIndex = parseInt(tokenId.split('-')[2]) - 1; // blue-token-1 -> índice 0
+    const isDown = blueTokensState[tokenIndex] === 1;
+    const currentBottom = parseInt(token.style.bottom) || 68;
+    const movePercentage = 0.75; // 75% de la posición actual
+    
+    console.log('Ficha clickeada:', tokenId);
+    console.log('Índice en array:', tokenIndex);
+    console.log('Estado actual:', isDown ? 'abajo' : 'arriba');
+    console.log('Array completo:', blueTokensState);
+    console.log('Posición actual:', currentBottom);
+    console.log('Porcentaje de movimiento:', movePercentage);
+    
+    // Verificar si la ficha puede moverse
+    const canMove = canTokenMove(tokenIndex);
+    console.log('¿Puede moverse?', canMove);
+    
+    if (!canMove) {
+      console.log('Movimiento bloqueado por restricción');
+      return;
+    }
+    
+    if (isDown) {
+      // Si está abajo, subir a posición base
+      token.style.bottom = '68px';
+      blueTokensState[tokenIndex] = 0;
+      console.log('Subiendo ficha a posición inicial');
+    } else {
+      // Si está arriba, bajar un 75% de la posición actual
+      const moveDistance = currentBottom * movePercentage;
+      const newBottom = currentBottom - moveDistance;
+      token.style.bottom = newBottom + 'px';
+      blueTokensState[tokenIndex] = 1;
+      console.log('Bajando ficha un 75% a:', newBottom);
+    }
+    
+    token.style.transition = 'bottom 0.3s ease';
+    console.log('Nuevo estado del array:', blueTokensState);
+  }
+
+  // Inicializar
+  document.addEventListener('DOMContentLoaded', () => {
+    const characterImage = document.getElementById('character-image');
+    if (characterImage) {
+      characterImage.addEventListener('click', handleCharacterClick);
+      characterImage.style.cursor = 'pointer';
+    }
+
+    // Agregar event listeners a las fichas azules específicas
+    for (let i = 1; i <= 5; i++) {
+      const tokenContainer = document.getElementById(`blue-token-${i}`);
+      if (tokenContainer) {
+        // El estado se maneja en el array blueTokensState
+        tokenContainer.addEventListener('click', handleBlueTokenClick);
+        tokenContainer.style.cursor = 'pointer';
+        console.log(`Event listener agregado a ficha ${i}:`, tokenContainer);
+      }
+    }
+
+    // Inicializar el estado de las fichas azules al cargar la página
+    console.log('DOM cargado, inicializando fichas azules...');
+    
+    // Verificar que los elementos existen antes de inicializar
+    let allElementsExist = true;
+    for (let i = 1; i <= 5; i++) {
+      const token = document.getElementById(`blue-token-${i}`);
+      if (!token) {
+        console.log(`ERROR: Elemento blue-token-${i} no encontrado`);
+        allElementsExist = false;
+      }
+    }
+    
+    if (allElementsExist) {
+      console.log('Todos los elementos encontrados, inicializando estado...');
+      // Pequeño delay para asegurar que los elementos estén completamente renderizados
+      setTimeout(() => {
+        initializeBlueTokensState();
+      }, 100);
+    } else {
+      console.log('Algunos elementos no encontrados, reintentando en 500ms...');
+      setTimeout(() => {
+        initializeBlueTokensState();
+      }, 500);
+    }
+  });
+</script>

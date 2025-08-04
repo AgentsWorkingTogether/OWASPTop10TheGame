@@ -161,6 +161,13 @@ export const translations = {
         }
       }
     },
+    virtualTable: {
+      title: "Mesa Virtual",
+      yourCharacter: "Tu Personaje",
+      trustIndicator: "Marcador de Confianza",
+      systemMap: "Mapa de Sistema",
+      notImplemented: "No implementado por el momento"
+    },
     rules: {
       title: "Reglamento Completo",
              map_selection: {
@@ -605,6 +612,13 @@ export const translations = {
           desc: "When placed on the map, they represent OWASP Top 10 vulnerabilities that have already been exploited by attackers."
         }
       }
+    },
+    virtualTable: {
+      title: "Virtual Table",
+      yourCharacter: "Your Character",
+      trustIndicator: "Trust Indicator",
+      systemMap: "System Map",
+      notImplemented: "Not implemented yet"
     },
     rules: {
       title: "Complete Rulebook",
