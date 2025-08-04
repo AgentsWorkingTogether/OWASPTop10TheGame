@@ -14,7 +14,7 @@ const { translations, lang } = Astro.props;
         <div class="flex justify-between items-center">
             <!-- Logo y título -->
             <div class="flex items-center">
-                <a href={`/${lang}`} class="hover:text-red-700 transition-colors duration-300 cursor-pointer">
+                <a href={`/OWASPTop10TheGame/${lang}`} class="hover:text-red-700 transition-colors duration-300 cursor-pointer">
                     <h1 class="text-lg sm:text-xl md:text-2xl font-black tracking-tighter">
                         <span set:html={getTranslationKey(translations, 'header.title')}></span> 
                         <span class="text-xs sm:text-sm" set:html={getTranslationKey(translations, 'header.subtitle')}></span>
