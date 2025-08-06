@@ -224,7 +224,11 @@ const { translations, lang } = Astro.props;
                     const shareUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
                     
                     // Copiar al portapapeles
-                    await navigator.clipboard.writeText(shareUrl);
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        await navigator.clipboard.writeText(shareUrl);
+                    } else {
+                        throw new Error('Clipboard API not available');
+                    }
                     
                     // Mostrar notificación temporal
                     const originalText = shareButton.innerHTML;
@@ -250,27 +254,63 @@ const { translations, lang } = Astro.props;
                 } catch (error) {
                     console.error('Error al copiar URL:', error);
                     // Fallback para navegadores que no soportan clipboard API
-                    const currentUpToState = (window as any).currentUpToState ?? 5;
-                    const currentOwaspState = (window as any).currentOwaspState || '';
-                    const baseUrl = window.location.origin + window.location.pathname;
-                    const params = new URLSearchParams();
-                    
-                    if (currentUpToState !== 5) {
-                        params.set('upto', currentUpToState.toString());
+                    try {
+                        const currentUpToState = (window as any).currentUpToState ?? 5;
+                        const currentOwaspState = (window as any).currentOwaspState || '';
+                        const baseUrl = window.location.origin + window.location.pathname;
+                        const params = new URLSearchParams();
+                        
+                        if (currentUpToState !== 5) {
+                            params.set('upto', currentUpToState.toString());
+                        }
+                        
+                        if (currentOwaspState) {
+                            params.set('owasp', currentOwaspState);
+                        }
+                        
+                        const shareUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+                        
+                        // Método alternativo usando execCommand
+                        const textArea = document.createElement('textarea');
+                        textArea.value = shareUrl;
+                        textArea.style.position = 'fixed';
+                        textArea.style.left = '-999999px';
+                        textArea.style.top = '-999999px';
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        
+                        const successful = document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        
+                        if (successful) {
+                            // Mostrar notificación de éxito
+                            const originalText = shareButton.innerHTML;
+                            const isEnglish = window.location.pathname.includes('/en/');
+                            const copiedText = isEnglish ? 'Copied!' : '¡Copiado!';
+                            shareButton.innerHTML = `
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>${copiedText}</span>
+                            `;
+                            shareButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+                            shareButton.classList.add('bg-green-500');
+                            
+                            setTimeout(() => {
+                                shareButton.innerHTML = originalText;
+                                shareButton.classList.remove('bg-green-500');
+                                shareButton.classList.add('bg-green-600', 'hover:bg-green-700');
+                            }, 2000);
+                        } else {
+                            // Si falla, mostrar la URL en un alert
+                            alert(`URL para compartir: ${shareUrl}`);
+                        }
+                    } catch (fallbackError) {
+                        console.error('Error en fallback:', fallbackError);
+                        // Último recurso: mostrar la URL
+                        alert(`URL para compartir: ${shareUrl}`);
                     }
-                    
-                    if (currentOwaspState) {
-                        params.set('owasp', currentOwaspState);
-                    }
-                    
-                    const shareUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
-                    
-                    const textArea = document.createElement('textarea');
-                    textArea.value = shareUrl;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
                 }
             });
         }
