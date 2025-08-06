@@ -420,6 +420,74 @@ const characters = [
 
   // Array para el estado de las fichas azules (0 = arriba, 1 = abajo)
   let blueTokensState = [0, 0, 0, 0, 0]; // Inicialmente todas arriba
+    
+    // Variables para guardar el estado actual
+    let currentUpToState = 0;
+    let currentOwaspState = '';
+    
+    // Exponer variables globalmente para el botón de compartir
+    if (typeof window !== 'undefined') {
+      window.currentUpToState = currentUpToState;
+      window.currentOwaspState = currentOwaspState;
+    }
+    
+    // Función para actualizar el estado de upTo basado en las fichas azules
+    function updateUpToState() {
+      let upTo = 0;
+      for (let i = 0; i < blueTokensState.length; i++) {
+        if (blueTokensState[i] === 0) { // Si está arriba
+          upTo = i + 1;
+        } else {
+          break; // Si encuentra una ficha abajo, para de contar
+        }
+      }
+      currentUpToState = upTo;
+      console.log('Estado upTo actualizado:', currentUpToState);
+      
+      // Actualizar variable global
+      if (typeof window !== 'undefined') {
+        window.currentUpToState = currentUpToState;
+      }
+    }
+    
+    // Función para actualizar el estado de owasp basado en las fichas posicionadas
+    function updateOwaspState() {
+      const positionedTokens = [];
+      const redTokens = document.querySelectorAll('[data-token-type="red"]');
+      const greenTokens = document.querySelectorAll('[data-token-type="green"]');
+      const threatCircles = document.querySelectorAll('a[href*="qr.me-qr.com"]');
+      
+      // Verificar qué fichas están posicionadas en círculos
+      [...redTokens, ...greenTokens].forEach((token) => {
+        const tokenRect = token.getBoundingClientRect();
+        const tokenCenterX = tokenRect.left + tokenRect.width / 2;
+        const tokenCenterY = tokenRect.top + tokenRect.height / 2;
+        
+        threatCircles.forEach((circle, circleIndex) => {
+          const circleRect = circle.getBoundingClientRect();
+          const circleCenterX = circleRect.left + circleRect.width / 2;
+          const circleCenterY = circleRect.top + circleRect.height / 2;
+          
+          const distance = Math.sqrt(
+            Math.pow(tokenCenterX - circleCenterX, 2) + 
+            Math.pow(tokenCenterY - circleCenterY, 2)
+          );
+          
+          if (distance <= circleRect.width / 2) {
+            const tokenType = token.getAttribute('data-token-type') === 'red' ? 'r' : 'g';
+            positionedTokens.push(`${circleIndex + 1}${tokenType}`);
+          }
+        });
+      });
+      
+      currentOwaspState = positionedTokens.join(',');
+      console.log('Estado owasp actualizado:', currentOwaspState);
+      
+      // Actualizar variable global
+      if (typeof window !== 'undefined') {
+        window.currentOwaspState = currentOwaspState;
+      }
+    }
 
   // Función para obtener el parámetro upto de la URL
   // Ejemplos de uso:
@@ -732,6 +800,9 @@ const characters = [
     
     token.style.transition = 'bottom 0.3s ease';
     console.log('Nuevo estado del array:', blueTokensState);
+    
+    // Actualizar estado de upTo
+    updateUpToState();
   }
 
   // Inicializar
@@ -797,11 +868,13 @@ const characters = [
       // Pequeño delay para asegurar que los elementos estén completamente renderizados
       setTimeout(() => {
         initializeBlueTokensState();
+        updateUpToState(); // Actualizar el estado de upTo después de inicializar
       }, 100);
     } else {
       console.log('Algunos elementos no encontrados, reintentando en 500ms...');
       setTimeout(() => {
         initializeBlueTokensState();
+        updateUpToState(); // Actualizar el estado de upTo después de inicializar
       }, 500);
     }
 
@@ -894,10 +967,13 @@ const characters = [
           token.dataset.finalX = finalX;
           token.dataset.finalY = finalY;
           
-          console.log(`Ficha ${position.tokenType} colocada en círculo ${position.circleIndex}`);
+                    console.log(`Ficha ${position.tokenType} colocada en círculo ${position.circleIndex}`);
         }
-    });
-  }
+      });
+      
+      // Actualizar estado de owasp después del posicionamiento inicial
+      updateOwaspState();
+    }
 
   let isDragging = false;
   let currentToken = null;
@@ -998,6 +1074,9 @@ const characters = [
           currentToken.dataset.finalY = finalY;
           
           console.log('Ficha centrada en círculo de amenaza');
+          
+          // Actualizar estado de owasp
+          updateOwaspState();
         } else {
           // Si no está en ningún círculo, mantener posición normal
           const finalX = event.clientX - offsetX;
@@ -1011,6 +1090,9 @@ const characters = [
           currentToken.dataset.finalY = finalY;
           
           console.log('Finalizando drag de ficha OWASP con mouse en posición:', finalX, finalY);
+          
+          // Actualizar estado de owasp
+          updateOwaspState();
         }
     
     // Resetear variables

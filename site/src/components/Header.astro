@@ -32,9 +32,16 @@ const { translations, lang } = Astro.props;
                 <a href="#team-building" class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.team_building')}></a>
             </nav>
 
-            <!-- Selector de idioma y menú móvil -->
+            <!-- Selector de idioma, botón compartir y menú móvil -->
             <div class="flex items-center space-x-4">
                 <LanguageSelector lang={lang} />
+                
+                <!-- Botón compartir -->
+                <button id="share-button" class="p-2 rounded-md hover:bg-gray-100 transition-colors duration-200" title="Compartir">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                    </svg>
+                </button>
                 
                 <!-- Botón menú móvil -->
                 <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors duration-200">
@@ -62,6 +69,7 @@ const { translations, lang } = Astro.props;
     document.addEventListener('DOMContentLoaded', () => {
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const shareButton = document.getElementById('share-button');
 
         if (mobileMenuButton && mobileMenu) {
             mobileMenuButton.addEventListener('click', () => {
@@ -79,6 +87,56 @@ const { translations, lang } = Astro.props;
             // Cerrar menú al hacer scroll
             window.addEventListener('scroll', () => {
                 mobileMenu.classList.add('hidden');
+            });
+        }
+
+        // Funcionalidad del botón compartir
+        if (shareButton) {
+            shareButton.addEventListener('click', () => {
+                // Obtener el estado actual de upTo y owasp desde las variables globales
+                const currentUpTo = window.currentUpToState || 0;
+                const currentOwasp = window.currentOwaspState || '';
+                
+                // Construir la URL base
+                const baseUrl = window.location.origin + window.location.pathname;
+                const params = new URLSearchParams();
+                
+                // Agregar parámetros si existen
+                if (currentUpTo > 0) {
+                    params.set('upto', currentUpTo.toString());
+                }
+                if (currentOwasp) {
+                    params.set('owasp', currentOwasp);
+                }
+                
+                // Construir la URL final
+                const shareUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+                
+                console.log('URL generada para compartir:', shareUrl);
+                console.log('Estado actual - upTo:', currentUpTo, 'owasp:', currentOwasp);
+                
+                // Intentar usar la Web Share API si está disponible
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'OWASP Top 10 The Game',
+                        url: shareUrl
+                    }).catch(console.error);
+                } else {
+                    // Fallback: copiar al portapapeles
+                    navigator.clipboard.writeText(shareUrl).then(() => {
+                        // Mostrar feedback visual
+                        const originalTitle = shareButton.getAttribute('title');
+                        if (originalTitle) {
+                            shareButton.setAttribute('title', '¡URL copiada!');
+                            shareButton.classList.add('bg-green-100');
+                            
+                            setTimeout(() => {
+                                shareButton.setAttribute('title', originalTitle);
+                                shareButton.classList.remove('bg-green-100');
+                            }, 2000);
+                        }
+                    }).catch(console.error);
+                }
             });
         }
     });

@@ -166,7 +166,9 @@ export const translations = {
       yourCharacter: "Tu Personaje",
       trustIndicator: "Marcador de Confianza",
       systemMap: "Mapa de Sistema",
-      notImplemented: "No implementado por el momento"
+      owaspTokens: "Fichas OWASP",
+      notImplemented: "No implementado por el momento",
+      share: "Compartir"
     },
     rules: {
       title: "Reglamento Completo",
@@ -618,7 +620,9 @@ export const translations = {
       yourCharacter: "Your Character",
       trustIndicator: "Trust Indicator",
       systemMap: "System Map",
-      notImplemented: "Not implemented yet"
+      owaspTokens: "OWASP Tokens",
+      notImplemented: "Not implemented yet",
+      share: "Share"
     },
     rules: {
       title: "Complete Rulebook",

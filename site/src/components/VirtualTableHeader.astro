@@ -35,8 +35,16 @@ const { translations, lang } = Astro.props;
                 </button>
             </nav>
 
-            <!-- Selector de idioma y botón menú móvil -->
+            <!-- Selector de idioma, botón compartir y botón menú móvil -->
             <div class="flex items-center space-x-4">
+                <!-- Botón compartir -->
+                <button id="share-button" class="flex items-center space-x-2 px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors duration-200 font-medium">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                    </svg>
+                    <span set:html={getTranslationKey(translations, 'virtualTable.share')}></span>
+                </button>
+
                 <!-- Selector de idioma -->
                 <div class="lang-selector">
                     <a href="/OWASPTop10TheGame/es/virtual-table" class={lang === 'es' ? 'active' : ''} data-lang="es">ES</a>
@@ -191,5 +199,80 @@ const { translations, lang } = Astro.props;
 
         // Inicializar con Tu Personaje activo
         switchToYourCharacter();
+
+        // Funcionalidad del botón compartir
+        const shareButton = document.getElementById('share-button');
+        if (shareButton) {
+            shareButton.addEventListener('click', async () => {
+                try {
+                    // Obtener el estado actual de las fichas azules
+                    const currentUpToState = (window as any).currentUpToState ?? 5;
+                    const currentOwaspState = (window as any).currentOwaspState || '';
+                    
+                    // Construir la URL con los parámetros
+                    const baseUrl = window.location.origin + window.location.pathname;
+                    const params = new URLSearchParams();
+                    
+                    if (currentUpToState !== 5) {
+                        params.set('upto', currentUpToState.toString());
+                    }
+                    
+                    if (currentOwaspState) {
+                        params.set('owasp', currentOwaspState);
+                    }
+                    
+                    const shareUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+                    
+                    // Copiar al portapapeles
+                    await navigator.clipboard.writeText(shareUrl);
+                    
+                    // Mostrar notificación temporal
+                    const originalText = shareButton.innerHTML;
+                    const isEnglish = window.location.pathname.includes('/en/');
+                    const copiedText = isEnglish ? 'Copied!' : '¡Copiado!';
+                    shareButton.innerHTML = `
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>${copiedText}</span>
+                    `;
+                    shareButton.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    shareButton.classList.add('bg-green-500');
+                    
+                    // Restaurar después de 2 segundos
+                    setTimeout(() => {
+                        shareButton.innerHTML = originalText;
+                        shareButton.classList.remove('bg-green-500');
+                        shareButton.classList.add('bg-green-600', 'hover:bg-green-700');
+                    }, 2000);
+                    
+                    console.log('URL compartida:', shareUrl);
+                } catch (error) {
+                    console.error('Error al copiar URL:', error);
+                    // Fallback para navegadores que no soportan clipboard API
+                    const currentUpToState = (window as any).currentUpToState ?? 5;
+                    const currentOwaspState = (window as any).currentOwaspState || '';
+                    const baseUrl = window.location.origin + window.location.pathname;
+                    const params = new URLSearchParams();
+                    
+                    if (currentUpToState !== 5) {
+                        params.set('upto', currentUpToState.toString());
+                    }
+                    
+                    if (currentOwaspState) {
+                        params.set('owasp', currentOwaspState);
+                    }
+                    
+                    const shareUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+                    
+                    const textArea = document.createElement('textarea');
+                    textArea.value = shareUrl;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                }
+            });
+        }
     });
 </script> 
