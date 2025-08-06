@@ -13,6 +13,10 @@ import threatHunterImage from '../assets/images/threat_hunter.png';
 import hacktivistImage from '../assets/images/hacktivist.png';
 import malwareAnalystImage from '../assets/images/malware_analyst.png';
 import incidentResponderImage from '../assets/images/incident-responder.png';
+import map1Image from '../assets/images/map-1.png';
+import mapConfig from '../assets/map-config.json';
+import owaspGreenImage from '../assets/images/owasp-green-token.png';
+import owaspRedImage from '../assets/images/owasp-red-token.png';
 
 interface Props {
   lang: Language;
@@ -106,10 +110,212 @@ const characters = [
 
   <!-- Versión desktop/tablet -->
   <div class="hidden md:block">
-    <div class="flex items-center justify-center min-h-screen">
-      <div class="text-center p-4">
-        <h1 class="text-3xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'virtualTable.title')}></h1>
-        <p class="text-xl" set:html={getTranslationKey(translations, 'virtualTable.notImplemented')}></p>
+    <div class="flex flex-col items-center justify-center min-h-screen p-4 pt-20">
+            <!-- Grid Layout: 1 fila, 2 columnas -->
+      <div class="w-full max-w-7xl">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Columna 1: Mapa de Sistema (más ancha) -->
+          <div class="flex flex-col lg:col-span-2 space-y-6">
+            <!-- Fila 1: Mapa de Sistema -->
+            <div>
+              <!-- Título Mapa de Sistema -->
+              <div class="mb-4 text-left">
+                <h4 class="text-xl lg:text-2xl font-bold mb-3 text-white" set:html={getTranslationKey(translations, 'virtualTable.systemMap')}></h4>
+                <div class="w-20 h-1 bg-red-600 mr-auto mb-3"></div>
+              </div>
+              
+                            <!-- Mapa de Sistema -->
+              <div class="w-full">
+                <div class="bg-white p-1 lg:p-2 rounded-md border border-gray-300 shadow-sm w-full">
+                  <div class="w-full h-auto rounded-sm overflow-hidden relative">
+                    <img 
+                      src={mapConfig.mapImage.url} 
+                      alt={mapConfig.mapImage.alt}
+                      class="w-full h-auto object-contain"
+                    />
+                    <!-- Círculos de Amenazas - Carga Dinámica de Todos los Niveles -->
+                    {Object.entries(mapConfig.mapSettings).flatMap(([levelKey, levelData]) => 
+                      Object.entries(levelData).map(([amenazaKey, amenazaData]) => (
+                        <a 
+                          href={amenazaData.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="absolute rounded-full cursor-pointer hover:bg-white hover:bg-opacity-20 transition-all duration-200"
+                          style={`
+                            left: ${(amenazaData.circle.x / 1969) * 100}%;
+                            top: ${(amenazaData.circle.y / 1113) * 100}%;
+                            transform: translate(-50%, -50%);
+                            width: ${amenazaData.circle.radius * 2}px;
+                            height: ${amenazaData.circle.radius * 2}px;
+                          `}
+                        ></a>
+                      ))
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Fila 2: Fichas OWASP -->
+            <div>
+              <!-- Título Fichas OWASP -->
+              <div class="mb-4 text-left">
+                <h4 class="text-lg lg:text-xl font-bold mb-3 text-white" set:html={getTranslationKey(translations, 'virtualTable.owaspTokens')}></h4>
+                <div class="w-16 h-1 bg-red-600 mr-auto mb-3"></div>
+              </div>
+              
+              <!-- Fichas OWASP -->
+              <div class="flex justify-between w-full min-h-[3.5rem] lg:min-h-[4.5rem] items-center">
+                <!-- Fichas Rojas -->
+                <div class="cursor-move" data-token-type="red" data-token-id="1">
+                  <Image 
+                    src={owaspRedImage} 
+                    alt="Ficha OWASP Roja 1"
+                    class="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full border-2 border-white shadow-xl"
+                    style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);"
+                  />
+                </div>
+                <div class="cursor-move" data-token-type="red" data-token-id="2">
+                  <Image 
+                    src={owaspRedImage} 
+                    alt="Ficha OWASP Roja 2"
+                    class="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full border-2 border-white shadow-xl"
+                    style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);"
+                  />
+                </div>
+                <div class="cursor-move" data-token-type="red" data-token-id="3">
+                  <Image 
+                    src={owaspRedImage} 
+                    alt="Ficha OWASP Roja 3"
+                    class="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full border-2 border-white shadow-xl"
+                    style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);"
+                  />
+                </div>
+                <div class="cursor-move" data-token-type="red" data-token-id="4">
+                  <Image 
+                    src={owaspRedImage} 
+                    alt="Ficha OWASP Roja 4"
+                    class="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full border-2 border-white shadow-xl"
+                    style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);"
+                  />
+                </div>
+                <div class="cursor-move" data-token-type="red" data-token-id="5">
+                  <Image 
+                    src={owaspRedImage} 
+                    alt="Ficha OWASP Roja 5"
+                    class="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full border-2 border-white shadow-xl"
+                    style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);"
+                  />
+                </div>
+                
+                <!-- Fichas Verdes -->
+                <div class="cursor-move" data-token-type="green" data-token-id="1">
+                  <Image 
+                    src={owaspGreenImage} 
+                    alt="Ficha OWASP Verde 1"
+                    class="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full border-2 border-white shadow-xl"
+                    style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);"
+                  />
+                </div>
+                <div class="cursor-move" data-token-type="green" data-token-id="2">
+                  <Image 
+                    src={owaspGreenImage} 
+                    alt="Ficha OWASP Verde 2"
+                    class="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full border-2 border-white shadow-xl"
+                    style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);"
+                  />
+                </div>
+                <div class="cursor-move" data-token-type="green" data-token-id="3">
+                  <Image 
+                    src={owaspGreenImage} 
+                    alt="Ficha OWASP Verde 3"
+                    class="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full border-2 border-white shadow-xl"
+                    style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);"
+                  />
+                </div>
+                <div class="cursor-move" data-token-type="green" data-token-id="4">
+                  <Image 
+                    src={owaspGreenImage} 
+                    alt="Ficha OWASP Verde 4"
+                    class="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full border-2 border-white shadow-xl"
+                    style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);"
+                  />
+                </div>
+                <div class="cursor-move" data-token-type="green" data-token-id="5">
+                  <Image 
+                    src={owaspGreenImage} 
+                    alt="Ficha OWASP Verde 5"
+                    class="w-12 h-12 lg:w-16 lg:h-16 object-cover rounded-full border-2 border-white shadow-xl"
+                    style="box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Columna 2: Tu Personaje y Trust Indicator -->
+          <div class="flex flex-col space-y-8">
+            <!-- Fila 1: Tu Personaje -->
+            <div>
+              <!-- Título Tu Personaje -->
+              <div class="mb-4 text-right">
+                <h4 class="text-xl lg:text-2xl font-bold mb-3 text-white" set:html={getTranslationKey(translations, 'virtualTable.yourCharacter')}></h4>
+                <div class="w-20 h-1 bg-red-600 ml-auto mb-3"></div>
+              </div>
+              
+              <!-- Visor de Cartas de Personaje -->
+              <div class="flex justify-end">
+                <div class="bg-white p-3 lg:p-4 rounded-lg border-2 border-black shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300">
+                  <div class="card-gallery w-32 lg:w-40 xl:w-48">
+                    <Image
+                      id="character-image-desktop"
+                      src={pentesterImage}
+                      alt="Character"
+                      class="w-full h-full object-cover rounded-md transition-opacity duration-500 transition-transform duration-300"
+                    />
+                  </div>
+                  <p id="character-name-desktop" class="text-gray-800 text-sm lg:text-base xl:text-lg mt-3 font-bold text-center" set:html={getTranslationKey(translations, 'characters.pentester.name')}></p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Fila 2: Trust Indicator -->
+            <div>
+              <!-- Título Marcador de Confianza -->
+              <div id="trust-indicator-section" class="mb-4 text-right">
+                <h4 class="text-xl lg:text-2xl font-bold mb-3 text-white" set:html={getTranslationKey(translations, 'virtualTable.trustIndicator')}></h4>
+                <div class="w-20 h-1 bg-red-600 ml-auto mb-3"></div>
+              </div>
+              
+              <!-- Trust Indicator -->
+              <div class="flex justify-end">
+                <div class="relative">
+                  <Image 
+                    src={trustIndicatorImage} 
+                    alt="Trust Indicator"
+                    class="w-64 lg:w-72 xl:w-80 h-auto"
+                  />
+                  <!-- Fichas azules con posicionamiento absoluto -->
+                                                          <div id="blue-token-1-desktop" class="absolute" style="bottom: 65px; left: 10.5%;">
+                      <Image src={teamBlueImage} alt="Ficha Team Blue 1" class="w-8 h-8 lg:w-9 lg:h-9 xl:w-11 xl:h-11 object-cover rounded-full border-2 border-white shadow-sm cursor-move draggable bg-white" style="box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 1px rgba(0,0,0,0.2);" />
+                    </div>
+                    <div id="blue-token-2-desktop" class="absolute" style="bottom: 55px; left: 27%">
+                      <Image src={teamBlueImage} alt="Ficha Team Blue 2" class="w-8 h-8 lg:w-9 lg:h-9 xl:w-11 xl:h-11 object-cover rounded-full border-2 border-white shadow-sm cursor-move draggable bg-white" style="box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 1px rgba(0,0,0,0.2);" />
+                    </div>
+                    <div id="blue-token-3-desktop" class="absolute" style="bottom: 55px; left: 43.5%;">
+                      <Image src={teamBlueImage} alt="Ficha Team Blue 3" class="w-8 h-8 lg:w-9 lg:h-9 xl:w-11 xl:h-11 object-cover rounded-full border-2 border-white shadow-sm cursor-move draggable bg-white" style="box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 1px rgba(0,0,0,0.2);" />
+                    </div>
+                    <div id="blue-token-4-desktop" class="absolute" style="bottom: 55px; left: 60.3%;">
+                      <Image src={teamBlueImage} alt="Ficha Team Blue 4" class="w-8 h-8 lg:w-9 lg:h-9 xl:w-11 xl:h-11 object-cover rounded-full border-2 border-white shadow-sm cursor-move draggable bg-white" style="box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 1px rgba(0,0,0,0.2);" />
+                    </div>
+                    <div id="blue-token-5-desktop" class="absolute" style="bottom: 55px; left: 77%;">
+                      <Image src={teamBlueImage} alt="Ficha Team Blue 5" class="w-8 h-8 lg:w-9 lg:h-9 xl:w-11 xl:h-11 object-cover rounded-full border-2 border-white shadow-sm cursor-move draggable bg-white" style="box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 1px rgba(0,0,0,0.2);" />
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -285,12 +491,14 @@ const characters = [
 
   // Función para aplicar las posiciones visuales de las fichas
   function applyBlueTokensPositions() {
-    const basePosition = 68; // Posición base en píxeles
+    const basePositionMobile = 68; // Posición base en píxeles para móvil
+    const basePositionDesktop = 60; // Posición base en píxeles para desktop
     const movePercentage = 0.75; // 75% de la posición actual
     
     console.log('Aplicando posiciones visuales...');
     console.log('Estado actual del array:', blueTokensState);
     
+    // Aplicar a elementos móviles
     for (let i = 1; i <= 5; i++) {
       const token = document.getElementById(`blue-token-${i}`);
       if (token) {
@@ -299,18 +507,42 @@ const characters = [
         
         if (isDown) {
           // Ficha abajo: mover un 75% hacia abajo desde la posición base
-          const moveDistance = basePosition * movePercentage;
-          const newPosition = basePosition - moveDistance;
+          const moveDistance = basePositionMobile * movePercentage;
+          const newPosition = basePositionMobile - moveDistance;
           token.style.bottom = newPosition + 'px';
-          console.log(`Ficha ${i} (abajo): ${newPosition}px`);
+          console.log(`Ficha móvil ${i} (abajo): ${newPosition}px`);
         } else {
           // Ficha arriba: posición base
-          token.style.bottom = basePosition + 'px';
-          console.log(`Ficha ${i} (arriba): ${basePosition}px`);
+          token.style.bottom = basePositionMobile + 'px';
+          console.log(`Ficha móvil ${i} (arriba): ${basePositionMobile}px`);
         }
         token.style.transition = 'bottom 0.3s ease';
       } else {
-        console.log(`ERROR: No se encontró el elemento blue-token-${i}`);
+        console.log(`ERROR: No se encontró el elemento blue-token-${i} (móvil)`);
+      }
+    }
+    
+    // Aplicar a elementos desktop
+    for (let i = 1; i <= 5; i++) {
+      const token = document.getElementById(`blue-token-${i}-desktop`);
+      if (token) {
+        const tokenIndex = i - 1;
+        const isDown = blueTokensState[tokenIndex] === 1;
+        
+        if (isDown) {
+          // Ficha abajo: mover un 75% hacia abajo desde la posición base
+          const moveDistance = basePositionDesktop * movePercentage;
+          const newPosition = basePositionDesktop - moveDistance;
+          token.style.bottom = newPosition + 'px';
+          console.log(`Ficha desktop ${i} (abajo): ${newPosition}px`);
+        } else {
+          // Ficha arriba: posición base
+          token.style.bottom = basePositionDesktop + 'px';
+          console.log(`Ficha desktop ${i} (arriba): ${basePositionDesktop}px`);
+        }
+        token.style.transition = 'bottom 0.3s ease';
+      } else {
+        console.log(`ERROR: No se encontró el elemento blue-token-${i}-desktop`);
       }
     }
     console.log('Posiciones aplicadas correctamente');
@@ -320,20 +552,35 @@ const characters = [
     const characterKey = characterOrder[currentCharacterIndex];
     const character = characterData[characterKey];
     
+    // Elementos móviles
     const imageElement = document.getElementById('character-image');
     const nameElement = document.getElementById('character-name');
     
+    // Elementos desktop
+    const imageElementDesktop = document.getElementById('character-image-desktop');
+    const nameElementDesktop = document.getElementById('character-name-desktop');
+    
+    // Actualizar elementos móviles
     if (imageElement && nameElement) {
-      // Cambiar imagen con transición suave
       imageElement.style.opacity = '0.7';
       
       setTimeout(() => {
         imageElement.src = character.image;
         imageElement.alt = character.name;
         imageElement.style.opacity = '1';
-        
-        // Actualizar texto
         nameElement.innerHTML = character.name;
+      }, 100);
+    }
+    
+    // Actualizar elementos desktop
+    if (imageElementDesktop && nameElementDesktop) {
+      imageElementDesktop.style.opacity = '0.7';
+      
+      setTimeout(() => {
+        imageElementDesktop.src = character.image;
+        imageElementDesktop.alt = character.name;
+        imageElementDesktop.style.opacity = '1';
+        nameElementDesktop.innerHTML = character.name;
       }, 100);
     }
   }
@@ -360,6 +607,10 @@ const characters = [
   }
 
   function handleCharacterClick() {
+    nextCharacter();
+  }
+
+  function handleCharacterClickDesktop() {
     nextCharacter();
   }
 
@@ -397,7 +648,7 @@ const characters = [
     return false;
   }
 
-  // Función para manejar el clic en las fichas azules
+  // Función para manejar el clic en las fichas azules (móvil)
   function handleBlueTokenClick(event) {
     const token = event.currentTarget;
     const tokenId = token.id;
@@ -406,7 +657,7 @@ const characters = [
     const currentBottom = parseInt(token.style.bottom) || 68;
     const movePercentage = 0.75; // 75% de la posición actual
     
-    console.log('Ficha clickeada:', tokenId);
+    console.log('Ficha clickeada (móvil):', tokenId);
     console.log('Índice en array:', tokenIndex);
     console.log('Estado actual:', isDown ? 'abajo' : 'arriba');
     console.log('Array completo:', blueTokensState);
@@ -440,40 +691,109 @@ const characters = [
     console.log('Nuevo estado del array:', blueTokensState);
   }
 
+  // Función para manejar el clic en las fichas azules (desktop)
+  function handleBlueTokenClickDesktop(event) {
+    const token = event.currentTarget;
+    const tokenId = token.id;
+    const tokenIndex = parseInt(tokenId.split('-')[2]) - 1; // blue-token-1-desktop -> índice 0
+    const isDown = blueTokensState[tokenIndex] === 1;
+    const currentBottom = parseInt(token.style.bottom) || 50;
+    const movePercentage = 0.75; // 75% de la posición actual
+    
+    console.log('Ficha clickeada (desktop):', tokenId);
+    console.log('Índice en array:', tokenIndex);
+    console.log('Estado actual:', isDown ? 'abajo' : 'arriba');
+    console.log('Array completo:', blueTokensState);
+    console.log('Posición actual:', currentBottom);
+    console.log('Porcentaje de movimiento:', movePercentage);
+    
+    // Verificar si la ficha puede moverse
+    const canMove = canTokenMove(tokenIndex);
+    console.log('¿Puede moverse?', canMove);
+    
+    if (!canMove) {
+      console.log('Movimiento bloqueado por restricción');
+      return;
+    }
+    
+    if (isDown) {
+      // Si está abajo, subir a posición base
+      token.style.bottom = '60px';
+      blueTokensState[tokenIndex] = 0;
+      console.log('Subiendo ficha a posición inicial');
+    } else {
+      // Si está arriba, bajar un 75% de la posición actual
+      const moveDistance = currentBottom * movePercentage;
+      const newBottom = currentBottom - moveDistance;
+      token.style.bottom = newBottom + 'px';
+      blueTokensState[tokenIndex] = 1;
+      console.log('Bajando ficha un 75% a:', newBottom);
+    }
+    
+    token.style.transition = 'bottom 0.3s ease';
+    console.log('Nuevo estado del array:', blueTokensState);
+  }
+
   // Inicializar
   document.addEventListener('DOMContentLoaded', () => {
+    // Event listeners para elementos móviles
     const characterImage = document.getElementById('character-image');
     if (characterImage) {
       characterImage.addEventListener('click', handleCharacterClick);
       characterImage.style.cursor = 'pointer';
     }
 
-    // Agregar event listeners a las fichas azules específicas
+    // Event listeners para elementos desktop
+    const characterImageDesktop = document.getElementById('character-image-desktop');
+    if (characterImageDesktop) {
+      characterImageDesktop.addEventListener('click', handleCharacterClickDesktop);
+      characterImageDesktop.style.cursor = 'pointer';
+    }
+
+    // Agregar event listeners a las fichas azules móviles
     for (let i = 1; i <= 5; i++) {
       const tokenContainer = document.getElementById(`blue-token-${i}`);
       if (tokenContainer) {
-        // El estado se maneja en el array blueTokensState
         tokenContainer.addEventListener('click', handleBlueTokenClick);
         tokenContainer.style.cursor = 'pointer';
-        console.log(`Event listener agregado a ficha ${i}:`, tokenContainer);
+        console.log(`Event listener agregado a ficha móvil ${i}:`, tokenContainer);
+      }
+    }
+
+    // Agregar event listeners a las fichas azules desktop
+    for (let i = 1; i <= 5; i++) {
+      const tokenContainer = document.getElementById(`blue-token-${i}-desktop`);
+      if (tokenContainer) {
+        tokenContainer.addEventListener('click', handleBlueTokenClickDesktop);
+        tokenContainer.style.cursor = 'pointer';
+        console.log(`Event listener agregado a ficha desktop ${i}:`, tokenContainer);
       }
     }
 
     // Inicializar el estado de las fichas azules al cargar la página
     console.log('DOM cargado, inicializando fichas azules...');
     
-    // Verificar que los elementos existen antes de inicializar
-    let allElementsExist = true;
+    // Verificar que al menos algunos elementos existen antes de inicializar
+    let mobileElementsExist = true;
+    let desktopElementsExist = true;
+    
     for (let i = 1; i <= 5; i++) {
-      const token = document.getElementById(`blue-token-${i}`);
-      if (!token) {
-        console.log(`ERROR: Elemento blue-token-${i} no encontrado`);
-        allElementsExist = false;
+      const mobileToken = document.getElementById(`blue-token-${i}`);
+      const desktopToken = document.getElementById(`blue-token-${i}-desktop`);
+      
+      if (!mobileToken) {
+        console.log(`ERROR: Elemento blue-token-${i} (móvil) no encontrado`);
+        mobileElementsExist = false;
+      }
+      
+      if (!desktopToken) {
+        console.log(`ERROR: Elemento blue-token-${i}-desktop no encontrado`);
+        desktopElementsExist = false;
       }
     }
     
-    if (allElementsExist) {
-      console.log('Todos los elementos encontrados, inicializando estado...');
+    if (mobileElementsExist || desktopElementsExist) {
+      console.log('Elementos encontrados, inicializando estado...');
       // Pequeño delay para asegurar que los elementos estén completamente renderizados
       setTimeout(() => {
         initializeBlueTokensState();
@@ -484,5 +804,255 @@ const characters = [
         initializeBlueTokensState();
       }, 500);
     }
+
+    // Inicializar drag and drop para fichas OWASP
+    initializeOWASPTokensDragAndDrop();
   });
+
+  // Función para inicializar drag and drop de fichas OWASP
+  function initializeOWASPTokensDragAndDrop() {
+    const owaspTokens = document.querySelectorAll('[data-token-type]');
+    
+    owaspTokens.forEach((token, index) => {
+      // Hacer las fichas arrastrables
+      token.setAttribute('draggable', 'true');
+      
+      // Asignar un ID único a cada ficha para tracking individual
+      token.dataset.tokenIndex = index;
+      
+      // Event listeners para drag and drop
+      token.addEventListener('dragstart', handleOWASPTokenDragStart);
+      token.addEventListener('dragend', handleOWASPTokenDragEnd);
+      
+      // Event listeners para mouse (alternativa al drag and drop)
+      token.addEventListener('mousedown', handleOWASPTokenMouseDown);
+    });
+
+    // Event listeners globales para el mouse
+    document.addEventListener('mousemove', handleOWASPTokenMouseMove);
+    document.addEventListener('mouseup', handleOWASPTokenMouseUp);
+    
+    // Posicionar fichas iniciales basado en parámetro URL
+    positionInitialOWASPTokens();
+  }
+
+  // Función para posicionar fichas iniciales basado en parámetro URL
+  function positionInitialOWASPTokens() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const owaspParam = urlParams.get('owasp');
+    
+    if (!owaspParam) return; // Si no hay parámetro, mantener posiciones por defecto
+    
+    // Parsear el parámetro owasp (formato: 1r,2g,3r,4g,5r,6g,7r,8g,9r,10g)
+    const positions = owaspParam.split(',').map(pos => {
+      const match = pos.trim().match(/^(\d+)([rg])$/);
+      if (match) {
+        return {
+          circleIndex: parseInt(match[1]),
+          tokenType: match[2] // 'r' para roja, 'g' para verde
+        };
+      }
+      return null;
+    }).filter(pos => pos !== null);
+    
+    // Obtener todos los círculos de amenazas
+    const threatCircles = document.querySelectorAll('a[href*="qr.me-qr.com"]');
+    
+    // Obtener fichas por tipo
+    const redTokens = document.querySelectorAll('[data-token-type="red"]');
+    const greenTokens = document.querySelectorAll('[data-token-type="green"]');
+    
+    let redTokenIndex = 0;
+    let greenTokenIndex = 0;
+    
+    positions.forEach((position, index) => {
+      const circle = threatCircles[position.circleIndex - 1]; // Los índices empiezan en 1
+      if (!circle) return;
+      
+      let token;
+      if (position.tokenType === 'r' && redTokenIndex < redTokens.length) {
+        token = redTokens[redTokenIndex];
+        redTokenIndex++;
+      } else if (position.tokenType === 'g' && greenTokenIndex < greenTokens.length) {
+        token = greenTokens[greenTokenIndex];
+        greenTokenIndex++;
+      }
+      
+              if (token && circle) {
+          // Centrar la ficha en el círculo
+          const circleRect = circle.getBoundingClientRect();
+          const circleCenterX = circleRect.left + circleRect.width / 2;
+          const circleCenterY = circleRect.top + circleRect.height / 2;
+          
+          const finalX = circleCenterX - token.offsetWidth / 2;
+          const finalY = circleCenterY - token.offsetHeight / 2;
+          
+          token.style.position = 'absolute';
+          token.style.left = finalX + 'px';
+          token.style.top = finalY + 'px';
+          token.style.zIndex = '40';
+          token.dataset.finalX = finalX;
+          token.dataset.finalY = finalY;
+          
+          console.log(`Ficha ${position.tokenType} colocada en círculo ${position.circleIndex}`);
+        }
+    });
+  }
+
+  let isDragging = false;
+  let currentToken = null;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  // Función para manejar el inicio del drag con mouse
+  function handleOWASPTokenMouseDown(event) {
+    const token = event.currentTarget;
+    
+    // Configurar el drag
+    isDragging = true;
+    currentToken = token;
+    
+    // Calcular offset del mouse respecto al elemento
+    const rect = token.getBoundingClientRect();
+    offsetX = event.clientX - rect.left;
+    offsetY = event.clientY - rect.top;
+    
+            // Hacer el token flotante solo para esta ficha específica
+        token.style.position = 'fixed';
+        token.style.zIndex = '40';
+        token.style.pointerEvents = 'none';
+    
+    // Efecto visual solo para esta ficha
+    token.style.opacity = '0.8';
+    token.style.transform = 'scale(1.1)';
+    
+    event.preventDefault();
+    console.log('Iniciando drag de ficha OWASP con mouse - Token ID:', token.dataset.tokenIndex);
+  }
+
+  // Función para manejar el movimiento del mouse
+  function handleOWASPTokenMouseMove(event) {
+    if (!isDragging || !currentToken) return;
+    
+    // Mover el token con el mouse
+    const x = event.clientX - offsetX;
+    const y = event.clientY - offsetY;
+    
+    currentToken.style.left = x + 'px';
+    currentToken.style.top = y + 'px';
+  }
+
+  // Función para manejar el fin del drag con mouse
+  function handleOWASPTokenMouseUp(event) {
+    if (!isDragging || !currentToken) return;
+    
+    // Restaurar apariencia
+    currentToken.style.opacity = '1';
+    currentToken.style.transform = 'scale(1)';
+    currentToken.style.pointerEvents = 'auto';
+    
+    // Verificar si la ficha está dentro de algún círculo
+    const tokenRect = currentToken.getBoundingClientRect();
+    const tokenCenterX = tokenRect.left + tokenRect.width / 2;
+    const tokenCenterY = tokenRect.top + tokenRect.height / 2;
+    
+    // Buscar todos los círculos de amenazas
+    const threatCircles = document.querySelectorAll('a[href*="qr.me-qr.com"]');
+    let closestCircle = null;
+    let minDistance = Infinity;
+    
+    threatCircles.forEach(circle => {
+      const circleRect = circle.getBoundingClientRect();
+      const circleCenterX = circleRect.left + circleRect.width / 2;
+      const circleCenterY = circleRect.top + circleRect.height / 2;
+      
+      const distance = Math.sqrt(
+        Math.pow(tokenCenterX - circleCenterX, 2) + 
+        Math.pow(tokenCenterY - circleCenterY, 2)
+      );
+      
+      // Si la ficha está dentro del radio del círculo
+      if (distance <= circleRect.width / 2) {
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestCircle = circle;
+        }
+      }
+    });
+    
+            // Si encontró un círculo cercano, centrar la ficha
+        if (closestCircle) {
+          const circleRect = closestCircle.getBoundingClientRect();
+          const circleCenterX = circleRect.left + circleRect.width / 2;
+          const circleCenterY = circleRect.top + circleRect.height / 2;
+          
+          // Centrar la ficha en el círculo
+          const finalX = circleCenterX - currentToken.offsetWidth / 2;
+          const finalY = circleCenterY - currentToken.offsetHeight / 2;
+          
+          currentToken.style.position = 'absolute';
+          currentToken.style.left = finalX + 'px';
+          currentToken.style.top = finalY + 'px';
+          currentToken.style.zIndex = '40';
+          currentToken.dataset.finalX = finalX;
+          currentToken.dataset.finalY = finalY;
+          
+          console.log('Ficha centrada en círculo de amenaza');
+        } else {
+          // Si no está en ningún círculo, mantener posición normal
+          const finalX = event.clientX - offsetX;
+          const finalY = event.clientY - offsetY;
+          
+          currentToken.style.position = 'absolute';
+          currentToken.style.left = finalX + 'px';
+          currentToken.style.top = finalY + 'px';
+          currentToken.style.zIndex = '40';
+          currentToken.dataset.finalX = finalX;
+          currentToken.dataset.finalY = finalY;
+          
+          console.log('Finalizando drag de ficha OWASP con mouse en posición:', finalX, finalY);
+        }
+    
+    // Resetear variables
+    isDragging = false;
+    currentToken = null;
+  }
+
+  // Función para manejar el inicio del drag (HTML5 drag and drop)
+  function handleOWASPTokenDragStart(event) {
+    const token = event.target;
+    const tokenType = token.getAttribute('data-token-type');
+    const tokenId = token.getAttribute('data-token-id');
+    
+    // Crear una imagen fantasma personalizada
+    const ghostImage = new Image();
+    ghostImage.src = token.querySelector('img').src;
+    ghostImage.style.width = '48px';
+    ghostImage.style.height = '48px';
+    ghostImage.style.opacity = '0.8';
+    event.dataTransfer.setDragImage(ghostImage, 24, 24);
+    
+    // Guardar datos del token
+    event.dataTransfer.setData('text/plain', JSON.stringify({
+      tokenType: tokenType,
+      tokenId: tokenId
+    }));
+    
+    // Efecto visual
+    token.style.opacity = '0.5';
+    token.style.transform = 'scale(1.1)';
+    
+    console.log('Iniciando drag de ficha OWASP:', tokenType, tokenId);
+  }
+
+  // Función para manejar el fin del drag (HTML5 drag and drop)
+  function handleOWASPTokenDragEnd(event) {
+    const token = event.target;
+    
+    // Restaurar apariencia
+    token.style.opacity = '1';
+    token.style.transform = 'scale(1)';
+    
+    console.log('Finalizando drag de ficha OWASP');
+  }
 </script>

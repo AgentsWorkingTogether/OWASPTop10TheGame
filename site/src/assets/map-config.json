@@ -1,0 +1,105 @@
+{
+  "mapImage": {
+    "url": "/OWASPTop10TheGame/images/map-1.png",
+    "alt": "Mapa de Sistema",
+    "description": "Mapa del sistema para el juego OWASP Top 10"
+  },
+  "mapSettings": {
+    "level1": {
+      "amenaza1": {
+        "url": "https://qr.me-qr.com/DztL6B0c",
+        "circle": {
+          "x": 1125,
+          "y": 275,
+          "radius": 34,
+          "color": "#ff0000"
+        }
+      },
+      "amenaza2": {
+        "url": "https://qr.me-qr.com/fnTM5fnY",
+        "circle": {
+          "x": 1450,
+          "y": 115,
+          "radius": 34,
+          "color": "#00ff00"
+        }
+      },
+      "amenaza3": {
+        "url": "https://qr.me-qr.com/example3",
+        "circle": {
+          "x": 1770,
+          "y": 275,
+          "radius": 34,
+          "color": "#0000ff"
+        }
+      },
+      "amenaza4": {
+        "url": "https://qr.me-qr.com/example4",
+        "circle": {
+          "x": 1770,
+          "y": 740,
+          "radius": 34,
+          "color": "#ffff00"
+        }
+      },
+      "amenaza5": {
+        "url": "https://qr.me-qr.com/example5",
+        "circle": {
+          "x": 1450,
+          "y": 900,
+          "radius": 34,
+          "color": "#ff00ff"
+        }
+      },
+      "amenaza6": {
+        "url": "https://qr.me-qr.com/example5",
+        "circle": {
+          "x": 1125,
+          "y": 740,
+          "radius": 34,
+          "color": "#ff00ff"
+        }
+      }
+    },
+    "level2": {
+      "amenaza7": {
+        "url": "https://qr.me-qr.com/DztL6B0c",
+        "circle": {
+          "x": 118,
+          "y": 503,
+          "radius": 34,
+          "color": "#ff0000"
+        }
+      },
+      "amenaza8": {
+        "url": "https://qr.me-qr.com/fnTM5fnY",
+        "circle": {
+            "x": 468,
+            "y": 503,
+          "radius": 34,
+          "color": "#00ff00"
+        }
+      },
+      "amenaza9": {
+        "url": "https://qr.me-qr.com/example3",
+        "circle": {
+          "x": 815,
+          "y": 503,
+          "radius": 34,
+          "color": "#0000ff"
+        }
+      }
+    },
+    "level3": {
+      "amenaza10": {
+        "url": "https://qr.me-qr.com/DztL6B0c",
+        "circle": {
+            "x": 468,
+          "y": 895,
+          "radius": 34,
+          "color": "#ff0000"
+        }
+      }
+    }
+  }
+}
