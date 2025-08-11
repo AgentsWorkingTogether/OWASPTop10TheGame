@@ -29,6 +29,40 @@ const { translations, lang } = Astro.props;
 
   </div>
 
+  <!-- Player Name Setup Section -->
+  <div id="player-name-setup" class="hidden space-y-8 mt-12">
+    <div class="max-w-md mx-auto card-bg rounded-lg p-6 text-center">
+      <h3 class="text-xl font-bold mb-4 section-title">
+        {getTranslationKey(translations, 'game.player_setup')}
+      </h3>
+      <div class="mb-6">
+        <p class="text-lg font-semibold mb-2">
+          {getTranslationKey(translations, 'game.player_setup_desc')}
+        </p>
+        <p>
+          {getTranslationKey(translations, 'game.player_setup_desc2')}
+        </p>
+      </div>
+
+      <!-- Player Name Input -->
+      <div class="flex flex-col gap-4">
+        <input 
+          type="text" 
+          id="setup-player-name-input"
+          placeholder={getTranslationKey(translations, 'game.enter_name')}
+          class="w-full bg-white/90 border-2 border-black rounded-lg px-4 py-2 placeholder-gray-600 focus:outline-none focus:border-blue-400"
+          style="color: var(--color-text); font-family: 'Special Elite', monospace;"
+        />
+        <button 
+          id="setup-name-btn"
+          class="btn-primary py-3 px-8 text-lg"
+        >
+          {getTranslationKey(translations, 'game.continue')}
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- WebRTC and Player Registration Section -->
   <div id="webrtc-signaling" class="hidden mt-12">
         <div id="webrtc-container" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -143,40 +177,6 @@ const { translations, lang } = Astro.props;
             {getTranslationKey(translations, 'game.start_game')}
           </button>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Player Name Setup Section -->
-  <div id="player-name-setup" class="hidden space-y-8 mt-12">
-    <div class="max-w-md mx-auto card-bg rounded-lg p-6 text-center">
-      <h3 class="text-xl font-bold mb-4 section-title">
-        {getTranslationKey(translations, 'game.player_setup')}
-      </h3>
-      <div class="mb-6">
-        <p class="text-lg font-semibold mb-2">
-          {getTranslationKey(translations, 'game.player_setup_desc')}
-        </p>
-        <p>
-          {getTranslationKey(translations, 'game.player_setup_desc2')}
-        </p>
-      </div>
-
-      <!-- Player Name Input -->
-      <div class="flex flex-col gap-4">
-        <input 
-          type="text" 
-          id="setup-player-name-input"
-          placeholder={getTranslationKey(translations, 'game.enter_name')}
-          class="w-full bg-white/90 border-2 border-black rounded-lg px-4 py-2 placeholder-gray-600 focus:outline-none focus:border-blue-400"
-          style="color: var(--color-text); font-family: 'Special Elite', monospace;"
-        />
-        <button 
-          id="setup-name-btn"
-          class="btn-primary py-3 px-8 text-lg"
-        >
-          {getTranslationKey(translations, 'game.continue')}
-        </button>
       </div>
     </div>
   </div>
@@ -314,35 +314,23 @@ const { translations, lang } = Astro.props;
           </div>
         </div>
         
-        <!-- Bad Players Reveal Section (only visible to creator after game starts) -->
-        <div id="bad-players-reveal-section" class="p-4 bg-red-50 rounded-lg border border-red-300 hidden">
-          <h4 class="text-lg font-semibold text-red-700 mb-3 text-center">
+              <!-- Bad Players Reveal Section (only visible to creator after game starts) -->
+      <div id="bad-players-reveal-section" class="p-4 bg-red-50 rounded-lg border border-red-300 hidden">
+        <h4 class="text-lg font-semibold text-red-700 mb-3 text-center">
+          🕵️ Revelar Jugadores Malos
+        </h4>
+        <div class="text-center space-y-4">
+          <button 
+            id="bad-players-reveal-btn"
+            class="btn-primary bg-red-600 hover:bg-red-700 text-white py-3 px-6 text-lg min-w-[200px]"
+          >
             🕵️ Revelar Jugadores Malos
-          </h4>
-          <div class="text-center space-y-4">
-            <button 
-              id="bad-players-reveal-btn"
-              class="btn-primary bg-red-600 hover:bg-red-700 text-white py-3 px-6 text-lg min-w-[200px]"
-            >
-              🕵️ Revelar Jugadores Malos
-            </button>
-            <p class="text-sm text-red-600">
-              Los jugadores malos verán a otros malos marcados en rojo durante 10 segundos
-            </p>
-            
-            <div class="border-t border-red-300 pt-4">
-              <button 
-                id="ciso-reveal-btn"
-                class="btn-primary bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 text-lg min-w-[200px]"
-              >
-                🔍 Revelar para CISO
-              </button>
-              <p class="text-sm text-blue-600 mt-2">
-                Solo el CISO verá a los jugadores malos marcados en rojo durante 10 segundos
-              </p>
-            </div>
-          </div>
+          </button>
+          <p class="text-sm text-red-600">
+            Los jugadores malos y el CISO verán a los malos marcados en rojo durante 10 segundos
+          </p>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -407,9 +395,8 @@ const { translations, lang } = Astro.props;
     private setOwaspBtn: HTMLButtonElement | null = null;
     private goodCharactersCount: HTMLElement | null = null;
     private badCharactersCount: HTMLElement | null = null;
-    private badPlayersRevealBtn: HTMLButtonElement | null = null;
-    private cisoRevealBtn: HTMLButtonElement | null = null;
-    private badPlayersRevealSection: HTMLElement | null = null;
+      private badPlayersRevealBtn: HTMLButtonElement | null = null;
+  private badPlayersRevealSection: HTMLElement | null = null;
     private playerName: string = '';
     private playerCharacters: Map<string, string> = new Map(); // playerName -> characterKey
     private players: Map<string, string> = new Map(); // peerId -> playerName
@@ -554,9 +541,8 @@ const { translations, lang } = Astro.props;
         this.playerCharacterElement = document.getElementById('player-character');
         this.goodCharactersCount = document.getElementById('good-characters-count');
         this.badCharactersCount = document.getElementById('bad-characters-count');
-        this.badPlayersRevealBtn = document.getElementById('bad-players-reveal-btn') as HTMLButtonElement;
-        this.cisoRevealBtn = document.getElementById('ciso-reveal-btn') as HTMLButtonElement;
-        this.badPlayersRevealSection = document.getElementById('bad-players-reveal-section');
+            this.badPlayersRevealBtn = document.getElementById('bad-players-reveal-btn') as HTMLButtonElement;
+    this.badPlayersRevealSection = document.getElementById('bad-players-reveal-section');
         this.uptoValueElement = document.getElementById('upto-value');
       this.decreaseUptoBtn = document.getElementById('decrease-upto-btn') as HTMLButtonElement;
       this.increaseUptoBtn = document.getElementById('increase-upto-btn') as HTMLButtonElement;
@@ -599,7 +585,7 @@ const { translations, lang } = Astro.props;
       this.badPlayersRevealBtn?.addEventListener('click', () => this.revealBadPlayers());
       
       // CISO Reveal button event
-      this.cisoRevealBtn?.addEventListener('click', () => this.revealForCISO());
+  
     }
 
     async createGame() {
@@ -915,15 +901,35 @@ const { translations, lang } = Astro.props;
 
       channel.onclose = () => {
         console.log('Data channel closed for peer:', peerId);
-        if (this.connectedPlayers) {
-          this.connectedPlayers.textContent = '0';
+        
+        // Only cleanup if this is a critical connection loss
+        if (this.isCreator && this.dataChannels.size <= 1) {
+          console.log('Critical connection loss - cleaning up');
+          this.cleanup();
+        } else if (!this.isCreator) {
+          // For players, always cleanup on channel close
+          console.log('Player connection lost - cleaning up');
+          this.cleanup();
+        } else {
+          // For creator with multiple peers, just remove this specific channel
+          if (peerId) {
+            console.log('Removing specific peer channel:', peerId);
+            this.dataChannels.delete(peerId);
+            this.peerConnections.delete(peerId);
+          }
+          
+          // Update connected players count
+          if (this.connectedPlayers) {
+            this.connectedPlayers.textContent = Math.max(0, this.dataChannels.size).toString();
+          }
         }
-        // Clean up when channel closes
-        this.cleanup();
       };
 
       channel.onerror = (error) => {
         console.error('Data channel error for peer:', peerId, error);
+        
+        // Don't immediately cleanup on error - let onclose handle it
+        console.log('Data channel error - will handle in onclose event');
       };
 
       channel.onmessage = (event: MessageEvent) => {
@@ -1014,14 +1020,7 @@ const { translations, lang } = Astro.props;
               // Player receives hide bad players message
               console.log('🕵️ Mensaje para ocultar jugadores malos recibido');
               this.handleBadPlayersHide();
-            } else if (message.variable === 'ciso_reveal_bad_players') {
-              // Player receives CISO reveal message
-              console.log('🔍 Mensaje de revelación CISO recibido');
-              this.handleCISOReveal(message.value.badPlayers);
-            } else if (message.variable === 'ciso_hide_bad_players') {
-              // Player receives CISO hide message
-              console.log('🔍 Mensaje para ocultar revelación CISO recibido');
-              this.handleCISOHide();
+
             } else if (message.variable === 'player_number') {
               // Player receives their assigned number
               console.log('Número asignado:', message.value);
@@ -1425,23 +1424,25 @@ const { translations, lang } = Astro.props;
           const hasMapUUID = this.mapaValue && this.mapaValue.trim() !== '';
           
           const isEnabled = hasValidPlayerCount && hasMapUUID;
-          this.finishRegistrationBtn.disabled = !isEnabled;
-          
+
+          const btn = this.finishRegistrationBtn;
+          if (!btn) return;
+
+          btn.disabled = !isEnabled;
+
           // Update button visual state
           if (isEnabled) {
-            this.finishRegistrationBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
-            this.finishRegistrationBtn.classList.add('hover:scale-105');
+            btn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
+            btn.classList.add('hover:scale-105');
           } else {
-            this.finishRegistrationBtn.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
-            this.finishRegistrationBtn.classList.remove('hover:scale-105');
+            btn.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
+            btn.classList.remove('hover:scale-105');
           }
-          
+
           // Update button text to show current player count and valid range
-          if (this.finishRegistrationBtn) {
-            const isEnglish = document.documentElement.lang === 'en';
-            const buttonText = isEnglish ? 'Start Game' : 'Iniciar Partida';
-            this.finishRegistrationBtn.textContent = `${buttonText} (${playerCount}/5-10)`;
-          }
+          const isEnglish = document.documentElement.lang === 'en';
+          const buttonText = isEnglish ? 'Start Game' : 'Iniciar Partida';
+          btn.textContent = `${buttonText} (${playerCount}/5-10)`;
         }).catch(error => {
           console.error('Error al importar reglas del juego:', error);
         });
@@ -1720,7 +1721,8 @@ const { translations, lang } = Astro.props;
         shuffleArray(characterPool);
         
         console.log(`🎭 Pool de personajes creado: ${characterPool.length} personajes`);
-        console.log(`📊 Distribución: ${distribution.experts} expertos (incluyendo CISO), ${distribution.bad} malos`);
+        // Note: gameRules.CharacterDistribution doesn't expose an explicit experts field; "good" includes CISO
+        console.log(`📊 Distribución: ${distribution.good} buenos (incluyendo CISO), ${distribution.bad} malos`);
         console.log('Personajes en el pool:', characterPool);
         
         // Verify the pool matches the distribution rules
@@ -2222,7 +2224,7 @@ const { translations, lang } = Astro.props;
         // Use allPlayersNames instead of players map (which might be empty after cleanup)
         this.allPlayersNames.forEach((name: string, index: number) => {
           const playerDiv = document.createElement('div');
-          playerDiv.className = 'flex items-center justify-between bg-gray-700/50 rounded-lg p-3 mb-2';
+          playerDiv.className = 'flex items-center justify-between bg-gray-700/50 rounded-lg p-3 mb-2 player-entry';
           playerDiv.setAttribute('data-player-name', name); // Add data attribute for identification
           
           const leftSection = document.createElement('div');
@@ -2469,14 +2471,8 @@ const { translations, lang } = Astro.props;
       console.log('📡 Enviando mensaje de revelación con lista de malos:', badPlayersList);
       this.broadcastToAll(revealMessage);
 
-      // Apply effect directly for creator if they are bad
-      if (this.playerCharacterElement?.textContent) {
-        const currentCharacter = this.playerCharacterElement.textContent;
-        if (this.isPlayerBad(currentCharacter)) {
-          console.log('🕵️ Creador malo - aplicando efecto visual directamente');
-          this.handleBadPlayersReveal(badPlayersList);
-        }
-      }
+      // Aplicar revelación también localmente para el creador
+      this.handleBadPlayersReveal(badPlayersList);
 
       // Start 10 second countdown
       let timeLeft = 10;
@@ -2501,20 +2497,14 @@ const { translations, lang } = Astro.props;
           console.log('📡 Enviando mensaje para ocultar jugadores malos');
           this.broadcastToAll(hideMessage);
 
-          // Hide effect directly for creator if they are bad
-          if (this.playerCharacterElement?.textContent) {
-            const currentCharacter = this.playerCharacterElement.textContent;
-            if (this.isPlayerBad(currentCharacter)) {
-              console.log('🕵️ Creador malo - ocultando efecto visual directamente');
-              this.handleBadPlayersHide();
-            }
-          }
-
           // Keep button disabled permanently with final state
           if (this.badPlayersRevealBtn) {
             this.badPlayersRevealBtn.textContent = '🕵️ Revelación Completada';
             this.badPlayersRevealBtn.classList.add('bg-gray-500', 'hover:bg-gray-500');
           }
+
+          // Ocultar también localmente en el creador
+          this.handleBadPlayersHide();
 
           console.log('🕵️ Revelación de jugadores malos completada');
         }
@@ -2536,130 +2526,73 @@ const { translations, lang } = Astro.props;
       return badPlayers;
     }
 
-    revealForCISO() {
-      if (!this.isCreator) {
-        console.log('❌ Solo el creador puede activar la revelación para CISO');
-        return;
-      }
 
-      console.log('🔍 Iniciando revelación para CISO...');
-      
-      // Disable the button permanently and show countdown inside it
-      if (this.cisoRevealBtn) {
-        this.cisoRevealBtn.disabled = true;
-        this.cisoRevealBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        this.cisoRevealBtn.textContent = '🔍 Revelando... 10s';
-      }
-
-      // Get list of bad players
-      const badPlayersList = this.getAllBadPlayers();
-      
-      // Send reveal message with list of bad players to all players
-      const revealMessage = {
-        type: 'game_variable',
-        variable: 'ciso_reveal_bad_players',
-        value: {
-          badPlayers: badPlayersList,
-          timestamp: Date.now()
-        }
-      };
-      
-      console.log('📡 Enviando mensaje de revelación CISO con lista de malos:', badPlayersList);
-      this.broadcastToAll(revealMessage);
-
-      // Apply effect directly for creator if they are CISO
-      if (this.playerCharacterElement?.textContent) {
-        const currentCharacter = this.playerCharacterElement.textContent;
-        if (currentCharacter === 'ciso') {
-          console.log('🔍 Creador CISO - aplicando efecto visual directamente');
-          this.handleCISOReveal(badPlayersList);
-        }
-      }
-
-      // Start 10 second countdown
-      let timeLeft = 10;
-      const countdownInterval = setInterval(() => {
-        timeLeft--;
-        
-        // Update countdown inside the button
-        if (this.cisoRevealBtn) {
-          this.cisoRevealBtn.textContent = `🔍 Revelando... ${timeLeft}s`;
-        }
-
-        if (timeLeft <= 0) {
-          clearInterval(countdownInterval);
-          
-          // Send hide message
-          const hideMessage = {
-            type: 'game_variable',
-            variable: 'ciso_hide_bad_players',
-            value: true
-          };
-          
-          console.log('📡 Enviando mensaje para ocultar revelación CISO');
-          this.broadcastToAll(hideMessage);
-
-          // Hide effect directly for creator if they are CISO
-          if (this.playerCharacterElement?.textContent) {
-            const currentCharacter = this.playerCharacterElement.textContent;
-            if (currentCharacter === 'ciso') {
-              console.log('🔍 Creador CISO - ocultando efecto visual directamente');
-              this.handleCISOHide();
-            }
-          }
-
-          // Keep button disabled permanently with final state
-          if (this.cisoRevealBtn) {
-            this.cisoRevealBtn.textContent = '🔍 Revelación CISO Completada';
-            this.cisoRevealBtn.classList.add('bg-gray-500', 'hover:bg-gray-500');
-          }
-
-          console.log('🔍 Revelación para CISO completada');
-        }
-      }, 1000);
-    }
 
     handleBadPlayersReveal(badPlayersList: string[]) {
-    // Only bad players should see this effect
+    // Only bad players and CISO should see this effect
     const currentCharacter = this.playerCharacterElement?.textContent;
-    if (!currentCharacter || !this.isPlayerBad(currentCharacter)) {
-      console.log('🕵️ Jugador bueno - no se aplica efecto de revelación');
+    if (!currentCharacter || (!this.isPlayerBad(currentCharacter) && currentCharacter !== 'ciso')) {
+      console.log('🕵️ Jugador bueno (no malo ni CISO) - no se aplica efecto de revelación');
       return;
     }
 
-    console.log('🕵️ Aplicando efecto de revelación para jugador malo');
+    const isBadPlayer = this.isPlayerBad(currentCharacter);
+    const isCISO = currentCharacter === 'ciso';
+    console.log(`🕵️ Aplicando efecto de revelación para ${isBadPlayer ? 'jugador malo' : 'CISO'}`);
     console.log(`🕵️ Personaje actual: ${currentCharacter}`);
     console.log(`🕵️ Nombre del jugador actual: ${this.playerName}`);
     console.log(`🕵️ Lista de jugadores malos recibida:`, badPlayersList);
     console.log(`🕵️ ¿El jugador actual está en la lista de malos? ${badPlayersList.includes(this.playerName)}`);
+    console.log(`🕵️ ¿Es jugador malo? ${isBadPlayer}, ¿Es CISO? ${isCISO}`);
     
     // Get all player names from the players list
-    const playersList = document.getElementById('players-list');
-    if (!playersList) return;
+    if (!this.playersList) return;
 
     // Mark only the bad players from the received list
-    const playerEntries = playersList.querySelectorAll('[data-player-name]');
+    // Use a more specific selector to avoid duplicates
+    const playerEntries = this.playersList.querySelectorAll('.player-entry[data-player-name]');
     console.log(`🕵️ Elementos encontrados en la lista: ${playerEntries.length}`);
+    
+    // Create a Set to track processed names and avoid duplicates
+    const processedNames = new Set<string>();
     
     playerEntries.forEach(entry => {
       const playerName = entry.getAttribute('data-player-name');
+      if (!playerName || processedNames.has(playerName)) {
+        return; // Skip if no name or already processed
+      }
+      
+      processedNames.add(playerName);
       console.log(`🕵️ Procesando elemento con nombre: ${playerName}`);
       
-      if (playerName && badPlayersList.includes(playerName)) {
+      if (badPlayersList.includes(playerName)) {
+        const entryEl = entry as HTMLElement;
+        // Store original classes to restore later
+        if (!entryEl.dataset.origClass) {
+          entryEl.dataset.origClass = entryEl.className;
+        }
         // Apply red color and bold to the entire player entry
-        entry.classList.add('text-red-600', 'font-bold');
+        entryEl.classList.add('text-red-600', 'font-bold');
         
         // Also apply to the name span specifically for better visibility
-        const nameSpan = entry.querySelector('[data-player-name]');
+        const nameSpan = entryEl.querySelector('[data-player-name]') as HTMLElement | null;
         if (nameSpan) {
+          // Store original classes to restore later
+          if (!nameSpan.dataset.origClass) {
+            nameSpan.dataset.origClass = nameSpan.className;
+          }
+          // Remove conflicting utilities so Tailwind applies red correctly
+          nameSpan.classList.remove('text-white', 'font-medium');
           nameSpan.classList.add('text-red-600', 'font-bold');
         }
         
         console.log(`🕵️ ✅ Jugador malo marcado en rojo: ${playerName}`);
-      } else if (playerName) {
+      } else {
         console.log(`🕵️ ❌ ${playerName} no está en la lista de malos`);
       }
     });
+    
+    console.log(`🕵️ Nombres únicos procesados: ${Array.from(processedNames).join(', ')}`);
     
     // Additional check: verify if current player's name should be marked
     if (badPlayersList.includes(this.playerName)) {
@@ -2670,31 +2603,58 @@ const { translations, lang } = Astro.props;
   }
 
   handleBadPlayersHide() {
-    // Only bad players should see this effect
+    // Only bad players and CISO should see this effect
     const currentCharacter = this.playerCharacterElement?.textContent;
-    if (!currentCharacter || !this.isPlayerBad(currentCharacter)) {
-      console.log('🕵️ Jugador bueno - no se aplica efecto de ocultación');
+    if (!currentCharacter || (!this.isPlayerBad(currentCharacter) && currentCharacter !== 'ciso')) {
+      console.log('🕵️ Jugador bueno (no malo ni CISO) - no se aplica efecto de ocultación');
       return;
     }
 
-    console.log('🕵️ Aplicando efecto de ocultación para jugador malo');
+    const isBadPlayer = this.isPlayerBad(currentCharacter);
+    const isCISO = currentCharacter === 'ciso';
+    console.log(`🕵️ Aplicando efecto de ocultación para ${isBadPlayer ? 'jugador malo' : 'CISO'}`);
     
     // Get all player names from the players list
-    const playersList = document.getElementById('players-list');
-    if (!playersList) return;
+    if (!this.playersList) return;
 
-    // Remove red marking from all players
-    const playerEntries = playersList.querySelectorAll('[data-player-name]');
+    // Remove red marking from all players and restore original classes
+    // Use a more specific selector to avoid duplicates
+    const playerEntries = this.playersList.querySelectorAll('.player-entry[data-player-name]');
+    
+    // Create a Set to track processed names and avoid duplicates
+    const processedNames = new Set<string>();
+    
     playerEntries.forEach(entry => {
-      // Remove red color and bold from the entire player entry
-      entry.classList.remove('text-red-600', 'font-bold');
+      const entryEl = entry as HTMLElement;
+      const playerName = entryEl.getAttribute('data-player-name');
+      if (!playerName || processedNames.has(playerName)) {
+        return; // Skip if no name or already processed
+      }
       
-      // Also remove from the name span specifically
-      const nameSpan = entry.querySelector('[data-player-name]');
+      processedNames.add(playerName);
+      
+      // Restore original classes for entry if available
+      if (entryEl.dataset.origClass) {
+        entryEl.className = entryEl.dataset.origClass;
+        delete entryEl.dataset.origClass;
+      } else {
+        // Fallback: remove red styles
+        entryEl.classList.remove('text-red-600', 'font-bold');
+      }
+
+      // Also restore name span classes if available
+      const nameSpan = entryEl.querySelector('[data-player-name]') as HTMLElement | null;
       if (nameSpan) {
-        nameSpan.classList.remove('text-red-600', 'font-bold');
+        if (nameSpan.dataset.origClass) {
+          nameSpan.className = nameSpan.dataset.origClass;
+          delete nameSpan.dataset.origClass;
+        } else {
+          nameSpan.classList.remove('text-red-600', 'font-bold');
+        }
       }
     });
+    
+    console.log(`🕵️ Nombres únicos procesados para ocultación: ${Array.from(processedNames).join(', ')}`);
 
     console.log('🕵️ Efecto de revelación removido de todos los jugadores');
   }
@@ -2721,84 +2681,7 @@ const { translations, lang } = Astro.props;
     return 'unknown';
   }
 
-  handleCISOReveal(badPlayersList: string[]) {
-    // Only CISO should see this effect
-    const currentCharacter = this.playerCharacterElement?.textContent;
-    if (!currentCharacter || currentCharacter !== 'ciso') {
-      console.log('🔍 Solo CISO puede ver la revelación - personaje actual:', currentCharacter);
-      return;
-    }
 
-    console.log('🔍 Aplicando efecto de revelación CISO');
-    console.log(`🔍 Personaje actual: ${currentCharacter}`);
-    console.log(`🔍 Nombre del jugador actual: ${this.playerName}`);
-    console.log(`🔍 Lista de jugadores malos recibida:`, badPlayersList);
-    
-    // Get all player names from the players list
-    const playersList = document.getElementById('players-list');
-    if (!playersList) return;
-
-    // Mark only the bad players from the received list
-    const playerEntries = playersList.querySelectorAll('[data-player-name]');
-    console.log(`🔍 Elementos encontrados en la lista: ${playerEntries.length}`);
-    
-    playerEntries.forEach(entry => {
-      const playerName = entry.getAttribute('data-player-name');
-      console.log(`🔍 Procesando elemento con nombre: ${playerName}`);
-      
-      if (playerName && badPlayersList.includes(playerName)) {
-        // Apply red color and bold to the entire player entry (same color as bad players reveal)
-        entry.classList.add('text-red-600', 'font-bold');
-        
-        // Also apply to the name span specifically for better visibility
-        const nameSpan = entry.querySelector('[data-player-name]');
-        if (nameSpan) {
-          nameSpan.classList.add('text-red-600', 'font-bold');
-        }
-        
-        console.log(`🔍 ✅ Jugador malo marcado en rojo para CISO: ${playerName}`);
-      } else if (playerName) {
-        console.log(`🔍 ❌ ${playerName} no está en la lista de malos`);
-      }
-    });
-    
-    // Additional check: verify if current player's name should be marked
-    if (badPlayersList.includes(this.playerName)) {
-      console.log(`🔍 🔍 Verificación adicional: ${this.playerName} SÍ está en la lista de malos`);
-    } else {
-      console.log(`🔍 🔍 Verificación adicional: ${this.playerName} NO está en la lista de malos`);
-    }
-  }
-
-  handleCISOHide() {
-    // Only CISO should see this effect
-    const currentCharacter = this.playerCharacterElement?.textContent;
-    if (!currentCharacter || currentCharacter !== 'ciso') {
-      console.log('🔍 Solo CISO puede ver la ocultación - personaje actual:', currentCharacter);
-      return;
-    }
-
-    console.log('🔍 Aplicando efecto de ocultación CISO');
-    
-    // Get all player names from the players list
-    const playersList = document.getElementById('players-list');
-    if (!playersList) return;
-
-    // Remove red marking from all players (same color as bad players reveal)
-    const playerEntries = playersList.querySelectorAll('[data-player-name]');
-    playerEntries.forEach(entry => {
-      // Remove red color and bold from the entire player entry
-      entry.classList.remove('text-red-600', 'font-bold');
-      
-      // Also remove from the name span specifically
-      const nameSpan = entry.querySelector('[data-player-name]');
-      if (nameSpan) {
-        nameSpan.classList.remove('text-red-600', 'font-bold');
-      }
-    });
-
-    console.log('🔍 Efecto de revelación CISO removido de todos los jugadores');
-  }
 
     updatePlayerNumberDisplay(playerNumber: number) {
       if (this.playerNumberElement) {
@@ -2976,21 +2859,31 @@ const { translations, lang } = Astro.props;
     cleanup(): void {
       console.log('Cleaning up WebRTC resources...');
       
-      // Close all data channels
+      // Close all data channels gracefully
       if (this.dataChannels) {
         this.dataChannels.forEach((channel, peerId) => {
           if (channel && channel.readyState !== 'closed') {
-            channel.close();
+            try {
+              console.log(`Closing data channel for peer: ${peerId}`);
+              channel.close();
+            } catch (error) {
+              console.warn(`Error closing data channel for peer ${peerId}:`, error);
+            }
           }
         });
         this.dataChannels.clear();
       }
       
-      // Close all peer connections
+      // Close all peer connections gracefully
       if (this.peerConnections) {
         this.peerConnections.forEach((connection, peerId) => {
           if (connection && connection.connectionState !== 'closed') {
-            connection.close();
+            try {
+              console.log(`Closing peer connection for peer: ${peerId}`);
+              connection.close();
+            } catch (error) {
+              console.warn(`Error closing peer connection for peer ${peerId}:`, error);
+            }
           }
         });
         this.peerConnections.clear();
