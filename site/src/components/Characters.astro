@@ -11,6 +11,7 @@ import hacktivistImage from '../assets/images/hacktivist.png';
 import malwareAnalystImage from '../assets/images/malware_analyst.png';
 import incidentResponderImage from '../assets/images/incident-responder.png';
 import { getTranslationKey, type Language } from '../utils/i18n';
+import { getAllCharacters, getGoodGuys, getBadGuys, type Character } from '../config/characters';
 
 export interface Props {
   translations: any;
@@ -18,20 +19,23 @@ export interface Props {
 }
 
 const { translations, lang } = Astro.props;
+const characters = getAllCharacters();
+const goodGuys = getGoodGuys();
+const badGuys = getBadGuys();
 
-// Definir los personajes disponibles
-const characters = [
-  { key: 'pentester', image: pentesterImage },
-  { key: 'ciso', image: cisoImage },
-  { key: 'cloud_security', image: cloudSecurityImage },
-  { key: 'script_kiddie', image: scriptKiddieImage },
-  { key: 'cracker', image: crackerImage },
-  { key: 'cyberterrorist', image: cyberterroristImage },
-  { key: 'threat_hunter', image: threatHunterImage },
-  { key: 'hacktivist', image: hacktivistImage },
-  { key: 'malware_analyst', image: malwareAnalystImage },
-  { key: 'incident_responder', image: incidentResponderImage }
-];
+// Mapeo de imágenes para cada personaje
+const characterImages = {
+  pentester: pentesterImage,
+  ciso: cisoImage,
+  cloud_security: cloudSecurityImage,
+  script_kiddie: scriptKiddieImage,
+  cracker: crackerImage,
+  cyberterrorist: cyberterroristImage,
+  threat_hunter: threatHunterImage,
+  hacktivist: hacktivistImage,
+  malware_analyst: malwareAnalystImage,
+  incident_responder: incidentResponderImage
+};
 ---
 
 <section id="characters" class="py-12 sm:py-16 md:py-20 lg:py-24" style="background-color: var(--color-primary);">
@@ -47,7 +51,7 @@ const characters = [
                         <div class="card-gallery w-32 sm:w-40 md:w-48 lg:w-64 mx-auto">
                             <Image
                                 id="character-image"
-                                src={pentesterImage}
+                                src={characterImages.pentester}
                                 alt="Character"
                                 class="w-full h-full object-cover rounded-xl transition-opacity duration-500 transition-transform duration-300"
                             />
@@ -90,84 +94,22 @@ const characters = [
     }
 </style>
 
-<script define:vars={{ characters, translations, lang }}>
-  // Definir quiénes son "buenos" (defensores) y "no tan buenos" (atacantes)
-  const goodGuys = ['pentester', 'ciso', 'cloud_security', 'threat_hunter', 'malware_analyst', 'incident_responder'];
-  const badGuys = ['script_kiddie', 'cracker', 'cyberterrorist', 'hacktivist'];
+<script define:vars={{ characters, goodGuys, badGuys, translations, lang, characterImages }}>
+  // Los personajes ya están definidos en la configuración centralizada
+  // goodGuys y badGuys vienen del servidor
 
-  // Datos de los personajes
-  const characterData = {
-    pentester: {
-      image: characters[0].image.src,
-      name: translations.characters.pentester.name,
-      description: translations.characters.pentester.description,
-      details: translations.characters.pentester.details,
-      type: 'good'
-    },
-    ciso: {
-      image: characters[1].image.src,
-      name: translations.characters.ciso.name,
-      description: translations.characters.ciso.description,
-      details: translations.characters.ciso.details,
-      type: 'good'
-    },
-    cloud_security: {
-      image: characters[2].image.src,
-      name: translations.characters.cloud_security.name,
-      description: translations.characters.cloud_security.description,
-      details: translations.characters.cloud_security.details,
-      type: 'good'
-    },
-    script_kiddie: {
-      image: characters[3].image.src,
-      name: translations.characters.script_kiddie.name,
-      description: translations.characters.script_kiddie.description,
-      details: translations.characters.script_kiddie.details,
-      type: 'bad'
-    },
-    cracker: {
-      image: characters[4].image.src,
-      name: translations.characters.cracker.name,
-      description: translations.characters.cracker.description,
-      details: translations.characters.cracker.details,
-      type: 'bad'
-    },
-    cyberterrorist: {
-      image: characters[5].image.src,
-      name: translations.characters.cyberterrorist.name,
-      description: translations.characters.cyberterrorist.description,
-      details: translations.characters.cyberterrorist.details,
-      type: 'bad'
-    },
-    threat_hunter: {
-      image: characters[6].image.src,
-      name: translations.characters.threat_hunter.name,
-      description: translations.characters.threat_hunter.description,
-      details: translations.characters.threat_hunter.details,
-      type: 'good'
-    },
-    hacktivist: {
-      image: characters[7].image.src,
-      name: translations.characters.hacktivist.name,
-      description: translations.characters.hacktivist.description,
-      details: translations.characters.hacktivist.details,
-      type: 'bad'
-    },
-    malware_analyst: {
-      image: characters[8].image.src,
-      name: translations.characters.malware_analyst.name,
-      description: translations.characters.malware_analyst.description,
-      details: translations.characters.malware_analyst.details,
-      type: 'good'
-    },
-    incident_responder: {
-      image: characters[9].image.src,
-      name: translations.characters.incident_responder.name,
-      description: translations.characters.incident_responder.description,
-      details: translations.characters.incident_responder.details,
-      type: 'good'
-    }
-  };
+  // Crear datos de personajes dinámicamente desde la configuración centralizada
+  const characterData = {};
+  
+  characters.forEach(char => {
+    characterData[char.key] = {
+      image: characterImages[char.key]?.src || '',
+      name: translations.characters[char.key]?.name || char.name,
+      description: translations.characters[char.key]?.description || char.description,
+      details: translations.characters[char.key]?.details || char.details,
+      type: char.type
+    };
+  });
 
   // Función para mezclar array (Fisher-Yates shuffle)
   function shuffleArray(array) {

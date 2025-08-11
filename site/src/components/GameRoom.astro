@@ -1,0 +1,2931 @@
+---
+import { getTranslationKey, type Language } from '../utils/i18n';
+
+interface Props {
+  translations: any;
+  lang: Language;
+}
+
+const { translations, lang } = Astro.props;
+---
+
+  <div id="game-setup" class="space-y-8">
+    <!-- Game Creation Section -->
+    <div class="max-w-md mx-auto card-bg rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-bold mb-4 section-title">
+        {getTranslationKey(translations, 'game.create_new_game')}
+      </h2>
+      <p class="mb-6">
+        {getTranslationKey(translations, 'game.create_new_game_desc')}
+      </p>
+      <button 
+        id="create-game-btn"
+        class="btn-primary py-3 px-8 text-lg"
+      >
+        {getTranslationKey(translations, 'game.create_game')}
+      </button>
+    </div>
+
+
+  </div>
+
+  <!-- Player Name Setup Section -->
+  <div id="player-name-setup" class="hidden space-y-8 mt-12">
+    <div class="max-w-md mx-auto card-bg rounded-lg p-6 text-center">
+      <h3 class="text-xl font-bold mb-4 section-title">
+        {getTranslationKey(translations, 'game.player_setup')}
+      </h3>
+      <div class="mb-6">
+        <p class="text-lg font-semibold mb-2">
+          {getTranslationKey(translations, 'game.player_setup_desc')}
+        </p>
+        <p>
+          {getTranslationKey(translations, 'game.player_setup_desc2')}
+        </p>
+      </div>
+
+      <!-- Player Name Input -->
+      <div class="flex flex-col gap-4">
+        <input 
+          type="text" 
+          id="setup-player-name-input"
+          placeholder={getTranslationKey(translations, 'game.enter_name')}
+          class="w-full bg-white/90 border-2 border-black rounded-lg px-4 py-2 placeholder-gray-600 focus:outline-none focus:border-blue-400"
+          style="color: var(--color-text); font-family: 'Special Elite', monospace;"
+        />
+        <button 
+          id="setup-name-btn"
+          class="btn-primary py-3 px-8 text-lg"
+        >
+          {getTranslationKey(translations, 'game.continue')}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WebRTC and Player Registration Section -->
+  <div id="webrtc-signaling" class="hidden mt-12">
+        <div id="webrtc-container" class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <!-- Player Registration -->
+      <div id="player-registration-section" class="card-bg rounded-lg p-8 min-h-[400px] hidden">
+        <h3 class="text-xl font-bold mb-4 text-left" style="color: var(--color-primary);">
+          {getTranslationKey(translations, 'game.player_registration')}
+        </h3>
+        <div class="w-16 sm:w-24 h-1 bg-red-600 mb-4"></div>
+        <div class="mb-4">
+          <p class="text-lg font-semibold mb-2">
+            {getTranslationKey(translations, 'game.player_registration_desc')}
+          </p>
+          <p>
+            {getTranslationKey(translations, 'game.player_registration_desc2')}
+          </p>
+        </div>
+
+        <!-- Player Registration Input -->
+        <div class="flex gap-4 mb-4">
+          <input 
+            type="text" 
+            id="player-registration-input"
+            placeholder={getTranslationKey(translations, 'game.player_name')}
+            class="flex-1 bg-white/90 border-2 border-black rounded-lg px-4 py-2 placeholder-gray-600 focus:outline-none focus:border-blue-400"
+            style="color: var(--color-text); font-family: 'Special Elite', monospace;"
+          />
+          <button 
+            id="add-player-btn"
+            class="btn-primary py-3 px-6 text-lg"
+          >
+            {getTranslationKey(translations, 'game.add')}
+          </button>
+        </div>
+
+        <!-- Registered Players List -->
+        <div id="registered-players-list" class="space-y-2 max-h-64 overflow-y-auto">
+          <!-- Players will be added here dynamically -->
+        </div>
+
+
+      </div>
+
+      <!-- WebRTC Configuration -->
+      <div class="card-bg rounded-lg p-8 min-h-[400px]">
+        <h3 class="text-xl font-bold mb-4 text-left" style="color: var(--color-primary);">
+          {getTranslationKey(translations, 'game.webrtc_setup')}
+        </h3>
+        <div class="w-16 sm:w-24 h-1 bg-red-600 mb-4"></div>
+        
+        <!-- Copy Section (for players joining via URL) -->
+        <div id="copy-section" class="mb-6 hidden">
+          <h4 class="text-lg font-semibold mb-2 text-left" style="color: var(--color-primary);">
+            {getTranslationKey(translations, 'game.copy_and_share')}
+          </h4>
+          <div class="w-16 sm:w-24 h-1 bg-red-600 mb-2"></div>
+          <div class="relative">
+            <textarea 
+              id="copy-textarea"
+              readonly
+              class="w-full h-40 bg-white/90 border-2 border-black rounded-lg p-3 font-mono text-sm resize-none pr-20"
+              style="color: var(--color-accent-red);"
+              placeholder={getTranslationKey(translations, 'game.copy_placeholder')}
+            ></textarea>
+            <button 
+              id="copy-btn"
+              class="btn-primary py-1 px-3 text-xs absolute top-2 right-2"
+            >
+              {getTranslationKey(translations, 'game.copy')}
+            </button>
+          </div>
+          <p class="text-sm mt-2">
+            {getTranslationKey(translations, 'game.copy_desc')}
+          </p>
+        </div>
+        
+        <!-- Paste Section -->
+        <div id="paste-section" class="mb-6">
+          <h4 class="text-lg font-semibold mb-2 text-left" style="color: var(--color-primary);">
+            {getTranslationKey(translations, 'game.paste_and_process')}
+          </h4>
+          <div class="w-16 sm:w-24 h-1 bg-red-600 mb-2"></div>
+          <div class="relative">
+            <textarea
+              id="paste-textarea"
+              placeholder={getTranslationKey(translations, 'game.paste_placeholder')}
+              class="w-full h-48 bg-white/90 border-2 border-black rounded-lg p-3 font-mono text-sm resize-none pr-20"
+              style="color: var(--color-primary);"
+            ></textarea>
+            <button 
+              id="paste-btn"
+              class="btn-primary py-1 px-3 text-xs absolute top-2 right-2"
+            >
+              {getTranslationKey(translations, 'game.paste')}
+            </button>
+          </div>
+          <button 
+            id="process-btn"
+            class="btn-primary mt-2 py-2 px-4"
+          >
+            Unir Jugador
+          </button>
+        </div>
+
+        <!-- Start Game Button (Creator Only) -->
+        <div id="start-game-section" class="mt-8 pt-6 border-t-2 border-black hidden">
+          <button 
+            id="finish-registration-btn"
+            class="btn-primary py-3 px-8 text-lg w-full disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:scale-100"
+            disabled
+          >
+            {getTranslationKey(translations, 'game.start_game')}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Game Room Section -->
+  <div id="game-room" class="hidden space-y-8 mt-12">
+    <div class="card-bg rounded-lg p-8">
+              <h3 class="text-xl font-bold mb-4 text-left" style="color: var(--color-primary);">
+          {getTranslationKey(translations, 'game.game_room')} <span id="game-code-display"></span>
+        </h3>
+      <div class="w-16 sm:w-24 h-1 bg-red-600 mb-4"></div>
+      <div id="game-info">
+                  <p><strong>{getTranslationKey(translations, 'game.connected_players')}</strong> <span id="connected-players">0</span></p>
+          <p><strong>{getTranslationKey(translations, 'game.your_name')}</strong> <span id="current-player-name" style="color: var(--color-primary);"></span></p>
+      </div>
+
+      <!-- Players List Section -->
+      <div id="players-list-section" class="mt-4 p-4 card-bg rounded-lg">
+        <h4 class="text-lg font-semibold mb-2 text-left" style="color: var(--color-primary);">
+          {getTranslationKey(translations, 'game.players_in_game')}
+        </h4>
+        <div class="w-16 sm:w-24 h-1 bg-red-600 mb-2"></div>
+        <div id="players-list" class="space-y-2">
+          <!-- Players will be listed here -->
+        </div>
+      </div>
+
+
+      <!-- Game Variables Section -->
+      <div id="game-variables-section" class="mt-6 p-4 card-bg rounded-lg">
+        <h4 class="text-lg font-semibold mb-4 section-title">
+          {getTranslationKey(translations, 'game.game_variables')}
+        </h4>
+        
+        <!-- Leader Variable -->
+        <div class="mb-4 p-3 bg-white/90 rounded-lg border border-gray-300">
+          <div class="flex items-center justify-between">
+            <span class="font-medium">
+              {getTranslationKey(translations, 'game.leader')}
+            </span>
+            <span id="leader-name" class="text-blue-600 font-bold">
+              {getTranslationKey(translations, 'game.not_assigned')}
+            </span>
+          </div>
+        </div>
+        
+        <!-- Player Character Variable -->
+        <div class="mb-4 p-3 bg-white/90 rounded-lg border border-gray-300">
+          <div class="flex items-center justify-between">
+            <span class="font-medium">
+              {getTranslationKey(translations, 'game.your_character')}
+            </span>
+            <span id="player-character" class="text-yellow-600 font-bold text-xl">
+              {getTranslationKey(translations, 'game.not_assigned')}
+            </span>
+          </div>
+        </div>
+        
+        <!-- UpTO Variable -->
+        <div class="p-3 bg-white/90 rounded-lg mb-4 border border-gray-300">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-medium">
+              {getTranslationKey(translations, 'game.upto')}
+            </span>
+            <span id="upto-value" class="text-green-600 font-bold text-xl">5</span>
+          </div>
+          <div class="flex gap-2 justify-center">
+            <button 
+              id="decrease-upto-btn"
+              class="btn-primary py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled
+            >
+              {getTranslationKey(translations, 'game.decrease')}
+            </button>
+            <button 
+              id="increase-upto-btn"
+              class="btn-primary py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled
+            >
+              {getTranslationKey(translations, 'game.increase')}
+            </button>
+          </div>
+        </div>
+
+        <!-- Mapa Variable -->
+        <div class="p-3 bg-white/90 rounded-lg mb-4 border border-gray-300">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-medium">
+              {getTranslationKey(translations, 'game.map')}
+            </span>
+            <span id="mapa-value" class="text-yellow-600 font-bold text-sm font-mono">Sin asignar</span>
+          </div>
+          <div class="flex gap-2 justify-center">
+            <button 
+              id="set-mapa-btn"
+              class="btn-primary py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled
+            >
+              {getTranslationKey(translations, 'game.set_uuid')}
+            </button>
+          </div>
+        </div>
+
+        <!-- OWASP Variable -->
+        <div class="p-3 bg-white/90 rounded-lg border border-gray-300">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-purple-600 font-bold text-sm">Vacío</span>
+          </div>
+          <div class="flex gap-2 justify-center">
+            <button 
+              id="set-owasp-btn"
+              class="btn-primary py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled
+            >
+              {getTranslationKey(translations, 'game.set_owasp')}
+            </button>
+          </div>
+        </div>
+        
+        <!-- Character Count Variables -->
+        <div class="p-3 bg-white/90 rounded-lg border border-gray-300">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-medium">
+              Buenos:
+            </span>
+            <span id="good-characters-count" class="text-green-600 font-bold text-xl">0</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="font-medium">
+              No tan Buenos:
+            </span>
+            <span id="bad-characters-count" class="text-red-600 font-bold text-xl">0</span>
+          </div>
+        </div>
+        
+              <!-- Bad Players Reveal Section (only visible to creator after game starts) -->
+      <div id="bad-players-reveal-section" class="p-4 bg-red-50 rounded-lg border border-red-300 hidden">
+        <h4 class="text-lg font-semibold text-red-700 mb-3 text-center">
+          🕵️ Revelar Jugadores Malos
+        </h4>
+        <div class="text-center space-y-4">
+          <button 
+            id="bad-players-reveal-btn"
+            class="btn-primary bg-red-600 hover:bg-red-700 text-white py-3 px-6 text-lg min-w-[200px]"
+          >
+            🕵️ Revelar Jugadores Malos
+          </button>
+          <p class="text-sm text-red-600">
+            Los jugadores malos y el CISO verán a los malos marcados en rojo durante 10 segundos
+          </p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  class WebRTCGame {
+    private peerConnections: Map<string, RTCPeerConnection> = new Map(); // peerId -> RTCPeerConnection
+    private dataChannels: Map<string, RTCDataChannel> = new Map(); // peerId -> RTCDataChannel
+    private currentPeerId: string | null = null;
+    private isCreator: boolean = false;
+    private gameCode: string | null = null;
+    private messagesSent: number = 0;
+    private messagesReceived: number = 0;
+    private iceCandidates: Map<string, RTCIceCandidate[]> = new Map(); // peerId -> RTCIceCandidate[]
+    private iceGatheringComplete: Map<string, boolean> = new Map(); // peerId -> boolean
+    private pendingOffers: Map<string, RTCSessionDescriptionInit | undefined> = new Map(); // peerId -> RTCSessionDescriptionInit
+    private isInitialized: boolean = false;
+    
+    // DOM elements
+    private createGameBtn: HTMLButtonElement | null = null;
+
+
+    private gameSetup: HTMLElement | null = null;
+    private webrtcSignaling: HTMLElement | null = null;
+    private gameRoom: HTMLElement | null = null;
+    private offerTextarea: HTMLTextAreaElement | null = null;
+    private answerTextarea: HTMLTextAreaElement | null = null;
+    private processBtn: HTMLButtonElement | null = null;
+    private copyTextarea: HTMLTextAreaElement | null = null;
+    private pasteTextarea: HTMLTextAreaElement | null = null;
+    private copyBtn: HTMLButtonElement | null = null;
+    private pasteBtn: HTMLButtonElement | null = null;
+    private nextStepInfo: HTMLElement | null = null;
+    private nextStepText: HTMLElement | null = null;
+    private pasteInstruction: HTMLElement | null = null;
+    private statusIndicator: HTMLElement | null = null;
+    private statusText: HTMLElement | null = null;
+    private gameCodeDisplay: HTMLElement | null = null;
+    private gameCodeDisplaySignaling: HTMLElement | null = null;
+    private copyGameCodeBtn: HTMLButtonElement | null = null;
+    private connectedPlayers: HTMLElement | null = null;
+    private setupPlayerNameInput: HTMLInputElement | null = null;
+    private setupNameBtn: HTMLButtonElement | null = null;
+    private playersList: HTMLElement | null = null;
+    private currentPlayerName: HTMLElement | null = null;
+    
+    // Player registration elements
+    private playerRegistrationInput: HTMLInputElement | null = null;
+    private addPlayerBtn: HTMLButtonElement | null = null;
+    private registeredPlayersList: HTMLElement | null = null;
+    private finishRegistrationBtn: HTMLButtonElement | null = null;
+    private leaderNameElement: HTMLElement | null = null;
+    private playerNumberElement: HTMLElement | null = null;
+    private playerCharacterElement: HTMLElement | null = null;
+    private uptoValueElement: HTMLElement | null = null;
+    private decreaseUptoBtn: HTMLButtonElement | null = null;
+    private increaseUptoBtn: HTMLButtonElement | null = null;
+    private mapaValueElement: HTMLElement | null = null;
+    private setMapaBtn: HTMLButtonElement | null = null;
+    private owaspValueElement: HTMLElement | null = null;
+    private setOwaspBtn: HTMLButtonElement | null = null;
+    private goodCharactersCount: HTMLElement | null = null;
+    private badCharactersCount: HTMLElement | null = null;
+      private badPlayersRevealBtn: HTMLButtonElement | null = null;
+  private badPlayersRevealSection: HTMLElement | null = null;
+    private playerName: string = '';
+    private playerCharacters: Map<string, string> = new Map(); // playerName -> characterKey
+    private players: Map<string, string> = new Map(); // peerId -> playerName
+    private registeredPlayers: Map<string, string> = new Map(); // playerId -> playerName
+    private allPlayersNames: string[] = []; // Simple array of all player names
+    private receivedPeerId: string = ''; // Store peerId from received offer
+    private leaderName: string = '';
+    private uptoValue: number = 5;
+    private isLeader: boolean = false;
+    private gameStarted: boolean = false;
+    private mapaValue: string = '';
+    private owaspValue: string = '';
+
+    constructor() {
+      this.initializeElements();
+      this.bindEvents();
+      this.checkURLParameters();
+    }
+
+    checkURLParameters() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const gameId = urlParams.get('gameId');
+      const encodedData = urlParams.get('data');
+      
+      if (gameId && encodedData) {
+        console.log('URL parameters detected, auto-joining game...');
+        
+        try {
+          // Decode the data from base64
+          const decodedData = atob(encodedData);
+          
+          // Set the game code and ensure this is NOT a creator
+          this.gameCode = gameId;
+          this.isCreator = false;
+          
+
+          
+          // Initialize WebRTC
+          this.peerConnections = new Map();
+          this.dataChannels = new Map();
+          this.iceCandidates = new Map();
+          this.iceGatheringComplete = new Map();
+          this.pendingOffers = new Map();
+          
+          // Hide game setup and show WebRTC section with paste functionality
+          this.gameSetup?.classList.add('hidden');
+          this.webrtcSignaling?.classList.remove('hidden');
+          
+          // Hide all sections except copy section for players joining via URL
+          const gameCodeSection = document.getElementById('game-code-section');
+          const connectionStatus = document.getElementById('connection-status');
+          const pasteSection = document.getElementById('paste-section');
+          const copySection = document.getElementById('copy-section');
+          const playerRegistrationSection = document.getElementById('player-registration-section');
+          
+          if (gameCodeSection) gameCodeSection.classList.add('hidden');
+          if (connectionStatus) connectionStatus.classList.add('hidden');
+          if (pasteSection) pasteSection.classList.add('hidden');
+          if (copySection) copySection.classList.remove('hidden');
+          if (playerRegistrationSection) playerRegistrationSection.classList.add('hidden');
+          
+          // Center the WebRTC container when only showing WebRTC section
+          const webrtcContainer = document.getElementById('webrtc-container');
+          if (webrtcContainer) {
+            webrtcContainer.classList.remove('grid-cols-1', 'lg:grid-cols-2');
+            webrtcContainer.classList.add('max-w-2xl', 'mx-auto');
+          }
+          
+          // Hide start game button for players joining via URL
+          const startGameSection = document.getElementById('start-game-section');
+          if (startGameSection) {
+            startGameSection.classList.add('hidden');
+          }
+          
+          // Update page title for players joining via URL
+          this.updatePageTitle('game.waiting_room');
+          
+          // Initialize WebRTC for joining
+          this.initializeWebRTC();
+          
+          // Process the data automatically without asking for name
+          if (this.pasteTextarea) {
+            this.pasteTextarea.value = decodedData;
+          }
+          
+          // Process the connection data immediately
+          this.processPastedData();
+          
+          // Show message for URL joining
+          this.updateStatus('waiting', 'Procesando conexión automática...');
+          this.showNextStep('Copia la respuesta generada y compártela con el creador para completar la conexión.');
+          
+          // Clear URL parameters to avoid re-processing on refresh
+          const newUrl = window.location.origin + window.location.pathname;
+          window.history.replaceState({}, document.title, newUrl);
+          
+        } catch (error) {
+          console.error('Error processing URL parameters:', error);
+          alert('Error al procesar los parámetros de la URL');
+        }
+      }
+    }
+
+    initializeElements() {
+      this.createGameBtn = document.getElementById('create-game-btn') as HTMLButtonElement;
+
+      this.gameSetup = document.getElementById('game-setup');
+      this.webrtcSignaling = document.getElementById('webrtc-signaling');
+      this.gameRoom = document.getElementById('game-room');
+      
+      // Signaling elements
+      this.offerTextarea = document.getElementById('offer-textarea') as HTMLTextAreaElement;
+      this.answerTextarea = document.getElementById('answer-textarea') as HTMLTextAreaElement;
+      this.processBtn = document.getElementById('process-btn') as HTMLButtonElement;
+      this.copyTextarea = document.getElementById('copy-textarea') as HTMLTextAreaElement;
+      this.pasteTextarea = document.getElementById('paste-textarea') as HTMLTextAreaElement;
+      this.copyBtn = document.getElementById('copy-btn') as HTMLButtonElement;
+      this.pasteBtn = document.getElementById('paste-btn') as HTMLButtonElement;
+      this.nextStepInfo = document.getElementById('next-step-info');
+      this.nextStepText = document.getElementById('next-step-text');
+      this.pasteInstruction = document.getElementById('paste-instruction');
+      
+      // Status elements
+      this.statusIndicator = document.getElementById('status-indicator');
+      this.statusText = document.getElementById('status-text');
+      this.gameCodeDisplay = document.getElementById('game-code-display');
+      this.gameCodeDisplaySignaling = document.getElementById('game-code-display-signaling');
+      this.copyGameCodeBtn = document.getElementById('copy-game-code-btn') as HTMLButtonElement;
+      this.connectedPlayers = document.getElementById('connected-players');
+      this.setupPlayerNameInput = document.getElementById('setup-player-name-input') as HTMLInputElement;
+      this.setupNameBtn = document.getElementById('setup-name-btn') as HTMLButtonElement;
+      this.playersList = document.getElementById('players-list');
+      this.currentPlayerName = document.getElementById('current-player-name');
+      
+      // Player registration elements
+      this.playerRegistrationInput = document.getElementById('player-registration-input') as HTMLInputElement;
+      this.addPlayerBtn = document.getElementById('add-player-btn') as HTMLButtonElement;
+      this.registeredPlayersList = document.getElementById('registered-players-list');
+      this.finishRegistrationBtn = document.getElementById('finish-registration-btn') as HTMLButtonElement;
+      this.leaderNameElement = document.getElementById('leader-name');
+              this.playerNumberElement = document.getElementById('player-number');
+        this.playerCharacterElement = document.getElementById('player-character');
+        this.goodCharactersCount = document.getElementById('good-characters-count');
+        this.badCharactersCount = document.getElementById('bad-characters-count');
+            this.badPlayersRevealBtn = document.getElementById('bad-players-reveal-btn') as HTMLButtonElement;
+    this.badPlayersRevealSection = document.getElementById('bad-players-reveal-section');
+        this.uptoValueElement = document.getElementById('upto-value');
+      this.decreaseUptoBtn = document.getElementById('decrease-upto-btn') as HTMLButtonElement;
+      this.increaseUptoBtn = document.getElementById('increase-upto-btn') as HTMLButtonElement;
+      this.mapaValueElement = document.getElementById('mapa-value');
+      this.setMapaBtn = document.getElementById('set-mapa-btn') as HTMLButtonElement;
+      this.owaspValueElement = document.getElementById('owasp-value');
+      this.setOwaspBtn = document.getElementById('set-owasp-btn') as HTMLButtonElement;
+    }
+
+    bindEvents() {
+      this.createGameBtn?.addEventListener('click', () => this.createGame());
+      this.processBtn?.addEventListener('click', () => this.processPastedData());
+      this.copyGameCodeBtn?.addEventListener('click', () => this.copyGameCode());
+      this.copyBtn?.addEventListener('click', () => this.copyData());
+      this.pasteBtn?.addEventListener('click', () => this.pasteData());
+
+      this.setupNameBtn?.addEventListener('click', () => this.setupPlayerName());
+      this.setupPlayerNameInput?.addEventListener('keypress', (e: KeyboardEvent) => {
+        if (e.key === 'Enter') {
+          this.setupPlayerName();
+        }
+      });
+      this.decreaseUptoBtn?.addEventListener('click', () => this.decreaseUpto());
+      this.increaseUptoBtn?.addEventListener('click', () => this.increaseUpto());
+      this.setMapaBtn?.addEventListener('click', () => this.setMapa());
+      this.setOwaspBtn?.addEventListener('click', () => this.setOwasp());
+      
+
+      
+      // Add event listeners for player registration
+      this.addPlayerBtn?.addEventListener('click', () => this.addRegisteredPlayer());
+      this.finishRegistrationBtn?.addEventListener('click', () => this.finishPlayerRegistration());
+      this.playerRegistrationInput?.addEventListener('keypress', (e: KeyboardEvent) => {
+        if (e.key === 'Enter') {
+          this.addRegisteredPlayer();
+        }
+      });
+      
+      // Bad Players Reveal button event
+      this.badPlayersRevealBtn?.addEventListener('click', () => this.revealBadPlayers());
+      
+      // CISO Reveal button event
+  
+    }
+
+    async createGame() {
+      this.isCreator = true;
+      this.gameCode = this.generateGameCode();
+      this.peerConnections = new Map(); // Initialize peer connections
+      this.dataChannels = new Map(); // Initialize data channels
+      this.iceCandidates = new Map(); // Reset ICE candidates
+      this.iceGatheringComplete = new Map(); // Reset gathering status
+      this.pendingOffers = new Map(); // Reset pending offers
+      
+      // Show player name setup first
+      this.gameSetup?.classList.add('hidden');
+      const setupSection = document.getElementById('player-name-setup');
+      if (setupSection) {
+        setupSection.classList.remove('hidden');
+      }
+    }
+
+
+
+    async processPastedData() {
+      try {
+        const pastedData = this.pasteTextarea?.value.trim();
+        if (!pastedData) {
+          alert('Por favor pega la información del otro jugador');
+          return;
+        }
+
+        const data = JSON.parse(pastedData);
+        console.log('Processing pasted data for peer:', data.peerId);
+        
+        if (this.isCreator) {
+          // Creator processes the answer - MUST have peerId in the response
+          if (!data.peerId) {
+            throw new Error('La respuesta no contiene identificación de peer. Asegúrate de usar la URL generada más reciente.');
+          }
+          
+          const targetPeerId = data.peerId;
+          const peerConnection = this.peerConnections.get(targetPeerId);
+          
+          if (!peerConnection) {
+            console.error('Available peers:', Array.from(this.peerConnections.keys()));
+            throw new Error(`No se encontró conexión para el peer: ${targetPeerId}. Verifica que la respuesta corresponda a una oferta válida.`);
+          }
+
+          if (data.answer) {
+            // This is an answer from the player with ICE candidates
+            await peerConnection.setRemoteDescription(data.answer);
+            // Add ICE candidates
+            if (data.iceCandidates) {
+              for (const candidate of data.iceCandidates) {
+                await peerConnection.addIceCandidate(candidate);
+              }
+            }
+          } else if (data.type === 'answer') {
+            // This is a simple answer (backward compatibility)
+            await peerConnection.setRemoteDescription(data);
+          } else {
+            throw new Error('Invalid data format for creator');
+          }
+          
+          // Clear both textareas after successful processing
+          if (this.copyTextarea) this.copyTextarea.value = '';
+          if (this.pasteTextarea) this.pasteTextarea.value = '';
+          
+          this.updateStatus('connected', `Conectado con ${targetPeerId}`);
+          this.showNextStep(`¡Conexión completada con el jugador! Puedes generar más ofertas para otros jugadores.`);
+          this.hidePasteInstruction();
+          this.showGameRoom();
+        } else {
+          // Player processes the offer and creates answer
+          const peerConnection = this.peerConnections.get('player_connection');
+          if (!peerConnection) {
+            throw new Error('No peer connection available for player');
+          }
+
+          // Store peerId from the offer to include in the answer
+          if (data.peerId) {
+            this.receivedPeerId = data.peerId;
+            console.log('Player: Received offer from peer:', data.peerId);
+          }
+
+          if (data.offer) {
+            // This is an offer from the creator with ICE candidates
+            await peerConnection.setRemoteDescription(data.offer);
+            // Add ICE candidates
+            if (data.iceCandidates) {
+              for (const candidate of data.iceCandidates) {
+                await peerConnection.addIceCandidate(candidate);
+              }
+            }
+          } else if (data.type === 'offer') {
+            // This is a simple offer (backward compatibility)
+            await peerConnection.setRemoteDescription(data);
+          } else {
+            throw new Error('Invalid data format for player');
+          }
+          
+          const answer = await peerConnection.createAnswer();
+          await peerConnection.setLocalDescription(answer);
+          
+          // Store answer for later display when ICE gathering is complete
+          this.pendingOffers.set('player_connection', answer);
+          this.updateStatus('waiting', 'Generando ICE candidates...');
+          this.showNextStep('Esperando a que se generen todos los ICE candidates...');
+        }
+      } catch (error) {
+        console.error('Error processing data:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+        alert('Error procesando la información: ' + errorMessage);
+      }
+    }
+
+    async initializeWebRTC() {
+      // Clean up any existing connection
+      this.cleanup();
+      
+      const configuration = {
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:stun1.l.google.com:19302' }
+        ]
+      };
+
+      if (this.isCreator) {
+        // For creator, we'll handle multiple peers in generateNewOffer
+        console.log('Creator: WebRTC will be initialized per peer connection');
+      } else {
+        // For players, simple single connection
+        const peerId = 'player_connection';
+        const peerConnection = new RTCPeerConnection(configuration);
+        
+        // Initialize Maps if they don't exist
+        if (!this.peerConnections) {
+          this.peerConnections = new Map();
+        }
+        if (!this.dataChannels) {
+          this.dataChannels = new Map();
+        }
+        if (!this.iceCandidates) {
+          this.iceCandidates = new Map();
+        }
+        if (!this.iceGatheringComplete) {
+          this.iceGatheringComplete = new Map();
+        }
+        if (!this.pendingOffers) {
+          this.pendingOffers = new Map();
+        }
+        
+        // Store the peer connection
+        this.peerConnections.set(peerId, peerConnection);
+        this.isInitialized = true;
+
+        // Set up data channel for player
+        peerConnection.ondatachannel = (event) => {
+          const dataChannel = event.channel;
+          this.dataChannels.set(peerId, dataChannel);
+          this.setupDataChannel(dataChannel, peerId);
+        };
+
+        // Handle ICE candidates for player
+        peerConnection.onicecandidate = (event) => {
+          if (event.candidate) {
+            console.log('New ICE candidate for player:', event.candidate);
+            if (!this.iceCandidates.has(peerId)) {
+              this.iceCandidates.set(peerId, []);
+            }
+            const candidates = this.iceCandidates.get(peerId);
+            if (candidates) {
+              candidates.push(event.candidate);
+            }
+          } else {
+            console.log('ICE gathering complete for player');
+            this.onIceGatheringComplete(peerId);
+          }
+        };
+
+        // Handle connection state changes for player
+        peerConnection.onconnectionstatechange = () => {
+          console.log('Connection state for player:', peerConnection.connectionState);
+          if (peerConnection.connectionState === 'connected') {
+            this.updateStatus('connected', 'Conectado');
+            this.showGameRoom();
+          }
+        };
+      }
+    }
+
+    setupDataChannel(channel: RTCDataChannel, peerId?: string) {
+      channel.onopen = () => {
+        console.log('Data channel opened for peer:', peerId);
+        if (this.connectedPlayers) {
+          this.connectedPlayers.textContent = (this.players.size + 1).toString();
+        }
+        // Connection established
+        console.log('Data channel opened - connection established');
+        
+        if (this.isCreator && peerId) {
+          // Creator assigns name to the new player
+          console.log('Looking for player name for peerId:', peerId);
+          console.log('Registered players:', this.registeredPlayers);
+          const playerName = this.getPlayerNameForPeer(peerId);
+          console.log('Found player name:', playerName);
+          if (playerName) {
+            // Add to local players list (for peer management)
+            this.players.set(peerId, playerName);
+            
+            // Add to the main players array immediately
+            if (!this.allPlayersNames.includes(playerName)) {
+              console.log('Adding player to main list immediately:', playerName);
+              this.allPlayersNames.push(playerName);
+            }
+            
+            // Send assigned name to the new player first
+            const assignNameMessage = {
+              type: 'assign_player_name',
+              name: playerName,
+              peerId: peerId
+            };
+            channel.send(JSON.stringify(assignNameMessage));
+            
+            // Send updated players list to everyone immediately
+            this.sendPlayersUpdateToAll();
+            
+            // Update start game button state
+            this.updateStartGameButtonState();
+            
+            // Send current leader information to the new player
+            if (this.leaderName) {
+              const leaderMessage = {
+                type: 'game_variable',
+                variable: 'leader',
+                value: this.leaderName
+              };
+              channel.send(JSON.stringify(leaderMessage));
+            }
+            
+            // Send game code to the new player
+            if (this.gameCode) {
+              const gameCodeMessage = {
+                type: 'game_variable',
+                variable: 'game_code',
+                value: this.gameCode
+              };
+              channel.send(JSON.stringify(gameCodeMessage));
+              console.log(`📤 Enviando código de partida ${this.gameCode} a ${playerName}`);
+            }
+          } else {
+            console.log('WARNING: No player name found for peerId:', peerId);
+            console.log('This might be a generic connection or URL-based connection');
+            
+            // Generate a generic name for this player
+            const genericPlayerName = `Jugador ${this.players.size + 1}`;
+            console.log('Assigning generic name:', genericPlayerName);
+            
+            // Add to local players list (for peer management)
+            this.players.set(peerId, genericPlayerName);
+            
+            // Add to the main players array immediately
+            if (!this.allPlayersNames.includes(genericPlayerName)) {
+              console.log('Adding generic player to main list immediately:', genericPlayerName);
+              this.allPlayersNames.push(genericPlayerName);
+            }
+            
+            // Send assigned name to the new player first
+            const assignNameMessage = {
+              type: 'assign_player_name',
+              name: genericPlayerName,
+              peerId: peerId
+            };
+            channel.send(JSON.stringify(assignNameMessage));
+            
+            // Send updated players list to everyone immediately
+            this.sendPlayersUpdateToAll();
+            
+            // Update start game button state
+            this.updatePlayersList();
+            
+            // Send current leader information to the new player
+            if (this.leaderName) {
+              const leaderMessage = {
+                type: 'game_variable',
+                variable: 'leader',
+                value: this.leaderName
+              };
+              channel.send(JSON.stringify(leaderMessage));
+            }
+            
+            // Send game code to the new player
+            if (this.gameCode) {
+              const gameCodeMessage = {
+                type: 'game_variable',
+                variable: 'game_code',
+                value: this.gameCode
+              };
+              channel.send(JSON.stringify(gameCodeMessage));
+              console.log(`📤 Enviando código de partida ${this.gameCode} a ${genericPlayerName}`);
+            }
+          }
+        } else {
+          // Player sends their name to creator
+          if (this.playerName) {
+            const nameMessage = {
+              type: 'player_name',
+              name: this.playerName,
+              senderId: peerId || 'unknown'
+            };
+            channel.send(JSON.stringify(nameMessage));
+          }
+        }
+      };
+
+      channel.onclose = () => {
+        console.log('Data channel closed for peer:', peerId);
+        
+        // Only cleanup if this is a critical connection loss
+        if (this.isCreator && this.dataChannels.size <= 1) {
+          console.log('Critical connection loss - cleaning up');
+          this.cleanup();
+        } else if (!this.isCreator) {
+          // For players, always cleanup on channel close
+          console.log('Player connection lost - cleaning up');
+          this.cleanup();
+        } else {
+          // For creator with multiple peers, just remove this specific channel
+          if (peerId) {
+            console.log('Removing specific peer channel:', peerId);
+            this.dataChannels.delete(peerId);
+            this.peerConnections.delete(peerId);
+          }
+          
+          // Update connected players count
+          if (this.connectedPlayers) {
+            this.connectedPlayers.textContent = Math.max(0, this.dataChannels.size).toString();
+          }
+        }
+      };
+
+      channel.onerror = (error) => {
+        console.error('Data channel error for peer:', peerId, error);
+        
+        // Don't immediately cleanup on error - let onclose handle it
+        console.log('Data channel error - will handle in onclose event');
+      };
+
+      channel.onmessage = (event: MessageEvent) => {
+        console.log('Received message from peer:', peerId, event.data);
+        this.messagesReceived++;
+        
+        // Handle different message types
+        try {
+          const message = JSON.parse(event.data);
+          if (message.type === 'player_name') {
+            // Handle player name message - only store, don't respond to avoid loops
+            console.log('Received player name:', message.name, 'from peer:', peerId);
+            // Store the player name with peer ID
+            if (peerId && message.name) {
+              this.players.set(peerId, message.name);
+              this.updatePlayersList();
+            }
+          } else if (message.type === 'assign_player_name') {
+            // Player receives their assigned name from creator
+            console.log('Received assigned name:', message.name, 'for peer:', message.peerId);
+            this.playerName = message.name;
+            
+            // Update current player name display
+            if (this.currentPlayerName) {
+              this.currentPlayerName.textContent = this.playerName;
+            }
+            
+            // Also update the players list to reflect the current player's name
+            this.updatePlayersList();
+          } else if (message.type === 'players_update') {
+            // All players receive updated complete list of player names
+            console.log('Received players update:', message.playerNames);
+            this.processPlayersUpdate(message.playerNames);
+            
+            // Also update the display immediately
+            this.updatePlayersList();
+          } else if (message.type === 'game_variable') {
+            // Handle game variable updates
+            console.log('Received game variable update:', message.variable, message.value);
+            // Update local game variables based on the message
+            if (message.variable === 'upto') {
+              this.uptoValue = message.value;
+              this.updateUptoDisplay();
+            } else if (message.variable === 'mapa') {
+              this.mapaValue = message.value;
+              this.updateMapaDisplay();
+              this.updateStartGameButtonState();
+            } else if (message.variable === 'owasp') {
+              this.owaspValue = message.value;
+              this.updateOwaspDisplay();
+            } else if (message.variable === 'game_code') {
+              // Player receives the game code
+              console.log('Received game code:', message.value);
+              this.gameCode = message.value;
+              // Update the game code display
+              if (this.gameCodeDisplay) {
+                this.gameCodeDisplay.textContent = this.gameCode;
+              }
+            } else if (message.variable === 'leader') {
+              // Standard leader update (from sendGameVariableUpdate)
+              this.leaderName = message.value;
+              
+              // Check if current player is the new leader
+              if (message.value === this.playerName) {
+                this.isLeader = true;
+              } else {
+                this.isLeader = false;
+              }
+              
+              // Update UI
+              this.updateLeaderDisplay();
+              this.updateUptoDisplay();
+              this.updateOwaspDisplay();
+              this.updatePlayersList();
+            } else if (message.variable === 'player_character') {
+              // Player receives their assigned character
+              console.log('Personaje asignado:', message.value);
+              this.updatePlayerCharacterDisplay(message.value);
+            } else if (message.variable === 'character_distribution') {
+              // Player receives character distribution information
+              console.log('📊 Distribución de personajes recibida:', message.value);
+              this.updateCharacterCounts(message.value.goodCharacters, message.value.badCharacters);
+            } else if (message.variable === 'reveal_bad_players') {
+              // Player receives reveal bad players message
+              console.log('🕵️ Mensaje de revelación de jugadores malos recibido');
+              this.handleBadPlayersReveal(message.value.badPlayers);
+            } else if (message.variable === 'hide_bad_players') {
+              // Player receives hide bad players message
+              console.log('🕵️ Mensaje para ocultar jugadores malos recibido');
+              this.handleBadPlayersHide();
+
+            } else if (message.variable === 'player_number') {
+              // Player receives their assigned number
+              console.log('Número asignado:', message.value);
+              this.updatePlayerNumberDisplay(message.value);
+            } else if (message.variable === 'leadership_change') {
+              // Handle leadership change
+              console.log('Cambio de liderazgo recibido:', message.value);
+              this.handleLeadershipChange(message.value.newLeader, message.value.previousLeader);
+            } else if (message.variable === 'game_started') {
+              // Handle game started notification
+              console.log('Partida iniciada recibida:', message.value);
+              this.gameStarted = message.value;
+              console.log(`Estado de partida actualizado: gameStarted=${this.gameStarted}`);
+              
+              // Update UI elements that depend on game state
+              this.updatePlayersList();
+            }
+            
+            // If creator, broadcast to other players (except sender)
+            if (this.isCreator && peerId) {
+              this.broadcastToOthers(message, peerId);
+            }
+          } else {
+            // Handle other message types
+            console.log('Received message:', message);
+          }
+        } catch (error) {
+          // Handle plain text messages (backward compatibility)
+          console.log('Received plain text:', event.data);
+        }
+      };
+    }
+
+    generateGameCode() {
+      return Math.random().toString(36).substring(2, 8).toUpperCase();
+    }
+
+    updateStatus(state: string, message: string) {
+      const indicator = this.statusIndicator?.querySelector('div');
+      const text = this.statusText;
+      
+      if (indicator) {
+        indicator.className = 'w-3 h-3 rounded-full';
+        
+        switch (state) {
+          case 'waiting':
+            indicator.classList.add('bg-yellow-500');
+            break;
+          case 'connected':
+            indicator.classList.add('bg-green-500');
+            break;
+          default:
+            indicator.classList.add('bg-red-500');
+        }
+      }
+      
+      if (text) {
+        text.textContent = message;
+      }
+    }
+
+    showNextStep(message: string) {
+      if (this.nextStepInfo && this.nextStepText) {
+        this.nextStepText.textContent = message;
+        this.nextStepInfo.classList.remove('hidden');
+      }
+    }
+
+    showPasteInstruction() {
+      if (this.pasteInstruction) {
+        this.pasteInstruction.classList.remove('hidden');
+      }
+    }
+
+    hidePasteInstruction() {
+      if (this.pasteInstruction) {
+        this.pasteInstruction.classList.add('hidden');
+      }
+    }
+
+    onIceGatheringComplete(peerId: string) {
+      if (!this.iceGatheringComplete || !this.pendingOffers || !this.iceCandidates) {
+        console.error('Maps not initialized');
+        return;
+      }
+
+      this.iceGatheringComplete.set(peerId, true);
+      const candidates = this.iceCandidates.get(peerId) || [];
+      const pendingOffer = this.pendingOffers.get(peerId);
+      
+      console.log('ICE gathering complete for peer', peerId, 'candidates:', candidates.length);
+      
+      if (pendingOffer && this.copyTextarea) {
+        if (this.isCreator) {
+          // Creator generated an offer
+          console.log('Creating offer with peerId:', peerId);
+          const offerData = {
+            offer: pendingOffer,
+            iceCandidates: candidates,
+            peerId: peerId  // Include peerId for identification
+          };
+          this.copyTextarea.value = JSON.stringify(offerData);
+          this.updateStatus('waiting', 'Oferta generada');
+          this.showNextStep('Copia la oferta y compártela con el jugador. Luego pega la respuesta para completar la conexión.');
+          this.showPasteInstruction();
+          
+          // Clear the paste textarea to avoid confusion with previous data
+          if (this.pasteTextarea) {
+            this.pasteTextarea.value = '';
+          }
+        } else {
+          // Player generated an answer - use the peerId from the received offer
+          const finalPeerId = this.receivedPeerId || peerId;
+          const answerData = {
+            answer: pendingOffer,
+            iceCandidates: candidates,
+            peerId: finalPeerId  // Use received peerId or fallback to current
+          };
+          this.copyTextarea.value = JSON.stringify(answerData);
+          this.updateStatus('waiting', 'Respuesta generada');
+          this.showNextStep('Copia la respuesta generada y compártela con el creador. El creador debe pegarla y procesarla para completar la conexión.');
+        }
+      }
+    }
+
+    addRegisteredPlayer() {
+      const playerName = this.playerRegistrationInput?.value.trim();
+      if (!playerName) {
+        alert('Por favor ingresa un nombre para el jugador');
+        return;
+      }
+
+      // Check if player name already exists
+      const existingPlayer = Array.from(this.registeredPlayers.values()).find(
+        name => name.toLowerCase() === playerName.toLowerCase()
+      );
+      
+      if (existingPlayer) {
+        return;
+      }
+
+      // Generate unique player ID
+      const playerId = 'player_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+      this.registeredPlayers.set(playerId, playerName);
+      
+      // Add player to the list
+      this.updateRegisteredPlayersList();
+      
+      // Clear input
+      if (this.playerRegistrationInput) {
+        this.playerRegistrationInput.value = '';
+      }
+      
+      // Enable start game button if we have requirements
+      this.updateStartGameButtonState();
+    }
+
+    updateRegisteredPlayersList() {
+      if (this.registeredPlayersList) {
+        this.registeredPlayersList.innerHTML = '';
+        
+        this.registeredPlayers.forEach((playerName: string, playerId: string) => {
+          const playerDiv = document.createElement('div');
+          playerDiv.className = 'flex items-center justify-between bg-white/90 rounded-lg p-4 border-2 border-black shadow-md mb-3';
+          
+          // Check if this player is already connected
+          const isConnected = this.allPlayersNames.includes(playerName);
+          
+          const nameSpan = document.createElement('span');
+          nameSpan.className = 'text-base font-semibold';
+          nameSpan.style.color = 'var(--color-primary)';
+          nameSpan.style.fontFamily = "'Roboto Slab', serif";
+          nameSpan.textContent = playerName;
+          
+          const statusDiv = document.createElement('div');
+          statusDiv.className = 'flex items-center gap-3';
+          
+          if (isConnected) {
+            const statusSpan = document.createElement('span');
+            statusSpan.className = 'text-xs font-medium px-2 py-1 bg-green-100 text-green-800 rounded-full border border-green-300';
+            statusSpan.style.fontFamily = "'Special Elite', monospace";
+            statusSpan.textContent = '✓ Conectado';
+            statusDiv.appendChild(statusSpan);
+          } else {
+            const buttonsDiv = document.createElement('div');
+            buttonsDiv.className = 'flex gap-2';
+            
+            const urlBtn = document.createElement('button');
+            urlBtn.className = 'btn-primary py-1 px-3 text-xs font-medium transition-all duration-200 hover:scale-105';
+            urlBtn.textContent = 'URL';
+            urlBtn.onclick = () => this.generatePlayerURL(playerId, playerName, urlBtn);
+            
+            buttonsDiv.appendChild(urlBtn);
+            statusDiv.appendChild(buttonsDiv);
+          }
+          
+          playerDiv.appendChild(nameSpan);
+          playerDiv.appendChild(statusDiv);
+          if (this.registeredPlayersList) {
+            this.registeredPlayersList.appendChild(playerDiv);
+          }
+        });
+      }
+    }
+
+    generatePlayerURL(playerId: string, playerName: string, urlButton: HTMLButtonElement) {
+      console.log('Generating URL for player:', playerName);
+      
+      // Generate unique peer ID for this URL generation
+      const peerId = 'peer_' + playerId + '_' + Date.now();
+      console.log('Generated URL peerId:', peerId);
+      
+      // Store the peerId to capture its specific offer data
+      const targetPeerId = peerId;
+      
+      // First initiate connection to get the offer using the specific peerId
+      this.connectToPlayerWithPeerId(playerId, playerName, targetPeerId);
+      
+      // Wait for the specific offer to be generated for this peerId
+      const checkOfferReady = () => {
+        // Check if this specific peer's offer is ready in pendingOffers
+        const pendingOffer = this.pendingOffers.get(targetPeerId);
+        const iceCandidates = this.iceCandidates.get(targetPeerId);
+        const iceComplete = this.iceGatheringComplete.get(targetPeerId);
+        
+        if (pendingOffer && iceComplete) {
+          console.log('Offer ready for peerId:', targetPeerId);
+          
+          // Create the offer data for this specific peer
+          const offerData = {
+            offer: pendingOffer,
+            iceCandidates: iceCandidates || [],
+            peerId: targetPeerId
+          };
+          
+          const gameId = this.gameCode;
+          if (gameId) {
+            // Encode offer data to base64
+            const encodedData = btoa(JSON.stringify(offerData));
+            
+            // Get current URL without query parameters
+            const baseUrl = window.location.origin + window.location.pathname;
+            
+            // Generate the URL with parameters
+            const gameUrl = `${baseUrl}?gameId=${gameId}&data=${encodedData}`;
+            
+            // Copy URL to clipboard
+            navigator.clipboard.writeText(gameUrl).then(() => {
+              console.log(`URL copiada al portapapeles para ${playerName} (${targetPeerId})`);
+              
+              // Change button text temporarily
+              urlButton.textContent = '¡Copiado!';
+              
+              // Reset button text after 2 seconds
+              setTimeout(() => {
+                urlButton.textContent = 'URL';
+              }, 2000);
+              
+            }).catch(err => {
+              console.error('Error copying URL:', err);
+              // Fallback: show URL in a prompt
+              prompt(`URL para ${playerName} (copia manualmente):`, gameUrl);
+            });
+          }
+        } else {
+          // Retry after a short delay
+          setTimeout(checkOfferReady, 100);
+        }
+      };
+      
+      // Start checking for offer availability
+      setTimeout(checkOfferReady, 100);
+    }
+
+
+
+    connectToPlayerWithPeerId(playerId: string, playerName: string, peerId: string) {
+      console.log('Connecting to player:', playerName, 'with peerId:', peerId);
+      this.currentPeerId = peerId;
+      
+      this.createPeerConnection(peerId, playerName);
+    }
+
+    connectToPlayer(playerId: string, playerName: string) {
+      console.log('Connecting to player:', playerName);
+      
+      // Generate unique peer ID for this connection
+      const peerId = 'peer_' + playerId + '_' + Date.now();
+      console.log('Generated unique peerId:', peerId);
+      this.currentPeerId = peerId;
+      
+      this.createPeerConnection(peerId, playerName);
+    }
+
+    createPeerConnection(peerId: string, playerName: string) {
+      
+      const configuration = {
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:stun1.l.google.com:19302' }
+        ]
+      };
+
+      // Create new peer connection
+      const peerConnection = new RTCPeerConnection(configuration);
+      
+      // Initialize Maps if they don't exist
+      if (!this.peerConnections) {
+        this.peerConnections = new Map();
+      }
+      if (!this.dataChannels) {
+        this.dataChannels = new Map();
+      }
+      if (!this.iceCandidates) {
+        this.iceCandidates = new Map();
+      }
+      if (!this.iceGatheringComplete) {
+        this.iceGatheringComplete = new Map();
+      }
+      if (!this.pendingOffers) {
+        this.pendingOffers = new Map();
+      }
+      
+      // Store new peer connection
+      this.peerConnections.set(peerId, peerConnection);
+
+      // Set up data channel for creator
+      const dataChannel = peerConnection.createDataChannel('gameChannel');
+      this.dataChannels.set(peerId, dataChannel);
+      this.setupDataChannel(dataChannel, peerId);
+
+      // Handle ICE candidates for this specific peer
+      peerConnection.onicecandidate = (event) => {
+        if (event.candidate) {
+          console.log('New ICE candidate for peer', peerId, ':', event.candidate);
+          if (!this.iceCandidates.has(peerId)) {
+            this.iceCandidates.set(peerId, []);
+          }
+          const candidates = this.iceCandidates.get(peerId);
+          if (candidates) {
+            candidates.push(event.candidate);
+          }
+        } else {
+          console.log('ICE gathering complete for peer', peerId);
+          this.onIceGatheringComplete(peerId);
+        }
+      };
+
+      // Handle connection state changes for this specific peer
+      peerConnection.onconnectionstatechange = () => {
+        console.log('Connection state for peer', peerId, ':', peerConnection.connectionState);
+        if (peerConnection.connectionState === 'connected') {
+          this.updateStatus('connected', 'Conectado');
+          this.showGameRoom();
+          
+          // Player is now fully connected - no additional list management needed
+          // (Player was already added to allPlayersNames when the data channel opened)
+          
+          // TODO: Instead of removing from registered players, we should update UI state
+          // this.removeConnectedPlayerFromRegistered(peerId);
+        }
+      };
+
+      // Initialize ICE candidates for this peer
+      this.iceCandidates.set(peerId, []);
+      this.iceGatheringComplete.set(peerId, false);
+      this.pendingOffers.set(peerId, undefined);
+
+      // Create offer for this player
+      peerConnection.createOffer().then((offer: RTCSessionDescriptionInit) => {
+        peerConnection.setLocalDescription(offer);
+        this.pendingOffers.set(peerId, offer);
+        this.updateStatus('waiting', `Generando oferta para ${playerName}...`);
+        this.showNextStep(`Esperando a que se generen todos los ICE candidates para ${playerName}...`);
+      });
+    }
+
+    removeConnectedPlayerFromRegistered(peerId: string) {
+      // Extract playerId from peerId (format: 'peer_playerId_timestamp')
+      const playerIdMatch = peerId.match(/^peer_(.+)_\d+$/);
+      if (playerIdMatch) {
+        const playerId = playerIdMatch[1];
+        
+        // Remove from registered players
+        if (this.registeredPlayers.has(playerId)) {
+          console.log('Removing connected player from registered list:', playerId);
+          this.registeredPlayers.delete(playerId);
+          
+          // Update the UI list
+          this.updateRegisteredPlayersList();
+        }
+      }
+    }
+
+    updateStartGameButtonState() {
+      if (this.finishRegistrationBtn) {
+        // Import game rules to validate player count
+        import('../config/gameRules.js').then(({ isValidPlayerCount }) => {
+          const playerCount = this.allPlayersNames.length;
+          const hasValidPlayerCount = isValidPlayerCount(playerCount);
+          const hasMapUUID = this.mapaValue && this.mapaValue.trim() !== '';
+          
+          const isEnabled = hasValidPlayerCount && hasMapUUID;
+
+          const btn = this.finishRegistrationBtn;
+          if (!btn) return;
+
+          btn.disabled = !isEnabled;
+
+          // Update button visual state
+          if (isEnabled) {
+            btn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
+            btn.classList.add('hover:scale-105');
+          } else {
+            btn.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
+            btn.classList.remove('hover:scale-105');
+          }
+
+          // Update button text to show current player count and valid range
+          const isEnglish = document.documentElement.lang === 'en';
+          const buttonText = isEnglish ? 'Start Game' : 'Iniciar Partida';
+          btn.textContent = `${buttonText} (${playerCount}/5-10)`;
+        }).catch(error => {
+          console.error('Error al importar reglas del juego:', error);
+        });
+      }
+    }
+
+    finishPlayerRegistration() {
+      // Validate requirements
+      if (this.allPlayersNames.length <= 1) {
+        alert('Se necesita al menos un jugador conectado para iniciar la partida');
+        return;
+      }
+      
+      if (!this.mapaValue || this.mapaValue.trim() === '') {
+        alert('Se necesita asignar un UUID de mapa antes de iniciar la partida');
+        return;
+      }
+
+      // Start the game logic
+      this.startGame();
+    }
+
+    startGame() {
+      console.log('Iniciando partida con', this.allPlayersNames.length, 'jugadores...');
+      
+      // Mark game as started
+      this.gameStarted = true;
+      
+      // 1. Discard unconnected peers and clean up
+      this.cleanupUnconnectedPeers();
+      
+      // 2. Send game initialization messages in order
+      this.sendGameInitializationMessages();
+      
+      // 3. Hide registration section and WebRTC configuration, show game room
+      const registrationSection = document.getElementById('player-registration-section');
+      if (registrationSection) {
+        registrationSection.classList.add('hidden');
+      }
+      
+      // Hide WebRTC signaling section for creator (no longer needed)
+      if (this.webrtcSignaling) {
+        this.webrtcSignaling.classList.add('hidden');
+      }
+      
+
+      
+      this.showGameRoom();
+      
+      // Update UI states after game starts
+      this.updateMapaDisplay(); // Disable map button
+      this.updateUptoDisplay(); // Enable upTo buttons for leader
+      this.updateOwaspDisplay(); // Enable OWASP button for leader
+      this.updatePlayersList(); // Show leader assignment buttons
+      
+      // Show bad players reveal section for creator
+      if (this.isCreator && this.badPlayersRevealSection) {
+        this.badPlayersRevealSection.classList.remove('hidden');
+        console.log('🕵️ Sección de revelación de jugadores malos mostrada para el creador');
+      }
+      
+      console.log('Partida iniciada exitosamente');
+    }
+
+    sendGameInitializationMessages() {
+      console.log('Enviando mensajes de inicialización de partida...');
+      
+      // 1. Send game started status to all players
+      console.log('1. Enviando estado de partida iniciada');
+      const gameStartedMessage = {
+        type: 'game_variable',
+        variable: 'game_started',
+        value: true
+      };
+      this.broadcastToAll(gameStartedMessage);
+      
+      // 2. Send complete players list to all players
+      console.log('2. Enviando lista completa de jugadores:', this.allPlayersNames);
+      const playersListMessage = {
+        type: 'players_update',
+        playerNames: this.allPlayersNames
+      };
+      this.broadcastToAll(playersListMessage);
+      
+      // 3. Send character distribution information to all players
+      console.log('3. Enviando información de distribución de personajes');
+      import('../config/gameRules.js').then(({ getCharacterDistribution }) => {
+        const totalPlayers = this.allPlayersNames.length;
+        const distribution = getCharacterDistribution(totalPlayers);
+        
+        if (distribution) {
+          const characterDistributionMessage = {
+            type: 'game_variable',
+            variable: 'character_distribution',
+            value: {
+              totalPlayers: distribution.totalPlayers,
+              goodCharacters: distribution.good,
+              badCharacters: distribution.bad
+            }
+          };
+          
+          console.log('📊 Enviando distribución de personajes:', characterDistributionMessage.value);
+          this.broadcastToAll(characterDistributionMessage);
+          
+          // Also send to creator
+          console.log('📊 Distribución para creador:', distribution);
+        } else {
+          console.error('❌ No se pudo obtener la distribución de personajes');
+        }
+      }).catch(error => {
+        console.error('Error al obtener distribución de personajes:', error);
+      });
+      
+      // 3. Send UpTo value to all players
+      console.log('3. Enviando valor UpTo:', this.uptoValue);
+      const uptoMessage = {
+        type: 'game_variable',
+        variable: 'upto',
+        value: this.uptoValue
+      };
+      this.broadcastToAll(uptoMessage);
+      
+      // 4. Send Map UUID to all players
+      console.log('4. Enviando UUID del mapa:', this.mapaValue);
+      const mapaMessage = {
+        type: 'game_variable',
+        variable: 'mapa',
+        value: this.mapaValue
+      };
+      this.broadcastToAll(mapaMessage);
+      
+              // 5. Assign and send random unique characters to all players (one by one)
+        console.log('5. Asignando personajes aleatorios uno por uno...');
+        this.assignRandomCharactersToPlayers();
+    }
+
+    cleanupUnconnectedPeers() {
+      console.log('Limpiando peers no conectados...');
+      
+      // Get list of connected peer IDs from data channels that are open
+      const connectedPeerIds = new Set<string>();
+      this.dataChannels.forEach((channel, peerId) => {
+        if (channel && channel.readyState === 'open') {
+          connectedPeerIds.add(peerId);
+        }
+      });
+      
+      // Clean up peerConnections for unconnected peers
+      this.peerConnections.forEach((connection, peerId) => {
+        if (!connectedPeerIds.has(peerId)) {
+          console.log('Removing unconnected peer:', peerId);
+          connection.close();
+          this.peerConnections.delete(peerId);
+        }
+      });
+      
+      // Clean up dataChannels for unconnected peers
+      this.dataChannels.forEach((channel, peerId) => {
+        if (!connectedPeerIds.has(peerId)) {
+          console.log('Removing unconnected data channel:', peerId);
+          if (channel) {
+            channel.close();
+          }
+          this.dataChannels.delete(peerId);
+        }
+      });
+      
+      // Clean up other maps
+      this.iceCandidates.forEach((candidates, peerId) => {
+        if (!connectedPeerIds.has(peerId)) {
+          this.iceCandidates.delete(peerId);
+        }
+      });
+      
+      this.iceGatheringComplete.forEach((complete, peerId) => {
+        if (!connectedPeerIds.has(peerId)) {
+          this.iceGatheringComplete.delete(peerId);
+        }
+      });
+      
+      this.pendingOffers.forEach((offer, peerId) => {
+        if (!connectedPeerIds.has(peerId)) {
+          this.pendingOffers.delete(peerId);
+        }
+      });
+      
+      // Update players map to only include connected players
+      const connectedPlayers = new Map<string, string>();
+      this.players.forEach((playerName, peerId) => {
+        if (connectedPeerIds.has(peerId)) {
+          connectedPlayers.set(peerId, playerName);
+        }
+      });
+      this.players = connectedPlayers;
+      
+      console.log('Cleanup completado. Peers conectados:', connectedPeerIds.size);
+    }
+
+    assignRandomCharactersToPlayers() {
+      console.log('Generando y asignando personajes aleatorios...');
+      
+      // Import both characters and game rules
+      Promise.all([
+        import('../config/characters.js'),
+        import('../config/gameRules.js')
+      ]).then(([{ getAllCharacters }, { getCharacterDistribution }]) => {
+        const allCharacters = getAllCharacters();
+        
+        // Total players = creator + connected players
+        const totalPlayers = this.allPlayersNames.length;
+        console.log('Total de jugadores:', totalPlayers);
+        
+        // Get character distribution for this player count
+        const distribution = getCharacterDistribution(totalPlayers);
+        if (!distribution) {
+          console.error(`❌ Número de jugadores no válido: ${totalPlayers}`);
+          return;
+        }
+        
+        console.log(`📊 Distribución para ${totalPlayers} jugadores:`, distribution);
+        
+        // Separate characters by type and ensure CISO is included
+        const goodCharacters = allCharacters.filter(char => char.type === 'good');
+        const badCharacters = allCharacters.filter(char => char.type === 'bad');
+        
+        // Find CISO character
+        const cisoCharacter = allCharacters.find(char => char.key === 'ciso');
+        if (!cisoCharacter) {
+          console.error('❌ No se encontró el personaje CISO');
+          return;
+        }
+        
+        console.log(`🎯 CISO encontrado: ${cisoCharacter.name}`);
+        
+        // Ensure we have enough characters of each type
+        if (goodCharacters.length < distribution.good) {
+          console.warn(`⚠️ No hay suficientes personajes buenos: ${goodCharacters.length} < ${distribution.good}`);
+        }
+        if (badCharacters.length < distribution.bad) {
+          console.warn(`⚠️ No hay suficientes personajes malos: ${badCharacters.length} < ${distribution.bad}`);
+        }
+        
+        // Shuffle character arrays
+        const shuffleArray = (array: any[]) => {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        };
+        
+        // Create character pool according to distribution rules
+        const characterPool: string[] = [];
+        
+        // First, ensure CISO is included in the experts count
+        characterPool.push('ciso');
+        console.log(`🎯 CISO añadido al pool (contado como experto)`);
+        
+        // Add remaining good characters to reach the required count
+        const remainingGood = goodCharacters.filter(char => char.key !== 'ciso');
+        const shuffledGood = shuffleArray([...remainingGood]);
+        
+        // We need (distribution.good - 1) additional good characters since CISO counts as 1
+        const additionalGoodNeeded = distribution.good - 1;
+        for (let i = 0; i < additionalGoodNeeded && i < shuffledGood.length; i++) {
+          characterPool.push(shuffledGood[i].key);
+        }
+        
+        // Add bad characters according to distribution
+        const shuffledBad = shuffleArray([...badCharacters]);
+        for (let i = 0; i < distribution.bad && i < shuffledBad.length; i++) {
+          characterPool.push(shuffledBad[i].key);
+        }
+        
+        // Shuffle the final pool
+        shuffleArray(characterPool);
+        
+        console.log(`🎭 Pool de personajes creado: ${characterPool.length} personajes`);
+        // Note: gameRules.CharacterDistribution doesn't expose an explicit experts field; "good" includes CISO
+        console.log(`📊 Distribución: ${distribution.good} buenos (incluyendo CISO), ${distribution.bad} malos`);
+        console.log('Personajes en el pool:', characterPool);
+        
+        // Verify the pool matches the distribution rules
+        const goodInPool = characterPool.filter(char => goodCharacters.some(good => good.key === char)).length;
+        const badInPool = characterPool.filter(char => badCharacters.some(bad => bad.key === char)).length;
+        console.log(`✅ Verificación: ${goodInPool} buenos, ${badInPool} malos en el pool`);
+        
+        // Assign characters to players sequentially
+        let characterIndex = 0;
+        
+        // Assign to creator first
+        if (characterIndex < characterPool.length) {
+          const creatorCharacter = characterPool[characterIndex];
+          console.log(`👑 Asignando personaje ${creatorCharacter} al creador`);
+          this.updatePlayerCharacterDisplay(creatorCharacter);
+          this.playerCharacters.set(this.playerName, creatorCharacter);
+          characterIndex++;
+        }
+        
+        // Assign to connected players
+        this.dataChannels.forEach((channel, peerId) => {
+          if (channel && channel.readyState === 'open' && characterIndex < characterPool.length) {
+            const assignedCharacter = characterPool[characterIndex];
+            const playerName = this.allPlayersNames[characterIndex]; // +1 because creator is at index 0
+            
+            console.log(`🎯 Asignando personaje ${assignedCharacter} a ${playerName} (peer: ${peerId})`);
+            
+            // Store the character assignment
+            this.playerCharacters.set(playerName, assignedCharacter);
+            
+            // Send assigned character to this specific player
+            const characterMessage = {
+              type: 'game_variable',
+              variable: 'player_character',
+              value: assignedCharacter
+            };
+            
+            console.log(`Enviando personaje ${assignedCharacter} a ${playerName}:`, characterMessage);
+            channel.send(JSON.stringify(characterMessage));
+            
+            console.log(`✅ Personaje ${assignedCharacter} enviado exitosamente a ${playerName} (peer: ${peerId})`);
+            characterIndex++;
+          } else if (channel && channel.readyState === 'open') {
+            console.log(`❌ No hay más personajes disponibles para peer ${peerId}`);
+          } else {
+            console.log(`❌ Canal no disponible para peer ${peerId}: existe=${!!channel}, estado=${channel?.readyState}`);
+          }
+        });
+        
+        console.log('🎉 Asignación de personajes completada según las reglas del juego.');
+        console.log(`📊 Resumen: ${distribution.good} buenos (incluyendo CISO), ${distribution.bad} malos, total: ${characterPool.length}`);
+        console.log(`🎭 Personajes asignados: ${characterIndex} de ${totalPlayers} jugadores`);
+        console.log(`🎯 CISO está en el pool: ${characterPool.includes('ciso') ? '✅ SÍ' : '❌ NO'}`);
+        
+        // Update the character count display
+        this.updateCharacterCounts(goodInPool, badInPool);
+      }).catch(error => {
+        console.error('Error al importar configuración:', error);
+      });
+    }
+
+    broadcastToAll(message: any) {
+      if (!this.dataChannels) {
+        console.log('❌ No hay canales de datos para broadcast');
+        return;
+      }
+      
+      console.log(`📡 Broadcasting mensaje tipo "${message.variable}" a ${this.dataChannels.size} canales:`, message);
+      
+      let sentCount = 0;
+      this.dataChannels.forEach((channel, peerId) => {
+        if (channel && channel.readyState === 'open') {
+          channel.send(JSON.stringify(message));
+          console.log(`✅ Mensaje enviado a peer ${peerId}`);
+          sentCount++;
+        } else {
+          console.log(`❌ Canal no disponible para peer ${peerId}: existe=${!!channel}, estado=${channel?.readyState}`);
+        }
+      });
+      
+      console.log(`📡 Broadcast completado: ${sentCount} mensajes enviados de ${this.dataChannels.size} canales totales`);
+    }
+
+    broadcastToBadPlayersOnly(message: any) {
+      if (!this.dataChannels) {
+        console.log('❌ No hay canales de datos para broadcast');
+        return;
+      }
+      
+      console.log(`📡 Enviando mensaje tipo "${message.variable}" solo a jugadores malos`);
+      
+      let sentCount = 0;
+      this.dataChannels.forEach((channel, peerId) => {
+        if (channel && channel.readyState === 'open') {
+          // Find the player name for this peer
+          const playerName = this.getPlayerNameForPeer(peerId);
+          if (playerName) {
+            const playerCharacter = this.playerCharacters.get(playerName);
+            if (playerCharacter && this.isPlayerBad(playerCharacter)) {
+              channel.send(JSON.stringify(message));
+              console.log(`✅ Mensaje enviado a jugador malo ${playerName} (${playerCharacter}) en peer ${peerId}`);
+              sentCount++;
+            } else {
+              console.log(`❌ No se envía a ${playerName} (${playerCharacter}) - no es malo`);
+            }
+          } else {
+            console.log(`❌ No se pudo identificar jugador para peer ${peerId}`);
+          }
+        } else {
+          console.log(`❌ Canal no disponible para peer ${peerId}: existe=${!!channel}, estado=${channel?.readyState}`);
+        }
+      });
+      
+      console.log(`📡 Broadcast a jugadores malos completado: ${sentCount} mensajes enviados`);
+    }
+
+    broadcastToCISOOnly(message: any) {
+      if (!this.dataChannels) {
+        console.log('❌ No hay canales de datos para broadcast');
+        return;
+      }
+      
+      console.log(`📡 Enviando mensaje tipo "${message.variable}" solo al jugador CISO`);
+      
+      let sentCount = 0;
+      this.dataChannels.forEach((channel, peerId) => {
+        if (channel && channel.readyState === 'open') {
+          // Find the player name for this peer
+          const playerName = this.getPlayerNameForPeer(peerId);
+          if (playerName) {
+            const playerCharacter = this.playerCharacters.get(playerName);
+            if (playerCharacter === 'ciso') {
+              channel.send(JSON.stringify(message));
+              console.log(`✅ Mensaje enviado a CISO ${playerName} en peer ${peerId}`);
+              sentCount++;
+            } else {
+              console.log(`❌ No se envía a ${playerName} (${playerCharacter}) - no es CISO`);
+            }
+          } else {
+            console.log(`❌ No se pudo identificar jugador para peer ${peerId}`);
+          }
+        } else {
+          console.log(`❌ Canal no disponible para peer ${peerId}: existe=${!!channel}, estado=${channel?.readyState}`);
+        }
+      });
+      
+      console.log(`📡 Broadcast a CISO completado: ${sentCount} mensajes enviados`);
+    }
+
+    getPlayerNameForPeer(peerId: string): string | null {
+      // Find the player name from registered players based on peerId
+      // The peerId contains the playerId, so we need to extract it
+      for (const [playerId, playerName] of this.registeredPlayers) {
+        if (peerId.includes(playerId)) {
+          return playerName;
+        }
+      }
+      return null;
+    }
+
+    broadcastToOthers(message: any, senderId: string) {
+      if (!this.dataChannels) return;
+      
+      this.dataChannels.forEach((channel, peerId) => {
+        if (peerId !== senderId && channel && channel.readyState === 'open') {
+          channel.send(JSON.stringify(message));
+        }
+      });
+    }
+
+    sendPlayersUpdateToAll() {
+      if (!this.isCreator) return;
+      
+      const playersUpdateMessage = {
+        type: 'players_update',
+        playerNames: this.allPlayersNames
+      };
+      
+      console.log('Sending players update to all:', this.allPlayersNames);
+      
+      // Send to all connected players
+      this.broadcastToAll(playersUpdateMessage);
+      
+      // Also process locally for creator
+      this.processPlayersUpdate(this.allPlayersNames);
+      
+      // Update registered players list to show connection status
+      this.updateRegisteredPlayersList();
+      
+      // Update start game button state
+      this.updateStartGameButtonState();
+    }
+
+    processPlayersUpdate(playerNames: string[]) {
+      console.log('Processing players update locally:', playerNames);
+      console.log('Current player name is:', this.playerName);
+      
+      // Clear current players list and rebuild from names
+      this.players.clear();
+      
+      // Update allPlayersNames with the received list
+      this.allPlayersNames = [...playerNames];
+      console.log('Updated allPlayersNames:', this.allPlayersNames);
+      
+      // Add all players from the list
+      if (playerNames && Array.isArray(playerNames)) {
+        playerNames.forEach((name: string, index: number) => {
+          // Assign unique IDs to each player
+          this.players.set(`player_${index}`, name);
+          console.log(`Added player ${index}: ${name}`);
+        });
+      }
+      
+      console.log('Players map after update:', this.players);
+      
+      // Update UI
+      this.updatePlayersList();
+      
+      // Update connected players count
+      if (this.connectedPlayers) {
+        this.connectedPlayers.textContent = playerNames.length.toString();
+      }
+    }
+
+    generateNewOffer() {
+      if (!this.isCreator) return;
+      
+      console.log('Generating new offer for additional player...');
+      
+      // Generate unique peer ID for new connection
+      const peerId = 'peer_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+      this.currentPeerId = peerId;
+      
+      const configuration = {
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:stun1.l.google.com:19302' }
+        ]
+      };
+
+      // Create new peer connection (don't cleanup existing ones)
+      const peerConnection = new RTCPeerConnection(configuration);
+      
+      // Initialize Maps if they don't exist
+      if (!this.peerConnections) {
+        this.peerConnections = new Map();
+      }
+      if (!this.dataChannels) {
+        this.dataChannels = new Map();
+      }
+      if (!this.iceCandidates) {
+        this.iceCandidates = new Map();
+      }
+      if (!this.iceGatheringComplete) {
+        this.iceGatheringComplete = new Map();
+      }
+      if (!this.pendingOffers) {
+        this.pendingOffers = new Map();
+      }
+      
+      // Store new peer connection
+      this.peerConnections.set(peerId, peerConnection);
+
+      // Set up data channel for creator
+      const dataChannel = peerConnection.createDataChannel('gameChannel');
+      this.dataChannels.set(peerId, dataChannel);
+      this.setupDataChannel(dataChannel, peerId);
+
+      // Handle ICE candidates for this specific peer
+      peerConnection.onicecandidate = (event) => {
+        if (event.candidate) {
+          console.log('New ICE candidate for peer', peerId, ':', event.candidate);
+          if (!this.iceCandidates.has(peerId)) {
+            this.iceCandidates.set(peerId, []);
+          }
+          const candidates = this.iceCandidates.get(peerId);
+          if (candidates) {
+            candidates.push(event.candidate);
+          }
+        } else {
+          console.log('ICE gathering complete for peer', peerId);
+          this.onIceGatheringComplete(peerId);
+        }
+      };
+
+      // Handle connection state changes for this specific peer
+      peerConnection.onconnectionstatechange = () => {
+        console.log('Connection state for peer', peerId, ':', peerConnection.connectionState);
+        if (peerConnection.connectionState === 'connected') {
+          this.updateStatus('connected', 'Conectado');
+          this.showGameRoom();
+          
+          // For generateNewOffer, we don't have a specific player name registered
+          // This is for generic new connections, player name will be assigned later
+          
+          // TODO: Handle UI state for generic connections
+          // this.removeConnectedPlayerFromRegistered(peerId);
+        }
+      };
+
+      // Initialize ICE candidates for this peer
+      this.iceCandidates.set(peerId, []);
+      this.iceGatheringComplete.set(peerId, false);
+      this.pendingOffers.set(peerId, undefined);
+
+      // Create offer for new player
+      peerConnection.createOffer().then((offer: RTCSessionDescriptionInit) => {
+        peerConnection.setLocalDescription(offer);
+        this.pendingOffers.set(peerId, offer);
+        this.updateStatus('waiting', 'Generando ICE candidates para nuevo jugador...');
+        this.showNextStep('Esperando a que se generen todos los ICE candidates para el nuevo jugador...');
+      });
+
+
+    }
+
+    showGameRoom() {
+      // For creator, keep signaling section visible ONLY if game hasn't started yet
+      if (this.isCreator) {
+        this.gameRoom?.classList.remove('hidden');
+        
+        // Only show WebRTC signaling if game hasn't started yet
+        if (this.webrtcSignaling) {
+          if (this.gameStarted) {
+            // Game has started - hide WebRTC configuration
+            this.webrtcSignaling.classList.add('hidden');
+          } else {
+            // Game hasn't started - keep signaling visible for adding players
+            this.webrtcSignaling.classList.remove('hidden');
+          }
+        }
+        
+
+      } else {
+        // For players, always hide signaling section and new player section
+        this.webrtcSignaling?.classList.add('hidden');
+        this.gameRoom?.classList.remove('hidden');
+
+      }
+      
+      if (this.gameCodeDisplay && this.gameCode) {
+        this.gameCodeDisplay.textContent = this.gameCode;
+      }
+      
+      // Hide next step info when game room is shown
+      this.nextStepInfo?.classList.add('hidden');
+      this.hidePasteInstruction();
+      
+      // Initialize game variables display
+      this.updateUptoDisplay();
+      this.updateLeaderDisplay();
+      this.updateMapaDisplay();
+      this.updateOwaspDisplay();
+    }
+
+    sendMessage(message: string) {
+      // Send message to all connected data channels
+      if (this.dataChannels) {
+        this.dataChannels.forEach((channel) => {
+          if (channel && channel.readyState === 'open') {
+            channel.send(message);
+            this.messagesSent++;
+          }
+        });
+      }
+    }
+
+    copyGameCode() {
+      if (this.gameCode) {
+        navigator.clipboard.writeText(this.gameCode).then(() => {
+          if (this.copyGameCodeBtn) {
+            const originalText = this.copyGameCodeBtn.textContent;
+            this.copyGameCodeBtn.textContent = '¡Copiado!';
+            this.copyGameCodeBtn.classList.add('bg-green-600');
+            this.copyGameCodeBtn.classList.remove('bg-blue-600');
+            
+            setTimeout(() => {
+              if (this.copyGameCodeBtn) {
+                this.copyGameCodeBtn.textContent = originalText;
+                this.copyGameCodeBtn.classList.remove('bg-green-600');
+                this.copyGameCodeBtn.classList.add('bg-blue-600');
+              }
+            }, 2000);
+          }
+        }).catch(err => {
+          console.error('Error copying to clipboard:', err);
+          alert('Error al copiar el código');
+        });
+      }
+    }
+
+    copyData() {
+      if (this.copyTextarea?.value) {
+        navigator.clipboard.writeText(this.copyTextarea.value).then(() => {
+          if (this.copyBtn) {
+            const originalText = this.copyBtn.textContent;
+            this.copyBtn.textContent = '¡Copiado!';
+            this.copyBtn.classList.add('bg-green-600');
+            this.copyBtn.classList.remove('bg-green-600');
+            
+            setTimeout(() => {
+              if (this.copyBtn) {
+                this.copyBtn.textContent = originalText;
+                this.copyBtn.classList.remove('bg-green-600');
+                this.copyBtn.classList.add('bg-green-600');
+              }
+            }, 2000);
+          }
+        }).catch(err => {
+          console.error('Error copying to clipboard:', err);
+          alert('Error al copiar la información');
+        });
+      }
+    }
+
+    async pasteData() {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (this.pasteTextarea) {
+          this.pasteTextarea.value = text;
+          this.updateProcessButtonText(text);
+        }
+      } catch (err) {
+        console.error('Error pasting from clipboard:', err);
+        alert('Error al pegar del portapapeles');
+      }
+    }
+
+    updateProcessButtonText(pastedText: string) {
+      // Keep button text as "Unir Jugador" - no need to change it
+      // This method is kept for future use if needed
+    }
+
+
+
+    setupPlayerName() {
+      const name = this.setupPlayerNameInput?.value.trim();
+      if (name) {
+        this.playerName = name;
+        
+        // Update current player name display
+        if (this.currentPlayerName) {
+          this.currentPlayerName.textContent = name;
+        }
+        
+        // For initial setup, we don't add to local players list yet
+        // The players list will be populated by the players_update message
+        
+        // Set leader if creator
+        if (this.isCreator) {
+          this.leaderName = name;
+          this.isLeader = true;
+          this.updateLeaderDisplay();
+          this.updateUptoDisplay(); // Enable upTo buttons for leader
+          this.updateOwaspDisplay(); // Enable OWASP button for leader
+          
+          // Send leader information to all connected players
+          this.sendGameVariableUpdate('leader', this.leaderName);
+        }
+        
+        // Hide setup section and show appropriate next section
+        const setupSection = document.getElementById('player-name-setup');
+        if (setupSection) {
+          setupSection.classList.add('hidden');
+        }
+        
+        if (this.isCreator) {
+          // Add creator to the players array
+          this.allPlayersNames = [name];
+          
+          // Continue with game creation
+          this.continueWithGameCreation();
+          
+          // Send initial players update with just the creator
+          this.sendPlayersUpdateToAll();
+        } else {
+          // Continue with game joining
+          this.continueWithGameJoining();
+        }
+        
+        // Clear input
+        if (this.setupPlayerNameInput) {
+          this.setupPlayerNameInput.value = '';
+        }
+      } else {
+        alert('Por favor ingresa un nombre');
+      }
+    }
+
+    updatePlayersList() {
+      console.log('🔄 Actualizando lista de jugadores...');
+      console.log(`Estado actual: isLeader=${this.isLeader}, gameStarted=${this.gameStarted}, playerName=${this.playerName}`);
+      console.log('Players map:', this.players);
+      console.log('All players names:', this.allPlayersNames);
+      
+      if (this.playersList) {
+        this.playersList.innerHTML = '';
+        
+        // Use allPlayersNames instead of players map (which might be empty after cleanup)
+        this.allPlayersNames.forEach((name: string, index: number) => {
+          const playerDiv = document.createElement('div');
+          playerDiv.className = 'flex items-center justify-between bg-gray-700/50 rounded-lg p-3 mb-2 player-entry';
+          playerDiv.setAttribute('data-player-name', name); // Add data attribute for identification
+          
+          const leftSection = document.createElement('div');
+          leftSection.className = 'flex items-center gap-3';
+          
+          // Add leader image if this player is the leader
+          if (name === this.leaderName && this.leaderName) {
+            const leaderImg = document.createElement('img');
+            leaderImg.src = '/src/assets/images/leader.png';
+            leaderImg.alt = 'Líder';
+            leaderImg.className = 'w-6 h-6 object-cover';
+            leftSection.appendChild(leaderImg);
+          }
+          
+          const nameSpan = document.createElement('span');
+          nameSpan.className = 'text-white font-medium';
+          nameSpan.textContent = name;
+          nameSpan.setAttribute('data-player-name', name); // Add data attribute to name span as well
+          
+          const statusSpan = document.createElement('span');
+          statusSpan.className = 'text-green-400 text-sm';
+          
+          // Check if this name matches the current player's name
+          if (name === this.playerName) {
+            statusSpan.textContent = '(Tú)';
+          } else {
+            statusSpan.textContent = '(Conectado)';
+          }
+          
+          leftSection.appendChild(nameSpan);
+          leftSection.appendChild(statusSpan);
+          
+          const rightSection = document.createElement('div');
+          rightSection.className = 'flex items-center gap-2';
+          
+          // Add "Make Leader" button if current user is leader, game has started, and this is not themselves
+          console.log(`Evaluando botón para ${name}: isLeader=${this.isLeader}, gameStarted=${this.gameStarted}, esYo=${name === this.playerName}`);
+          if (this.isLeader && this.gameStarted && name !== this.playerName) {
+            console.log(`✅ Añadiendo botón "Hacer Líder" para ${name}`);
+            const makeLeaderBtn = document.createElement('button');
+            makeLeaderBtn.className = 'bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm transition-colors duration-200';
+            makeLeaderBtn.textContent = 'Hacer Líder';
+            makeLeaderBtn.onclick = () => this.assignLeadership(name);
+            rightSection.appendChild(makeLeaderBtn);
+          } else {
+            console.log(`❌ No se añade botón para ${name}`);
+          }
+          
+          playerDiv.appendChild(leftSection);
+          playerDiv.appendChild(rightSection);
+          if (this.playersList) {
+            this.playersList.appendChild(playerDiv);
+          }
+        });
+        
+        // Update connected players count
+        if (this.connectedPlayers) {
+          this.connectedPlayers.textContent = this.allPlayersNames.length.toString();
+        }
+      }
+    }
+
+    continueWithGameCreation() {
+      if (this.gameSetup) {
+        this.gameSetup.classList.add('hidden');
+      }
+      
+      if (this.gameCodeDisplaySignaling && this.gameCode) {
+        this.gameCodeDisplaySignaling.textContent = this.gameCode;
+      }
+      
+      // For creator, show player registration section
+      const registrationSection = document.getElementById('player-registration-section');
+      if (registrationSection) {
+        registrationSection.classList.remove('hidden');
+      }
+      
+      // Show signaling section for WebRTC
+      if (this.webrtcSignaling) {
+        this.webrtcSignaling.classList.remove('hidden');
+      }
+      
+      // Ensure WebRTC container shows in two-column layout for creator
+      const webrtcContainer = document.getElementById('webrtc-container');
+      if (webrtcContainer) {
+        webrtcContainer.classList.remove('max-w-2xl', 'mx-auto');
+        webrtcContainer.classList.add('grid-cols-1', 'lg:grid-cols-2');
+      }
+      
+      // Show start game button for creator
+      const startGameSection = document.getElementById('start-game-section');
+      if (startGameSection) {
+        startGameSection.classList.remove('hidden');
+      }
+      
+      // Update page title for creator
+      this.updatePageTitle('game.title');
+      
+      // Add creator to the registered players list from the start
+      if (this.playerName) {
+        const creatorId = 'creator_' + Date.now();
+        this.registeredPlayers.set(creatorId, this.playerName);
+        this.updateRegisteredPlayersList();
+        this.updateStartGameButtonState();
+      }
+    }
+
+    updatePageTitle(translationKey: string) {
+      const pageTitle = document.getElementById('page-title');
+      if (pageTitle) {
+        // Get the current language from the page
+        const currentLang = document.documentElement.lang || 'es';
+        const isEnglish = currentLang === 'en';
+        
+        // Set title based on language and type
+        if (translationKey === 'game.title') {
+          pageTitle.textContent = isEnglish ? 'Game Room' : 'Sala de Partida';
+        } else if (translationKey === 'game.waiting_room') {
+          pageTitle.textContent = isEnglish ? 'Waiting Room' : 'Sala de Espera';
+        }
+      }
+    }
+
+    continueWithGameJoining() {
+      if (this.gameSetup) {
+        this.gameSetup.classList.add('hidden');
+      }
+      if (this.webrtcSignaling) {
+        this.webrtcSignaling.classList.remove('hidden');
+      }
+      
+      if (this.gameCodeDisplaySignaling && this.gameCode) {
+        this.gameCodeDisplaySignaling.textContent = this.gameCode;
+      }
+      
+      // Hide player registration section for joining players
+      const registrationSection = document.getElementById('player-registration-section');
+      if (registrationSection) {
+        registrationSection.classList.add('hidden');
+      }
+      
+      // Center the WebRTC container when only showing WebRTC section
+      const webrtcContainer = document.getElementById('webrtc-container');
+      if (webrtcContainer) {
+        webrtcContainer.classList.remove('grid-cols-1', 'lg:grid-cols-2');
+        webrtcContainer.classList.add('max-w-2xl', 'mx-auto');
+      }
+      
+      // Hide start game button for joining players
+      const startGameSection = document.getElementById('start-game-section');
+      if (startGameSection) {
+        startGameSection.classList.add('hidden');
+      }
+      
+      // Update page title for joining players
+      this.updatePageTitle('game.waiting_room');
+      
+      this.initializeWebRTC();
+      
+      this.updateStatus('waiting', 'Esperando oferta...');
+      this.showNextStep('Espera a que el creador genere la oferta y te la comparta. Luego pégala aquí y procesa.');
+    }
+
+    decreaseUpto() {
+      if (this.isLeader && this.uptoValue > 0) {
+        this.uptoValue--;
+        this.updateUptoDisplay();
+        this.sendGameVariableUpdate('upto', this.uptoValue);
+      }
+    }
+
+    increaseUpto() {
+      if (this.isLeader && this.uptoValue < 5) {
+        this.uptoValue++;
+        this.updateUptoDisplay();
+        this.sendGameVariableUpdate('upto', this.uptoValue);
+      }
+    }
+
+    updateUptoDisplay() {
+      if (this.uptoValueElement) {
+        this.uptoValueElement.textContent = this.uptoValue.toString();
+      }
+      
+      // Update button states - only enable for leader AND after game starts
+      if (this.decreaseUptoBtn) {
+        this.decreaseUptoBtn.disabled = !this.isLeader || !this.gameStarted || this.uptoValue <= 0;
+      }
+      if (this.increaseUptoBtn) {
+        this.increaseUptoBtn.disabled = !this.isLeader || !this.gameStarted || this.uptoValue >= 5;
+      }
+    }
+
+    updateLeaderDisplay() {
+      if (this.leaderNameElement) {
+        this.leaderNameElement.textContent = this.leaderName || 'Sin asignar';
+      }
+    }
+
+    updatePlayerCharacterDisplay(character: string) {
+      if (this.playerCharacterElement) {
+        this.playerCharacterElement.textContent = character;
+      }
+    }
+
+    updateCharacterCounts(goodCount: number, badCount: number) {
+      if (this.goodCharactersCount) {
+        this.goodCharactersCount.textContent = goodCount.toString();
+      }
+      if (this.badCharactersCount) {
+        this.badCharactersCount.textContent = badCount.toString();
+      }
+      console.log(`📊 Contadores actualizados: ${goodCount} buenos, ${badCount} malos`);
+    }
+
+    revealBadPlayers() {
+      if (!this.isCreator) {
+        console.log('❌ Solo el creador puede revelar jugadores malos');
+        return;
+      }
+
+      console.log('🕵️ Iniciando revelación de jugadores malos...');
+      
+      // Disable the button permanently and show countdown inside it
+      if (this.badPlayersRevealBtn) {
+        this.badPlayersRevealBtn.disabled = true;
+        this.badPlayersRevealBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        this.badPlayersRevealBtn.textContent = '🕵️ Revelando... 10s';
+      }
+
+      // Get list of bad players
+      const badPlayersList = this.getAllBadPlayers();
+      
+      // Send reveal message with list of bad players to all players
+      const revealMessage = {
+        type: 'game_variable',
+        variable: 'reveal_bad_players',
+        value: {
+          badPlayers: badPlayersList,
+          timestamp: Date.now()
+        }
+      };
+      
+      console.log('📡 Enviando mensaje de revelación con lista de malos:', badPlayersList);
+      this.broadcastToAll(revealMessage);
+
+      // Aplicar revelación también localmente para el creador
+      this.handleBadPlayersReveal(badPlayersList);
+
+      // Start 10 second countdown
+      let timeLeft = 10;
+      const countdownInterval = setInterval(() => {
+        timeLeft--;
+        
+        // Update countdown inside the button
+        if (this.badPlayersRevealBtn) {
+          this.badPlayersRevealBtn.textContent = `🕵️ Revelando... ${timeLeft}s`;
+        }
+
+        if (timeLeft <= 0) {
+          clearInterval(countdownInterval);
+          
+          // Send hide message
+          const hideMessage = {
+            type: 'game_variable',
+            variable: 'hide_bad_players',
+            value: true
+          };
+          
+          console.log('📡 Enviando mensaje para ocultar jugadores malos');
+          this.broadcastToAll(hideMessage);
+
+          // Keep button disabled permanently with final state
+          if (this.badPlayersRevealBtn) {
+            this.badPlayersRevealBtn.textContent = '🕵️ Revelación Completada';
+            this.badPlayersRevealBtn.classList.add('bg-gray-500', 'hover:bg-gray-500');
+          }
+
+          // Ocultar también localmente en el creador
+          this.handleBadPlayersHide();
+
+          console.log('🕵️ Revelación de jugadores malos completada');
+        }
+      }, 1000);
+    }
+
+    getAllBadPlayers(): string[] {
+      const badPlayers: string[] = [];
+      
+      // Check all players and identify which ones are bad
+      this.allPlayersNames.forEach(playerName => {
+        const character = this.playerCharacters.get(playerName);
+        if (character && this.isPlayerBad(character)) {
+          badPlayers.push(playerName);
+        }
+      });
+      
+      console.log('🕵️ Lista de jugadores malos identificados:', badPlayers);
+      return badPlayers;
+    }
+
+
+
+    handleBadPlayersReveal(badPlayersList: string[]) {
+    // Only bad players and CISO should see this effect
+    const currentCharacter = this.playerCharacterElement?.textContent;
+    if (!currentCharacter || (!this.isPlayerBad(currentCharacter) && currentCharacter !== 'ciso')) {
+      console.log('🕵️ Jugador bueno (no malo ni CISO) - no se aplica efecto de revelación');
+      return;
+    }
+
+    const isBadPlayer = this.isPlayerBad(currentCharacter);
+    const isCISO = currentCharacter === 'ciso';
+    console.log(`🕵️ Aplicando efecto de revelación para ${isBadPlayer ? 'jugador malo' : 'CISO'}`);
+    console.log(`🕵️ Personaje actual: ${currentCharacter}`);
+    console.log(`🕵️ Nombre del jugador actual: ${this.playerName}`);
+    console.log(`🕵️ Lista de jugadores malos recibida:`, badPlayersList);
+    console.log(`🕵️ ¿El jugador actual está en la lista de malos? ${badPlayersList.includes(this.playerName)}`);
+    console.log(`🕵️ ¿Es jugador malo? ${isBadPlayer}, ¿Es CISO? ${isCISO}`);
+    
+    // Get all player names from the players list
+    if (!this.playersList) return;
+
+    // Mark only the bad players from the received list
+    // Use a more specific selector to avoid duplicates
+    const playerEntries = this.playersList.querySelectorAll('.player-entry[data-player-name]');
+    console.log(`🕵️ Elementos encontrados en la lista: ${playerEntries.length}`);
+    
+    // Create a Set to track processed names and avoid duplicates
+    const processedNames = new Set<string>();
+    
+    playerEntries.forEach(entry => {
+      const playerName = entry.getAttribute('data-player-name');
+      if (!playerName || processedNames.has(playerName)) {
+        return; // Skip if no name or already processed
+      }
+      
+      processedNames.add(playerName);
+      console.log(`🕵️ Procesando elemento con nombre: ${playerName}`);
+      
+      if (badPlayersList.includes(playerName)) {
+        const entryEl = entry as HTMLElement;
+        // Store original classes to restore later
+        if (!entryEl.dataset.origClass) {
+          entryEl.dataset.origClass = entryEl.className;
+        }
+        // Apply red color and bold to the entire player entry
+        entryEl.classList.add('text-red-600', 'font-bold');
+        
+        // Also apply to the name span specifically for better visibility
+        const nameSpan = entryEl.querySelector('[data-player-name]') as HTMLElement | null;
+        if (nameSpan) {
+          // Store original classes to restore later
+          if (!nameSpan.dataset.origClass) {
+            nameSpan.dataset.origClass = nameSpan.className;
+          }
+          // Remove conflicting utilities so Tailwind applies red correctly
+          nameSpan.classList.remove('text-white', 'font-medium');
+          nameSpan.classList.add('text-red-600', 'font-bold');
+        }
+        
+        console.log(`🕵️ ✅ Jugador malo marcado en rojo: ${playerName}`);
+      } else {
+        console.log(`🕵️ ❌ ${playerName} no está en la lista de malos`);
+      }
+    });
+    
+    console.log(`🕵️ Nombres únicos procesados: ${Array.from(processedNames).join(', ')}`);
+    
+    // Additional check: verify if current player's name should be marked
+    if (badPlayersList.includes(this.playerName)) {
+      console.log(`🕵️ 🔍 Verificación adicional: ${this.playerName} SÍ está en la lista de malos`);
+    } else {
+      console.log(`🕵️ 🔍 Verificación adicional: ${this.playerName} NO está en la lista de malos`);
+    }
+  }
+
+  handleBadPlayersHide() {
+    // Only bad players and CISO should see this effect
+    const currentCharacter = this.playerCharacterElement?.textContent;
+    if (!currentCharacter || (!this.isPlayerBad(currentCharacter) && currentCharacter !== 'ciso')) {
+      console.log('🕵️ Jugador bueno (no malo ni CISO) - no se aplica efecto de ocultación');
+      return;
+    }
+
+    const isBadPlayer = this.isPlayerBad(currentCharacter);
+    const isCISO = currentCharacter === 'ciso';
+    console.log(`🕵️ Aplicando efecto de ocultación para ${isBadPlayer ? 'jugador malo' : 'CISO'}`);
+    
+    // Get all player names from the players list
+    if (!this.playersList) return;
+
+    // Remove red marking from all players and restore original classes
+    // Use a more specific selector to avoid duplicates
+    const playerEntries = this.playersList.querySelectorAll('.player-entry[data-player-name]');
+    
+    // Create a Set to track processed names and avoid duplicates
+    const processedNames = new Set<string>();
+    
+    playerEntries.forEach(entry => {
+      const entryEl = entry as HTMLElement;
+      const playerName = entryEl.getAttribute('data-player-name');
+      if (!playerName || processedNames.has(playerName)) {
+        return; // Skip if no name or already processed
+      }
+      
+      processedNames.add(playerName);
+      
+      // Restore original classes for entry if available
+      if (entryEl.dataset.origClass) {
+        entryEl.className = entryEl.dataset.origClass;
+        delete entryEl.dataset.origClass;
+      } else {
+        // Fallback: remove red styles
+        entryEl.classList.remove('text-red-600', 'font-bold');
+      }
+
+      // Also restore name span classes if available
+      const nameSpan = entryEl.querySelector('[data-player-name]') as HTMLElement | null;
+      if (nameSpan) {
+        if (nameSpan.dataset.origClass) {
+          nameSpan.className = nameSpan.dataset.origClass;
+          delete nameSpan.dataset.origClass;
+        } else {
+          nameSpan.classList.remove('text-red-600', 'font-bold');
+        }
+      }
+    });
+    
+    console.log(`🕵️ Nombres únicos procesados para ocultación: ${Array.from(processedNames).join(', ')}`);
+
+    console.log('🕵️ Efecto de revelación removido de todos los jugadores');
+  }
+
+  isPlayerBad(characterKey: string): boolean {
+    // Check if the character is of type 'bad'
+    return characterKey !== 'ciso' && ['script_kiddie', 'cracker', 'cyberterrorist', 'hacktivist'].includes(characterKey);
+  }
+
+  getPlayerCharacter(playerName: string): string {
+    // Check if this is the current player
+    if (playerName === this.playerName && this.playerCharacterElement) {
+      return this.playerCharacterElement.textContent || 'unknown';
+    }
+    
+    // Get character from the stored assignments
+    const character = this.playerCharacters.get(playerName);
+    if (character) {
+      console.log(`🕵️ Personaje encontrado para ${playerName}: ${character}`);
+      return character;
+    }
+    
+    console.log(`🕵️ No se encontró personaje para: ${playerName}`);
+    return 'unknown';
+  }
+
+
+
+    updatePlayerNumberDisplay(playerNumber: number) {
+      if (this.playerNumberElement) {
+        this.playerNumberElement.textContent = playerNumber.toString();
+      }
+    }
+
+    assignLeadership(newLeaderName: string) {
+      console.log(`🔍 Validando permisos de liderazgo: isLeader=${this.isLeader}, gameStarted=${this.gameStarted}`);
+      
+      if (!this.isLeader || !this.gameStarted) {
+        console.log(`❌ No tienes permisos para asignar liderazgo: isLeader=${this.isLeader}, gameStarted=${this.gameStarted}`);
+        return;
+      }
+      
+      console.log(`Asignando liderazgo a: ${newLeaderName}`);
+      
+      // Update local state
+      this.leaderName = newLeaderName;
+      this.isLeader = false; // Current player is no longer leader
+      
+      // Update local displays
+      this.updateLeaderDisplay();
+      this.updateUptoDisplay(); // Disable upTo buttons for ex-leader
+      this.updateMapaDisplay(); // Update mapa button state
+      this.updateOwaspDisplay(); // Disable OWASP button for ex-leader
+      this.updatePlayersList(); // Remove "Make Leader" buttons
+      
+      // Send leadership change to all players
+      const leadershipMessage = {
+        type: 'game_variable',
+        variable: 'leadership_change',
+        value: {
+          newLeader: newLeaderName,
+          previousLeader: this.playerName
+        }
+      };
+      
+      console.log('Enviando cambio de liderazgo a todos los jugadores:', leadershipMessage);
+      this.broadcastToAll(leadershipMessage);
+      
+      // Also send standard leader variable update
+      this.sendGameVariableUpdate('leader', newLeaderName);
+      
+      // Ensure all players know the game has started (especially the new leader)
+      if (this.gameStarted) {
+        const gameStartedMessage = {
+          type: 'game_variable',
+          variable: 'game_started',
+          value: true
+        };
+        this.broadcastToAll(gameStartedMessage);
+        console.log('🎮 Enviando confirmación de partida iniciada tras cambio de liderazgo');
+      }
+    }
+
+    handleLeadershipChange(newLeaderName: string, previousLeaderName: string) {
+      console.log(`Procesando cambio de liderazgo: ${previousLeaderName} → ${newLeaderName}`);
+      
+      // Update leader name
+      this.leaderName = newLeaderName;
+      
+      // Check if current player is the new leader
+      if (newLeaderName === this.playerName) {
+        console.log('🎉 ¡Eres el nuevo líder!');
+        this.isLeader = true;
+      } else {
+        console.log('👥 Ya no eres líder');
+        this.isLeader = false;
+      }
+      
+      // Update all UI elements
+      this.updateLeaderDisplay();
+      this.updateUptoDisplay(); // Enable/disable upTo buttons based on leadership
+      this.updateMapaDisplay(); // Update mapa button state (though it should stay disabled after game start)
+      this.updateOwaspDisplay(); // Enable/disable OWASP button based on leadership
+      this.updatePlayersList(); // Show/hide "Make Leader" buttons
+      
+      console.log(`Liderazgo actualizado: isLeader=${this.isLeader}, leaderName=${this.leaderName}`);
+    }
+
+    sendGameVariableUpdate(type: string, value: any) {
+      if (this.isCreator) {
+        // Creator broadcasts to all connected players
+        this.broadcastToAll({
+          type: 'game_variable',
+          variable: type,
+          value: value
+        });
+      } else {
+        // Player sends to creator
+        const dataChannel = this.dataChannels.get('player_connection');
+        if (dataChannel && dataChannel.readyState === 'open') {
+          const message = {
+            type: 'game_variable',
+            variable: type,
+            value: value
+          };
+          dataChannel.send(JSON.stringify(message));
+        }
+      }
+    }
+
+    setMapa() {
+      if (this.isLeader) {
+        // Generate a UUID
+        const uuid = this.generateUUID();
+        this.mapaValue = uuid;
+        this.updateMapaDisplay();
+        this.sendGameVariableUpdate('mapa', this.mapaValue);
+        
+        // Update start game button state
+        this.updateStartGameButtonState();
+      }
+    }
+
+    generateUUID(): string {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    updateMapaDisplay() {
+      if (this.mapaValueElement) {
+        this.mapaValueElement.textContent = this.mapaValue || 'Sin asignar';
+      }
+      
+      // Update button state - disable if not leader OR if game has started
+      if (this.setMapaBtn) {
+        this.setMapaBtn.disabled = !this.isLeader || this.gameStarted;
+      }
+    }
+
+    setOwasp() {
+      // Solo el líder puede modificar OWASP, y solo DESPUÉS de iniciar la partida
+      if (!this.gameStarted) {
+        console.log(`❌ No se puede modificar OWASP antes de iniciar la partida`);
+        return;
+      }
+      
+      if (!this.isLeader) {
+        console.log(`❌ Solo el líder puede modificar OWASP: isLeader=${this.isLeader}`);
+        return;
+      }
+
+      const newOwaspValue = prompt('Ingresa el nuevo valor OWASP:');
+      if (newOwaspValue !== null && newOwaspValue.trim() !== '') {
+        console.log(`📝 Líder estableciendo OWASP: "${this.owaspValue}" → "${newOwaspValue.trim()}"`);
+        this.owaspValue = newOwaspValue.trim();
+        this.updateOwaspDisplay();
+        this.sendGameVariableUpdate('owasp', this.owaspValue);
+      } else if (newOwaspValue === '') {
+        // Allow clearing the OWASP value
+        console.log(`🗑️ Líder limpiando OWASP`);
+        this.owaspValue = '';
+        this.updateOwaspDisplay();
+        this.sendGameVariableUpdate('owasp', this.owaspValue);
+      }
+    }
+
+    updateOwaspDisplay() {
+      if (this.owaspValueElement) {
+        this.owaspValueElement.textContent = this.owaspValue || 'Vacío';
+      }
+      
+      // Update button state - only leader can modify after game starts
+      if (this.setOwaspBtn) {
+        this.setOwaspBtn.disabled = !this.isLeader || !this.gameStarted;
+        console.log(`🔧 OWASP button state: disabled=${this.setOwaspBtn.disabled} (isLeader=${this.isLeader}, gameStarted=${this.gameStarted})`);
+      }
+    }
+
+    cleanup(): void {
+      console.log('Cleaning up WebRTC resources...');
+      
+      // Close all data channels gracefully
+      if (this.dataChannels) {
+        this.dataChannels.forEach((channel, peerId) => {
+          if (channel && channel.readyState !== 'closed') {
+            try {
+              console.log(`Closing data channel for peer: ${peerId}`);
+              channel.close();
+            } catch (error) {
+              console.warn(`Error closing data channel for peer ${peerId}:`, error);
+            }
+          }
+        });
+        this.dataChannels.clear();
+      }
+      
+      // Close all peer connections gracefully
+      if (this.peerConnections) {
+        this.peerConnections.forEach((connection, peerId) => {
+          if (connection && connection.connectionState !== 'closed') {
+            try {
+              console.log(`Closing peer connection for peer: ${peerId}`);
+              connection.close();
+            } catch (error) {
+              console.warn(`Error closing peer connection for peer ${peerId}:`, error);
+            }
+          }
+        });
+        this.peerConnections.clear();
+      }
+      
+      // Reset state
+      this.isInitialized = false;
+      this.isCreator = false;
+      this.gameCode = null;
+      this.currentPeerId = null;
+      this.messagesSent = 0;
+      this.messagesReceived = 0;
+      this.iceCandidates = new Map();
+      this.iceGatheringComplete = new Map();
+      this.pendingOffers = new Map();
+      this.playerName = '';
+      this.players.clear();
+      this.registeredPlayers.clear();
+      this.allPlayersNames = [];
+      this.receivedPeerId = '';
+      this.leaderName = '';
+      this.uptoValue = 5;
+      this.isLeader = false;
+      this.gameStarted = false;
+      this.mapaValue = '';
+      this.owaspValue = '';
+      
+      // Reset UI
+      this.updateStatus('disconnected', 'Desconectado');
+      this.hidePasteInstruction();
+      
+      console.log('Cleanup completed');
+    }
+  }
+
+  // Initialize the game when the page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    const game = new WebRTCGame();
+    
+    // Clean up resources when page is unloaded
+    window.addEventListener('beforeunload', () => {
+      game.cleanup();
+    });
+  });
+</script>
