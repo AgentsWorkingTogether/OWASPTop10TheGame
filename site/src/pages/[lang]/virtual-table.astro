@@ -1,34 +1,37 @@
 ---
-import VirtualTableHeader from '../../components/VirtualTableHeader.astro';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 import VirtualTableComponent from '../../components/VirtualTable.astro';
 import { languages, getTranslations, getTranslationKey } from '../../utils/i18n';
 import type { Language } from '../../utils/i18n';
-import '../../styles/global.css';
 
 export async function getStaticPaths() {
-  return languages.map((lang) => ({
-    params: { lang },
-    props: { lang }
-  }));
+  const paths = [];
+  
+  // Generate paths for each language only
+  for (const lang of languages) {
+    paths.push({
+      params: { lang }
+    });
+  }
+  
+  return paths;
 }
 
 const { lang } = Astro.params;
+const boardid = Astro.url.searchParams.get('boardid');
 const translations = await getTranslations(lang as Language);
 ---
 
-<!DOCTYPE html>
-<html lang={lang}>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OWASP Top 10 - Mesa Virtual</title>
-    <meta name="description" content="Mesa virtual interactiva para el juego OWASP Top 10">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/manifest.json" />
-</head>
-<body>
-    <VirtualTableHeader lang={lang as Language} translations={translations} />
-    <VirtualTableComponent lang={lang as Language} translations={translations} />
-</body>
-</html> 
+<Layout 
+    title={getTranslationKey(translations, 'meta.title')} 
+    description={getTranslationKey(translations, 'meta.description')}
+    lang={lang as Language}
+>
+    <Header translations={translations} lang={lang as Language} />
+
+    <VirtualTableComponent lang={lang as Language} translations={translations} boardid={boardid} />
+
+    <Footer translations={translations} lang={lang as Language} />
+</Layout> 

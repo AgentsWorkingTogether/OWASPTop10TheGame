@@ -1,5 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import { getTranslationKey, type Language } from '../utils/i18n';
+import whatsappImage from '../assets/images/128px-WhatsApp.svg.png';
+import telegramImage from '../assets/images/128px-Telegram_logo.svg.png';
 
 interface Props {
   translations: any;
@@ -29,6 +32,58 @@ const { translations, lang } = Astro.props;
 
   </div>
 
+  <!-- Map Selection Section -->
+  <div id="map-selection" class="hidden space-y-8 mt-12">
+    <div class="max-w-4xl mx-auto card-bg rounded-lg p-6 text-center">
+      <h3 class="text-xl font-bold mb-4 section-title">
+        {getTranslationKey(translations, 'game.select_map')}
+      </h3>
+      <p class="mb-6">
+        {getTranslationKey(translations, 'game.select_map_desc')}
+      </p>
+      
+      <!-- Map Grid -->
+      <div id="maps-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <!-- Maps will be loaded here dynamically -->
+      </div>
+      
+      <!-- Loading State -->
+      <div id="maps-loading" class="text-center py-8">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+        <p>{getTranslationKey(translations, 'game.loading_maps')}</p>
+      </div>
+      
+      <!-- Error State -->
+      <div id="maps-error" class="hidden text-center py-8">
+        <p class="text-red-400 mb-4">{getTranslationKey(translations, 'game.maps_error')}</p>
+        <button 
+          id="retry-maps-btn"
+          class="btn-primary py-2 px-4"
+        >
+          {getTranslationKey(translations, 'game.retry')}
+        </button>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div id="map-action-buttons" class="hidden space-y-4">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button 
+            id="continue-to-player-setup-btn"
+            class="btn-primary py-3 px-8 text-lg"
+          >
+            {getTranslationKey(translations, 'game.play_full_digital')}
+          </button>
+          <button 
+            id="go-to-virtual-table-btn"
+            class="btn-primary py-3 px-8 text-lg"
+          >
+            {getTranslationKey(translations, 'game.view_digital_map')}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Player Name Setup Section -->
   <div id="player-name-setup" class="hidden space-y-8 mt-12">
     <div class="max-w-md mx-auto card-bg rounded-lg p-6 text-center">
@@ -44,7 +99,7 @@ const { translations, lang } = Astro.props;
         </p>
       </div>
 
-      <!-- Player Name Input -->
+      <!-- Player Name and Phone Input -->
       <div class="flex flex-col gap-4">
         <input 
           type="text" 
@@ -53,6 +108,31 @@ const { translations, lang } = Astro.props;
           class="w-full bg-white/90 border-2 border-black rounded-lg px-4 py-2 placeholder-gray-600 focus:outline-none focus:border-blue-400"
           style="color: var(--color-text); font-family: 'Special Elite', monospace;"
         />
+        <div class="relative">
+          <div class="flex items-center bg-white/90 border-2 border-black rounded-lg overflow-hidden">
+            <button 
+              type="button"
+              id="country-selector"
+              class="flex items-center px-3 py-2 bg-gray-100 border-r-2 border-black hover:bg-gray-200 transition-colors"
+            >
+              <span id="selected-flag" class="text-lg mr-2">🇪🇸</span>
+              <span id="selected-code" class="text-sm font-medium">+34</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <input 
+              type="tel" 
+              id="setup-player-phone-input"
+              placeholder={getTranslationKey(translations, 'game.enter_phone')}
+              class="flex-1 px-4 py-2 bg-transparent border-none outline-none placeholder-gray-600"
+              style="color: var(--color-text); font-family: 'Special Elite', monospace;"
+            />
+          </div>
+          <div id="country-dropdown" class="hidden absolute top-full left-0 w-full bg-white border-2 border-black rounded-lg mt-1 max-h-48 overflow-y-auto z-50">
+            <!-- Countries will be populated here -->
+          </div>
+        </div>
         <button 
           id="setup-name-btn"
           class="btn-primary py-3 px-8 text-lg"
@@ -127,12 +207,26 @@ const { translations, lang } = Astro.props;
               style="color: var(--color-accent-red);"
               placeholder={getTranslationKey(translations, 'game.copy_placeholder')}
             ></textarea>
-            <button 
-              id="copy-btn"
-              class="btn-primary py-1 px-3 text-xs absolute top-2 right-2"
-            >
-              {getTranslationKey(translations, 'game.copy')}
-            </button>
+            <div class="absolute top-2 right-2 flex flex-col gap-2">
+              <button 
+                id="copy-btn"
+                class="btn-primary py-1 px-3 text-xs"
+              >
+                {getTranslationKey(translations, 'game.copy')}
+              </button>
+                                          <button 
+                id="whatsapp-btn"
+                class="btn-primary py-2 px-1 hidden"
+              >
+                <Image src={whatsappImage} alt="WhatsApp" class="w-5 h-5" />
+              </button>
+              <button 
+                id="telegram-btn"
+                class="btn-primary py-2 px-1 hidden"
+              >
+                <Image src={telegramImage} alt="Telegram" class="w-5 h-5" />
+              </button>
+            </div>
           </div>
           <p class="text-sm mt-2">
             {getTranslationKey(translations, 'game.copy_desc')}
@@ -269,16 +363,12 @@ const { translations, lang } = Astro.props;
             <span class="font-medium">
               {getTranslationKey(translations, 'game.map')}
             </span>
-            <span id="mapa-value" class="text-yellow-600 font-bold text-sm font-mono">Sin asignar</span>
+            <span id="mapa-value" class="text-green-600 font-bold text-sm font-mono">Sin asignar</span>
           </div>
-          <div class="flex gap-2 justify-center">
-            <button 
-              id="set-mapa-btn"
-              class="btn-primary py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled
-            >
-              {getTranslationKey(translations, 'game.set_uuid')}
-            </button>
+          <div class="text-center">
+            <span class="text-xs text-gray-600">
+              {getTranslationKey(translations, 'game.map_fixed')}
+            </span>
           </div>
         </div>
 
@@ -336,6 +426,15 @@ const { translations, lang } = Astro.props;
   </div>
 </div>
 
+  <!-- QR Modal -->
+  <div id="qr-modal" class="hidden fixed inset-0 bg-black/60 z-50 items-center justify-center p-4">
+    <div class="relative bg-white rounded-lg p-4 w-full max-w-sm shadow-xl border-2 border-black">
+      <button id="qr-close-btn" class="absolute top-2 right-2 text-black hover:text-red-600 font-bold">✕</button>
+      <h4 class="text-lg font-semibold mb-3 text-center" style="color: var(--color-primary);">Código QR</h4>
+      <img id="qr-image" alt="QR Code" class="mx-auto w-[280px] h-[280px] object-contain border border-gray-300 rounded" />
+    </div>
+  </div>
+
 <script>
   class WebRTCGame {
     private peerConnections: Map<string, RTCPeerConnection> = new Map(); // peerId -> RTCPeerConnection
@@ -363,6 +462,8 @@ const { translations, lang } = Astro.props;
     private copyTextarea: HTMLTextAreaElement | null = null;
     private pasteTextarea: HTMLTextAreaElement | null = null;
     private copyBtn: HTMLButtonElement | null = null;
+    private whatsappBtn: HTMLButtonElement | null = null;
+    private telegramBtn: HTMLButtonElement | null = null;
     private pasteBtn: HTMLButtonElement | null = null;
     private nextStepInfo: HTMLElement | null = null;
     private nextStepText: HTMLElement | null = null;
@@ -374,6 +475,7 @@ const { translations, lang } = Astro.props;
     private copyGameCodeBtn: HTMLButtonElement | null = null;
     private connectedPlayers: HTMLElement | null = null;
     private setupPlayerNameInput: HTMLInputElement | null = null;
+    private setupPlayerPhoneInput: HTMLInputElement | null = null;
     private setupNameBtn: HTMLButtonElement | null = null;
     private playersList: HTMLElement | null = null;
     private currentPlayerName: HTMLElement | null = null;
@@ -390,7 +492,6 @@ const { translations, lang } = Astro.props;
     private decreaseUptoBtn: HTMLButtonElement | null = null;
     private increaseUptoBtn: HTMLButtonElement | null = null;
     private mapaValueElement: HTMLElement | null = null;
-    private setMapaBtn: HTMLButtonElement | null = null;
     private owaspValueElement: HTMLElement | null = null;
     private setOwaspBtn: HTMLButtonElement | null = null;
     private goodCharactersCount: HTMLElement | null = null;
@@ -398,6 +499,7 @@ const { translations, lang } = Astro.props;
       private badPlayersRevealBtn: HTMLButtonElement | null = null;
   private badPlayersRevealSection: HTMLElement | null = null;
     private playerName: string = '';
+    private playerPhone: string = '';
     private playerCharacters: Map<string, string> = new Map(); // playerName -> characterKey
     private players: Map<string, string> = new Map(); // peerId -> playerName
     private registeredPlayers: Map<string, string> = new Map(); // playerId -> playerName
@@ -409,6 +511,29 @@ const { translations, lang } = Astro.props;
     private gameStarted: boolean = false;
     private mapaValue: string = '';
     private owaspValue: string = '';
+    // QR modal elements
+    private qrModal: HTMLElement | null = null;
+    private qrImage: HTMLImageElement | null = null;
+    private qrCloseBtn: HTMLButtonElement | null = null;
+    
+    // Country selector elements
+    private countrySelector: HTMLButtonElement | null = null;
+    private countryDropdown: HTMLElement | null = null;
+    private selectedFlag: HTMLElement | null = null;
+    private selectedCode: HTMLElement | null = null;
+    private currentCountry: string = 'es';
+    
+    // Map selection elements
+    private mapSelection: HTMLElement | null = null;
+    private mapsGrid: HTMLElement | null = null;
+    private mapsLoading: HTMLElement | null = null;
+    private mapsError: HTMLElement | null = null;
+    private retryMapsBtn: HTMLButtonElement | null = null;
+    private continueToPlayerSetupBtn: HTMLButtonElement | null = null;
+    private goToVirtualTableBtn: HTMLButtonElement | null = null;
+    private mapActionButtons: HTMLElement | null = null;
+    private selectedBoardId: string = '';
+    private selectedBoardName: string = '';
 
     constructor() {
       this.initializeElements();
@@ -420,6 +545,7 @@ const { translations, lang } = Astro.props;
       const urlParams = new URLSearchParams(window.location.search);
       const gameId = urlParams.get('gameId');
       const encodedData = urlParams.get('data');
+      const phoneParam = urlParams.get('phone');
       
       if (gameId && encodedData) {
         console.log('URL parameters detected, auto-joining game...');
@@ -457,6 +583,12 @@ const { translations, lang } = Astro.props;
           if (pasteSection) pasteSection.classList.add('hidden');
           if (copySection) copySection.classList.remove('hidden');
           if (playerRegistrationSection) playerRegistrationSection.classList.add('hidden');
+          
+          // Store phone number if provided in URL
+          if (phoneParam) {
+            this.playerPhone = decodeURIComponent(phoneParam);
+            console.log('Phone number from URL:', this.playerPhone);
+          }
           
           // Center the WebRTC container when only showing WebRTC section
           const webrtcContainer = document.getElementById('webrtc-container');
@@ -514,6 +646,8 @@ const { translations, lang } = Astro.props;
       this.copyTextarea = document.getElementById('copy-textarea') as HTMLTextAreaElement;
       this.pasteTextarea = document.getElementById('paste-textarea') as HTMLTextAreaElement;
       this.copyBtn = document.getElementById('copy-btn') as HTMLButtonElement;
+      this.whatsappBtn = document.getElementById('whatsapp-btn') as HTMLButtonElement;
+      this.telegramBtn = document.getElementById('telegram-btn') as HTMLButtonElement;
       this.pasteBtn = document.getElementById('paste-btn') as HTMLButtonElement;
       this.nextStepInfo = document.getElementById('next-step-info');
       this.nextStepText = document.getElementById('next-step-text');
@@ -527,7 +661,17 @@ const { translations, lang } = Astro.props;
       this.copyGameCodeBtn = document.getElementById('copy-game-code-btn') as HTMLButtonElement;
       this.connectedPlayers = document.getElementById('connected-players');
       this.setupPlayerNameInput = document.getElementById('setup-player-name-input') as HTMLInputElement;
+      this.setupPlayerPhoneInput = document.getElementById('setup-player-phone-input') as HTMLInputElement;
       this.setupNameBtn = document.getElementById('setup-name-btn') as HTMLButtonElement;
+      
+      // Country selector elements
+      this.countrySelector = document.getElementById('country-selector') as HTMLButtonElement;
+      this.countryDropdown = document.getElementById('country-dropdown');
+      this.selectedFlag = document.getElementById('selected-flag');
+      this.selectedCode = document.getElementById('selected-code');
+      
+      // Initialize country selector
+      this.initializeCountrySelector();
       this.playersList = document.getElementById('players-list');
       this.currentPlayerName = document.getElementById('current-player-name');
       
@@ -547,9 +691,22 @@ const { translations, lang } = Astro.props;
       this.decreaseUptoBtn = document.getElementById('decrease-upto-btn') as HTMLButtonElement;
       this.increaseUptoBtn = document.getElementById('increase-upto-btn') as HTMLButtonElement;
       this.mapaValueElement = document.getElementById('mapa-value');
-      this.setMapaBtn = document.getElementById('set-mapa-btn') as HTMLButtonElement;
       this.owaspValueElement = document.getElementById('owasp-value');
       this.setOwaspBtn = document.getElementById('set-owasp-btn') as HTMLButtonElement;
+      // QR modal elements
+      this.qrModal = document.getElementById('qr-modal');
+      this.qrImage = document.getElementById('qr-image') as HTMLImageElement;
+      this.qrCloseBtn = document.getElementById('qr-close-btn') as HTMLButtonElement;
+      
+      // Map selection elements
+      this.mapSelection = document.getElementById('map-selection');
+      this.mapsGrid = document.getElementById('maps-grid');
+      this.mapsLoading = document.getElementById('maps-loading');
+      this.mapsError = document.getElementById('maps-error');
+      this.retryMapsBtn = document.getElementById('retry-maps-btn') as HTMLButtonElement;
+      this.continueToPlayerSetupBtn = document.getElementById('continue-to-player-setup-btn') as HTMLButtonElement;
+      this.goToVirtualTableBtn = document.getElementById('go-to-virtual-table-btn') as HTMLButtonElement;
+      this.mapActionButtons = document.getElementById('map-action-buttons');
     }
 
     bindEvents() {
@@ -557,6 +714,8 @@ const { translations, lang } = Astro.props;
       this.processBtn?.addEventListener('click', () => this.processPastedData());
       this.copyGameCodeBtn?.addEventListener('click', () => this.copyGameCode());
       this.copyBtn?.addEventListener('click', () => this.copyData());
+      this.whatsappBtn?.addEventListener('click', () => this.openWhatsApp());
+      this.telegramBtn?.addEventListener('click', () => this.openTelegram());
       this.pasteBtn?.addEventListener('click', () => this.pasteData());
 
       this.setupNameBtn?.addEventListener('click', () => this.setupPlayerName());
@@ -565,10 +724,20 @@ const { translations, lang } = Astro.props;
           this.setupPlayerName();
         }
       });
+      this.setupPlayerPhoneInput?.addEventListener('keypress', (e: KeyboardEvent) => {
+        if (e.key === 'Enter') {
+          this.setupPlayerName();
+        }
+      });
       this.decreaseUptoBtn?.addEventListener('click', () => this.decreaseUpto());
       this.increaseUptoBtn?.addEventListener('click', () => this.increaseUpto());
-      this.setMapaBtn?.addEventListener('click', () => this.setMapa());
+
       this.setOwaspBtn?.addEventListener('click', () => this.setOwasp());
+      
+      // Map selection events
+      this.retryMapsBtn?.addEventListener('click', () => this.loadMaps());
+      this.continueToPlayerSetupBtn?.addEventListener('click', () => this.continueToPlayerSetup());
+      this.goToVirtualTableBtn?.addEventListener('click', () => this.goToVirtualTable());
       
 
       
@@ -585,7 +754,12 @@ const { translations, lang } = Astro.props;
       this.badPlayersRevealBtn?.addEventListener('click', () => this.revealBadPlayers());
       
       // CISO Reveal button event
-  
+
+      // QR modal events
+      this.qrCloseBtn?.addEventListener('click', () => this.closeQRModal());
+      this.qrModal?.addEventListener('click', (e: MouseEvent) => {
+        if (e.target === this.qrModal) this.closeQRModal();
+      });
     }
 
     async createGame() {
@@ -597,12 +771,12 @@ const { translations, lang } = Astro.props;
       this.iceGatheringComplete = new Map(); // Reset gathering status
       this.pendingOffers = new Map(); // Reset pending offers
       
-      // Show player name setup first
+      // Show map selection first
       this.gameSetup?.classList.add('hidden');
-      const setupSection = document.getElementById('player-name-setup');
-      if (setupSection) {
-        setupSection.classList.remove('hidden');
-      }
+      this.mapSelection?.classList.remove('hidden');
+      
+      // Load available maps
+      this.loadMaps();
     }
 
 
@@ -1127,6 +1301,15 @@ const { translations, lang } = Astro.props;
           this.showNextStep('Copia la oferta y compártela con el jugador. Luego pega la respuesta para completar la conexión.');
           this.showPasteInstruction();
           
+          // Show WhatsApp button if phone number is available
+          if (this.playerPhone && this.whatsappBtn) {
+            this.whatsappBtn.classList.remove('hidden');
+          }
+          // Show Telegram button if phone number is available
+          if (this.playerPhone && this.telegramBtn) {
+            this.telegramBtn.classList.remove('hidden');
+          }
+          
           // Clear the paste textarea to avoid confusion with previous data
           if (this.pasteTextarea) {
             this.pasteTextarea.value = '';
@@ -1142,6 +1325,15 @@ const { translations, lang } = Astro.props;
           this.copyTextarea.value = JSON.stringify(answerData);
           this.updateStatus('waiting', 'Respuesta generada');
           this.showNextStep('Copia la respuesta generada y compártela con el creador. El creador debe pegarla y procesarla para completar la conexión.');
+          
+          // Show WhatsApp button if phone number is available
+          if (this.playerPhone && this.whatsappBtn) {
+            this.whatsappBtn.classList.remove('hidden');
+          }
+          // Show Telegram button if phone number is available
+          if (this.playerPhone && this.telegramBtn) {
+            this.telegramBtn.classList.remove('hidden');
+          }
         }
       }
     }
@@ -1212,8 +1404,13 @@ const { translations, lang } = Astro.props;
             urlBtn.className = 'btn-primary py-1 px-3 text-xs font-medium transition-all duration-200 hover:scale-105';
             urlBtn.textContent = 'URL';
             urlBtn.onclick = () => this.generatePlayerURL(playerId, playerName, urlBtn);
+            const qrBtn = document.createElement('button');
+            qrBtn.className = 'btn-primary py-1 px-3 text-xs font-medium transition-all duration-200 hover:scale-105';
+            qrBtn.textContent = 'QR';
+            qrBtn.onclick = () => this.generatePlayerQR(playerId, playerName, qrBtn);
             
             buttonsDiv.appendChild(urlBtn);
+            buttonsDiv.appendChild(qrBtn);
             statusDiv.appendChild(buttonsDiv);
           }
           
@@ -1265,7 +1462,12 @@ const { translations, lang } = Astro.props;
             const baseUrl = window.location.origin + window.location.pathname;
             
             // Generate the URL with parameters
-            const gameUrl = `${baseUrl}?gameId=${gameId}&data=${encodedData}`;
+            let gameUrl = `${baseUrl}?gameId=${gameId}&data=${encodedData}`;
+            
+            // Add phone number as query parameter if available
+            if (this.playerPhone) {
+              gameUrl += `&phone=${encodeURIComponent(this.playerPhone)}`;
+            }
             
             // Copy URL to clipboard
             navigator.clipboard.writeText(gameUrl).then(() => {
@@ -1295,6 +1497,200 @@ const { translations, lang } = Astro.props;
       setTimeout(checkOfferReady, 100);
     }
 
+    generatePlayerQR(playerId: string, playerName: string, qrButton: HTMLButtonElement) {
+      console.log('Generating QR for player:', playerName);
+      const peerId = 'peer_' + playerId + '_' + Date.now();
+      const targetPeerId = peerId;
+      this.connectToPlayerWithPeerId(playerId, playerName, targetPeerId);
+
+      const checkOfferReady = () => {
+        const pendingOffer = this.pendingOffers.get(targetPeerId);
+        const iceCandidates = this.iceCandidates.get(targetPeerId);
+        const iceComplete = this.iceGatheringComplete.get(targetPeerId);
+        
+        if (pendingOffer && iceComplete) {
+          const offerData = {
+            offer: pendingOffer,
+            iceCandidates: iceCandidates || [],
+            peerId: targetPeerId
+          };
+          const gameId = this.gameCode;
+          if (gameId) {
+            const encodedData = btoa(JSON.stringify(offerData));
+            const baseUrl = window.location.origin + window.location.pathname;
+            let gameUrl = `${baseUrl}?gameId=${gameId}&data=${encodedData}`;
+            
+            // Add phone number as query parameter if available
+            if (this.playerPhone) {
+              gameUrl += `&phone=${encodeURIComponent(this.playerPhone)}`;
+            }
+            
+            this.openQRModal(gameUrl);
+            qrButton.textContent = 'QR';
+          }
+        } else {
+          setTimeout(checkOfferReady, 100);
+        }
+      };
+      setTimeout(checkOfferReady, 100);
+    }
+
+    openQRModal(url: string) {
+      if (!this.qrModal || !this.qrImage) return;
+      const qrServiceUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
+      this.qrImage.src = qrServiceUrl;
+      this.qrModal.classList.remove('hidden');
+      this.qrModal.classList.add('flex');
+    }
+
+    closeQRModal() {
+      if (!this.qrModal) return;
+      this.qrModal.classList.add('hidden');
+      this.qrModal.classList.remove('flex');
+    }
+    
+    openWhatsApp() {
+      if (!this.copyTextarea?.value || !this.playerPhone) return;
+      
+      // Extract phone number from the stored phone (remove + and spaces)
+      const phoneNumber = this.playerPhone.replace(/[+\s]/g, '');
+      
+      // Create WhatsApp URL with the copied content as message
+      const message = encodeURIComponent(this.copyTextarea.value);
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+      
+      // Open WhatsApp in new tab
+      window.open(whatsappUrl, '_blank');
+    }
+    
+    openTelegram() {
+      if (!this.copyTextarea?.value || !this.playerPhone) return;
+      
+      // Extract phone number from the stored phone (remove + and spaces)
+      const phoneNumber = this.playerPhone.replace(/[+\s]/g, '');
+      
+      // Create Telegram URL with the copied content as message
+      const message = encodeURIComponent(this.copyTextarea.value);
+      const telegramUrl = `https://t.me/+${phoneNumber}?text=${message}`;
+      
+      // Open Telegram in new tab
+      window.open(telegramUrl, '_blank');
+    }
+    
+
+    
+    initializeCountrySelector() {
+      if (!this.countryDropdown) return;
+      
+      // Country data with flags and codes
+      const countries = [
+        { code: 'es', flag: '🇪🇸', dialCode: '+34', name: 'España' },
+        { code: 'us', flag: '🇺🇸', dialCode: '+1', name: 'Estados Unidos' },
+        { code: 'mx', flag: '🇲🇽', dialCode: '+52', name: 'México' },
+        { code: 'ar', flag: '🇦🇷', dialCode: '+54', name: 'Argentina' },
+        { code: 'co', flag: '🇨🇴', dialCode: '+57', name: 'Colombia' },
+        { code: 'cl', flag: '🇨🇱', dialCode: '+56', name: 'Chile' },
+        { code: 'pe', flag: '🇵🇪', dialCode: '+51', name: 'Perú' },
+        { code: 've', flag: '🇻🇪', dialCode: '+58', name: 'Venezuela' },
+        { code: 'ec', flag: '🇪🇨', dialCode: '+593', name: 'Ecuador' },
+        { code: 'py', flag: '🇵🇾', dialCode: '+595', name: 'Paraguay' },
+        { code: 'uy', flag: '🇺🇾', dialCode: '+598', name: 'Uruguay' },
+        { code: 'bo', flag: '🇧🇴', dialCode: '+591', name: 'Bolivia' },
+        { code: 'gb', flag: '🇬🇧', dialCode: '+44', name: 'Reino Unido' },
+        { code: 'fr', flag: '🇫🇷', dialCode: '+33', name: 'Francia' },
+        { code: 'de', flag: '🇩🇪', dialCode: '+49', name: 'Alemania' },
+        { code: 'it', flag: '🇮🇹', dialCode: '+39', name: 'Italia' }
+      ];
+      
+      // Populate dropdown
+      this.countryDropdown.innerHTML = countries.map(country => `
+        <div class="country-option flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-200" data-country="${country.code}" data-dial-code="${country.dialCode}">
+          <span class="text-lg mr-3">${country.flag}</span>
+          <span class="flex-1">${country.name}</span>
+          <span class="text-sm text-gray-600">${country.dialCode}</span>
+        </div>
+      `).join('');
+      
+      // Add click handlers
+      this.countryDropdown.querySelectorAll('.country-option').forEach(option => {
+        option.addEventListener('click', () => {
+          const countryCode = option.getAttribute('data-country');
+          const dialCode = option.getAttribute('data-dial-code');
+          const flag = option.querySelector('span')?.textContent;
+          
+          if (countryCode && dialCode && flag) {
+            this.selectCountry(countryCode, dialCode, flag);
+          }
+        });
+      });
+      
+      // Toggle dropdown
+      this.countrySelector?.addEventListener('click', () => {
+        this.toggleCountryDropdown();
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!this.countrySelector?.contains(e.target as Node) && !this.countryDropdown?.contains(e.target as Node)) {
+          this.hideCountryDropdown();
+        }
+      });
+      
+      // Auto-detect user's country
+      this.detectUserCountry();
+    }
+    
+    selectCountry(countryCode: string, dialCode: string, flag: string) {
+      this.currentCountry = countryCode;
+      
+      if (this.selectedFlag) this.selectedFlag.textContent = flag;
+      if (this.selectedCode) this.selectedCode.textContent = dialCode;
+      
+      this.hideCountryDropdown();
+      console.log('Selected country:', countryCode, 'with dial code:', dialCode);
+    }
+    
+    toggleCountryDropdown() {
+      if (!this.countryDropdown) return;
+      
+      if (this.countryDropdown.classList.contains('hidden')) {
+        this.countryDropdown.classList.remove('hidden');
+      } else {
+        this.countryDropdown.classList.add('hidden');
+      }
+    }
+    
+    hideCountryDropdown() {
+      if (!this.countryDropdown) return;
+      this.countryDropdown.classList.add('hidden');
+    }
+    
+    async detectUserCountry() {
+      try {
+        // Try to get country from IP using a free service
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        
+        if (data.country_code) {
+          const countryCode = data.country_code.toLowerCase();
+          console.log('Detected country from IP:', countryCode);
+          
+          // Find the country in our list and select it
+          const countryOption = this.countryDropdown?.querySelector(`[data-country="${countryCode}"]`);
+          if (countryOption) {
+            const dialCode = countryOption.getAttribute('data-dial-code');
+            const flag = countryOption.querySelector('span')?.textContent;
+            if (dialCode && flag) {
+              this.selectCountry(countryCode, dialCode, flag);
+            }
+          }
+        }
+      } catch (error) {
+        console.log('Could not detect country from IP, using default (Spain)');
+        // Default to Spain
+        this.selectCountry('es', '+34', '🇪🇸');
+      }
+    }
 
 
     connectToPlayerWithPeerId(playerId: string, playerName: string, peerId: string) {
@@ -1664,18 +2060,9 @@ const { translations, lang } = Astro.props;
         
         console.log(`📊 Distribución para ${totalPlayers} jugadores:`, distribution);
         
-        // Separate characters by type and ensure CISO is included
+        // Separate characters by type
         const goodCharacters = allCharacters.filter(char => char.type === 'good');
         const badCharacters = allCharacters.filter(char => char.type === 'bad');
-        
-        // Find CISO character
-        const cisoCharacter = allCharacters.find(char => char.key === 'ciso');
-        if (!cisoCharacter) {
-          console.error('❌ No se encontró el personaje CISO');
-          return;
-        }
-        
-        console.log(`🎯 CISO encontrado: ${cisoCharacter.name}`);
         
         // Ensure we have enough characters of each type
         if (goodCharacters.length < distribution.good) {
@@ -1697,17 +2084,9 @@ const { translations, lang } = Astro.props;
         // Create character pool according to distribution rules
         const characterPool: string[] = [];
         
-        // First, ensure CISO is included in the experts count
-        characterPool.push('ciso');
-        console.log(`🎯 CISO añadido al pool (contado como experto)`);
-        
-        // Add remaining good characters to reach the required count
-        const remainingGood = goodCharacters.filter(char => char.key !== 'ciso');
-        const shuffledGood = shuffleArray([...remainingGood]);
-        
-        // We need (distribution.good - 1) additional good characters since CISO counts as 1
-        const additionalGoodNeeded = distribution.good - 1;
-        for (let i = 0; i < additionalGoodNeeded && i < shuffledGood.length; i++) {
+        // Add good characters (including CISO) randomly
+        const shuffledGood = shuffleArray([...goodCharacters]);
+        for (let i = 0; i < distribution.good && i < shuffledGood.length; i++) {
           characterPool.push(shuffledGood[i].key);
         }
         
@@ -1721,8 +2100,7 @@ const { translations, lang } = Astro.props;
         shuffleArray(characterPool);
         
         console.log(`🎭 Pool de personajes creado: ${characterPool.length} personajes`);
-        // Note: gameRules.CharacterDistribution doesn't expose an explicit experts field; "good" includes CISO
-        console.log(`📊 Distribución: ${distribution.good} buenos (incluyendo CISO), ${distribution.bad} malos`);
+        console.log(`📊 Distribución: ${distribution.good} buenos, ${distribution.bad} malos`);
         console.log('Personajes en el pool:', characterPool);
         
         // Verify the pool matches the distribution rules
@@ -1773,7 +2151,7 @@ const { translations, lang } = Astro.props;
         });
         
         console.log('🎉 Asignación de personajes completada según las reglas del juego.');
-        console.log(`📊 Resumen: ${distribution.good} buenos (incluyendo CISO), ${distribution.bad} malos, total: ${characterPool.length}`);
+        console.log(`📊 Resumen: ${distribution.good} buenos, ${distribution.bad} malos, total: ${characterPool.length}`);
         console.log(`🎭 Personajes asignados: ${characterIndex} de ${totalPlayers} jugadores`);
         console.log(`🎯 CISO está en el pool: ${characterPool.includes('ciso') ? '✅ SÍ' : '❌ NO'}`);
         
@@ -2156,12 +2534,124 @@ const { translations, lang } = Astro.props;
       // This method is kept for future use if needed
     }
 
+    async loadMaps() {
+      try {
+        // Show loading state
+        this.mapsLoading?.classList.remove('hidden');
+        this.mapsError?.classList.add('hidden');
+        this.mapsGrid?.classList.add('hidden');
+        
+        // Fetch maps list from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/AgentsWorkingTogether/OWASPTop10TheGame/refs/heads/main/boards/list.json');
+        const data = await response.json();
+        
+        console.log('Maps loaded:', data);
+        
+        // Hide loading, show grid
+        this.mapsLoading?.classList.add('hidden');
+        this.mapsGrid?.classList.remove('hidden');
+        
+        // Populate maps grid
+        if (this.mapsGrid) {
+          this.mapsGrid.innerHTML = '';
+          
+          data.boards.forEach((board: any) => {
+            const mapCard = document.createElement('div');
+            mapCard.className = 'bg-white/90 border-2 border-black rounded-lg p-4 cursor-pointer hover:bg-white transition-colors duration-200';
+            mapCard.setAttribute('data-board-id', board.id);
+            
+            mapCard.innerHTML = `
+              <div class="text-center">
+                <h4 class="font-bold text-lg mb-2" style="color: var(--color-text);">${board.name}</h4>
+                <p class="text-sm mb-3 opacity-75" style="color: var(--color-text);">${board.description || 'Sin descripción'}</p>
+                <div class="text-xs opacity-60" style="color: var(--color-text);">
+                  Dificultad: ${board.difficulty || 'N/A'}
+                </div>
+              </div>
+            `;
+            
+            // Add click event
+            mapCard.addEventListener('click', () => this.selectMap(board.id, board.name));
+            
+            this.mapsGrid.appendChild(mapCard);
+          });
+        }
+        
+      } catch (error) {
+        console.error('Error loading maps:', error);
+        
+        // Show error state
+        this.mapsLoading?.classList.add('hidden');
+        this.mapsError?.classList.remove('hidden');
+      }
+    }
 
+    selectMap(boardId: string, boardName: string) {
+      // Remove previous selection
+      const previousSelected = this.mapsGrid?.querySelector('.border-blue-500');
+      if (previousSelected) {
+        previousSelected.classList.remove('border-blue-500', 'bg-blue-50');
+        previousSelected.classList.add('border-black', 'bg-white/90');
+      }
+      
+      // Select new map
+      const selectedCard = this.mapsGrid?.querySelector(`[data-board-id="${boardId}"]`);
+      if (selectedCard) {
+        selectedCard.classList.remove('border-black', 'bg-white/90');
+        selectedCard.classList.add('border-blue-500', 'bg-blue-50');
+      }
+      
+      // Store selection
+      this.selectedBoardId = boardId;
+      this.selectedBoardName = boardName;
+      
+      // Show action buttons
+      if (this.mapActionButtons) {
+        this.mapActionButtons.classList.remove('hidden');
+      }
+      
+      console.log('Map selected:', boardId, boardName);
+    }
+
+    continueToPlayerSetup() {
+      if (!this.selectedBoardId) {
+        alert('Por favor selecciona un mapa primero');
+        return;
+      }
+      
+      // Set the selected map as the fixed map value
+      this.mapaValue = this.selectedBoardId;
+      this.updateMapaDisplay();
+      
+      // Hide map selection, show player name setup
+      this.mapSelection?.classList.add('hidden');
+      const setupSection = document.getElementById('player-name-setup');
+      if (setupSection) {
+        setupSection.classList.remove('hidden');
+      }
+    }
+
+    goToVirtualTable() {
+      if (!this.selectedBoardId) {
+        alert('Por favor selecciona un mapa primero');
+        return;
+      }
+      
+      // Redirect to virtual table with the selected board
+      const currentLang = window.location.pathname.includes('/en/') ? 'en' : 'es';
+      const virtualTableUrl = `/OWASPTop10TheGame/${currentLang}/virtual-table/?boardid=${this.selectedBoardId}`;
+      window.location.href = virtualTableUrl;
+    }
 
     setupPlayerName() {
       const name = this.setupPlayerNameInput?.value.trim();
+      const phoneNumber = this.setupPlayerPhoneInput?.value.trim() || '';
+      const dialCode = this.selectedCode?.textContent || '+34';
+      const phone = phoneNumber ? `${dialCode} ${phoneNumber}` : '';
+      
       if (name) {
         this.playerName = name;
+        this.playerPhone = phone;
         
         // Update current player name display
         if (this.currentPlayerName) {
@@ -2203,9 +2693,12 @@ const { translations, lang } = Astro.props;
           this.continueWithGameJoining();
         }
         
-        // Clear input
+        // Clear inputs
         if (this.setupPlayerNameInput) {
           this.setupPlayerNameInput.value = '';
+        }
+        if (this.setupPlayerPhoneInput) {
+          this.setupPlayerPhoneInput.value = '';
         }
       } else {
         alert('Por favor ingresa un nombre');
@@ -2811,10 +3304,7 @@ const { translations, lang } = Astro.props;
         this.mapaValueElement.textContent = this.mapaValue || 'Sin asignar';
       }
       
-      // Update button state - disable if not leader OR if game has started
-      if (this.setMapaBtn) {
-        this.setMapaBtn.disabled = !this.isLeader || this.gameStarted;
-      }
+
     }
 
     setOwasp() {

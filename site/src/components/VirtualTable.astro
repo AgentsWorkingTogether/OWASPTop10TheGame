@@ -13,17 +13,16 @@ import threatHunterImage from '../assets/images/threat_hunter.png';
 import hacktivistImage from '../assets/images/hacktivist.png';
 import malwareAnalystImage from '../assets/images/malware_analyst.png';
 import incidentResponderImage from '../assets/images/incident-responder.png';
-import map1Image from '../assets/images/map-1.png';
-import mapConfig from '../assets/map-config.json';
 import owaspGreenImage from '../assets/images/owasp-green-token.png';
 import owaspRedImage from '../assets/images/owasp-red-token.png';
 
 interface Props {
   lang: Language;
   translations: any;
+  boardid?: string | null;
 }
 
-const { lang, translations } = Astro.props;
+const { lang, translations, boardid } = Astro.props;
 
 // Definir los personajes disponibles
 const characters = [
@@ -127,30 +126,14 @@ const characters = [
                             <!-- Mapa de Sistema -->
               <div class="w-full">
                 <div class="bg-white p-1 lg:p-2 rounded-md border border-gray-300 shadow-sm w-full">
-                  <div class="w-full h-auto rounded-sm overflow-hidden relative">
+                  <div id="map-container" class="w-full h-auto rounded-sm overflow-hidden relative">
                     <img 
-                      src={mapConfig.mapImage.url} 
-                      alt={mapConfig.mapImage.alt}
+                      id="map-image"
+                      src=""
+                      alt="System Map"
                       class="w-full h-auto object-contain"
                     />
-                    <!-- Círculos de Amenazas - Carga Dinámica de Todos los Niveles -->
-                    {Object.entries(mapConfig.mapSettings).flatMap(([levelKey, levelData]) => 
-                      Object.entries(levelData).map(([amenazaKey, amenazaData]) => (
-                        <a 
-                          href={amenazaData.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="absolute rounded-full cursor-pointer hover:bg-white hover:bg-opacity-20 transition-all duration-200"
-                          style={`
-                            left: ${(amenazaData.circle.x / 1969) * 100}%;
-                            top: ${(amenazaData.circle.y / 1113) * 100}%;
-                            transform: translate(-50%, -50%);
-                            width: ${amenazaData.circle.radius * 2}px;
-                            height: ${amenazaData.circle.radius * 2}px;
-                          `}
-                        ></a>
-                      ))
-                    )}
+                    <!-- Círculos de Amenazas - Se cargan dinámicamente via JavaScript -->
                   </div>
                 </div>
               </div>
@@ -344,7 +327,142 @@ const characters = [
   }
 </style>
 
-<script define:vars={{ characters, translations, lang }}>
+<script define:vars={{ characters, translations, lang, boardid }}>
+  // Cargar configuración del tablero dinámicamente
+  let mapConfig = null;
+  let boardImage = null;
+  
+  async function loadBoardConfiguration() {
+    console.log('🔄 Loading board configuration...');
+    console.log('📋 Board ID received:', boardid);
+    
+    if (!boardid) {
+      console.error('❌ Board ID is required but not provided');
+      console.log('🔄 Redirecting to game page...');
+      window.location.href = `/OWASPTop10TheGame/${lang}/game`;
+      return;
+    }
+    
+    try {
+      console.log('🌐 Fetching boards list from GitHub...');
+      // Obtener la lista de tableros disponibles
+      const boardsResponse = await fetch('https://raw.githubusercontent.com/AgentsWorkingTogether/OWASPTop10TheGame/refs/heads/main/boards/list.json');
+      const boardsData = await boardsResponse.json();
+      
+      console.log('📚 Boards list received:', boardsData);
+      
+      // Buscar el tablero específico por ID
+      const board = boardsData.boards.find(b => b.id === boardid);
+      if (!board) {
+        console.error(`❌ Board with ID "${boardid}" not found in boards list`);
+        console.log('📋 Available boards:', boardsData.boards.map(b => ({ id: b.id, name: b.name, path: b.path, uuid: b.uuid })));
+        console.log('🔄 Redirecting to game page...');
+        window.location.href = `/OWASPTop10TheGame/${lang}/game`;
+        return;
+      }
+      
+      console.log('🎯 Board found:', board);
+      console.log('📍 Board path:', board.path);
+      console.log('🆔 Board UUID:', board.uuid);
+      
+      // Construir la URL base usando path y UUID: base/PATH/UUID
+      const baseUrl = `https://raw.githubusercontent.com/AgentsWorkingTogether/OWASPTop10TheGame/refs/heads/main${board.path}/${board.uuid}`;
+      console.log('🔗 Base URL constructed:', baseUrl);
+      
+      // Construir la URL del map-config.json del tablero
+      const mapConfigUrl = `${baseUrl}/map-config.json`;
+      console.log('🔗 Map config URL:', mapConfigUrl);
+      
+      // Cargar la configuración del mapa
+      console.log('📥 Loading map configuration...');
+      const mapResponse = await fetch(mapConfigUrl);
+      mapConfig = await mapResponse.json();
+      
+      console.log('📋 Map configuration loaded:', mapConfig);
+      
+      // Construir la URL de la imagen del tablero usando la base URL
+      const imagePath = mapConfig.mapInfo.image;
+      boardImage = `${baseUrl}/images/${imagePath}`;
+      
+      console.log('🖼️ Board image URL constructed:', boardImage);
+      console.log('✅ Board configuration loaded successfully');
+      
+      // Actualizar la visualización del tablero
+      updateBoardDisplay();
+      
+    } catch (error) {
+      console.error('❌ Error loading board configuration:', error);
+      console.error('❌ Cannot continue without board configuration');
+      console.log('🔄 Redirecting to game page due to error...');
+      window.location.href = `/OWASPTop10TheGame/${lang}/game`;
+    }
+  }
+  
+  function updateBoardDisplay() {
+    if (!mapConfig || !boardImage) return;
+    
+    // Actualizar la imagen del mapa
+    const mapImage = document.querySelector('#map-image');
+    if (mapImage) {
+      mapImage.src = boardImage;
+      mapImage.alt = mapConfig.mapInfo.name || 'System Map';
+    }
+    
+    // Actualizar los círculos de amenazas
+    updateThreatCircles();
+    
+    // Reposicionar tokens OWASP después de actualizar el mapa
+    setTimeout(() => {
+      positionInitialOWASPTokens();
+    }, 100);
+  }
+  
+  function updateThreatCircles() {
+    if (!mapConfig) return;
+    
+    // Limpiar círculos existentes
+    const existingCircles = document.querySelectorAll('.threat-circle');
+    existingCircles.forEach(circle => circle.remove());
+    
+    // Crear nuevos círculos basados en la configuración
+    Object.entries(mapConfig.mapSettings).forEach(([levelKey, levelData]) => {
+      Object.entries(levelData).forEach(([amenazaKey, amenazaData]) => {
+        const circle = document.createElement('div');
+        const radius = amenazaData.circle.radius * 2; // radius * 2 para el diámetro
+        circle.className = 'threat-circle absolute rounded-full cursor-pointer hover:bg-gray-300 transition-colors duration-200 z-30';
+        circle.style.width = `${radius}px`;
+        circle.style.height = `${radius}px`;
+        circle.style.backgroundColor = 'transparent';
+        circle.style.border = '2px solid rgba(0, 0, 0, 0.3)';
+        circle.style.left = `${(amenazaData.circle.x / 1969) * 100}%`;
+        circle.style.top = `${(amenazaData.circle.y / 1113) * 100}%`;
+        circle.style.transform = 'translate(-50%, -50%)';
+        circle.setAttribute('data-level', levelKey);
+        circle.setAttribute('data-amenaza', amenazaKey);
+        circle.setAttribute('data-url', amenazaData.url || '');
+        
+        // Agregar tooltip
+        circle.title = `${levelKey} - ${amenazaKey}`;
+        
+        // Agregar funcionalidad de clic para abrir la URL del QR
+        if (amenazaData.url) {
+          circle.addEventListener('click', () => {
+            window.open(amenazaData.url, '_blank');
+          });
+        }
+        
+        // Agregar al contenedor del mapa
+        const mapContainer = document.querySelector('#map-container');
+        if (mapContainer) {
+          mapContainer.appendChild(circle);
+        }
+      });
+    });
+  }
+  
+  // Cargar configuración cuando se carga la página
+  document.addEventListener('DOMContentLoaded', loadBoardConfiguration);
+  
   // Definir quiénes son "buenos" (defensores) y "no tan buenos" (atacantes)
   const goodGuys = ['pentester', 'ciso', 'cloud_security', 'threat_hunter', 'malware_analyst', 'incident_responder'];
   const badGuys = ['script_kiddie', 'cracker', 'cyberterrorist', 'hacktivist'];
@@ -455,7 +573,7 @@ const characters = [
       const positionedTokens = [];
       const redTokens = document.querySelectorAll('[data-token-type="red"]');
       const greenTokens = document.querySelectorAll('[data-token-type="green"]');
-      const threatCircles = document.querySelectorAll('a[href*="qr.me-qr.com"]');
+      const threatCircles = document.querySelectorAll('.threat-circle');
       
       // Verificar qué fichas están posicionadas en círculos
       [...redTokens, ...greenTokens].forEach((token) => {
@@ -928,8 +1046,8 @@ const characters = [
       return null;
     }).filter(pos => pos !== null);
     
-    // Obtener todos los círculos de amenazas
-    const threatCircles = document.querySelectorAll('a[href*="qr.me-qr.com"]');
+    // Obtener todos los círculos de amenazas (ahora son divs con clase threat-circle)
+    const threatCircles = document.querySelectorAll('.threat-circle');
     
     // Obtener fichas por tipo
     const redTokens = document.querySelectorAll('[data-token-type="red"]');
@@ -1032,8 +1150,8 @@ const characters = [
     const tokenCenterX = tokenRect.left + tokenRect.width / 2;
     const tokenCenterY = tokenRect.top + tokenRect.height / 2;
     
-    // Buscar todos los círculos de amenazas
-    const threatCircles = document.querySelectorAll('a[href*="qr.me-qr.com"]');
+    // Buscar todos los círculos de amenazas (ahora son divs con clase threat-circle)
+    const threatCircles = document.querySelectorAll('.threat-circle');
     let closestCircle = null;
     let minDistance = Infinity;
     

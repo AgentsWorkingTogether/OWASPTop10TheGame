@@ -21,72 +21,72 @@
         }
       },
       "amenaza2": {
-        "url": "https://qr.me-qr.com/fnTM5fnY",
+        "url": "https://qr.me-qr.com/6W6J2Tt7",
         "circle": {
           "x": 1450,
           "y": 115,
           "radius": 34,
-          "color": "#00ff00"
+          "color": "#ff0000"
         }
       },
       "amenaza3": {
-        "url": "https://qr.me-qr.com/example3",
+        "url": "https://qr.me-qr.com/fnTM5fnY",
         "circle": {
           "x": 1770,
           "y": 275,
           "radius": 34,
-          "color": "#0000ff"
+          "color": "#ff0000"
         }
       },
       "amenaza4": {
-        "url": "https://qr.me-qr.com/example4",
+        "url": "https://qr.me-qr.com/8KvMcoMP",
         "circle": {
           "x": 1770,
           "y": 740,
           "radius": 34,
-          "color": "#ffff00"
+          "color": "#ff0000"
         }
       },
       "amenaza5": {
-        "url": "https://qr.me-qr.com/example5",
+        "url": "https://qr.me-qr.com/fi7W7ujy",
         "circle": {
           "x": 1450,
           "y": 900,
           "radius": 34,
-          "color": "#ff00ff"
+          "color": "#ff0000"
         }
       },
       "amenaza6": {
-        "url": "https://qr.me-qr.com/example5",
+        "url": "https://qr.me-qr.com/LPuhzV3m",
         "circle": {
           "x": 1125,
           "y": 740,
           "radius": 34,
-          "color": "#ff00ff"
+          "color": "#ff0000"
         }
       }
     },
     "level2": {
       "amenaza7": {
-        "url": "https://qr.me-qr.com/DztL6B0c",
+        "url": "https://qr.me-qr.com/ejnKsURd",
         "circle": {
           "x": 118,
           "y": 503,
           "radius": 34,
-          "color": "#ff0000"
+          "color": "#0000ff"
         }
       },
       "amenaza8": {
-        "url": "https://qr.me-qr.com/fnTM5fnY",
+        "url": "https://qr.me-qr.com/0diZMog0",
         "circle": {
             "x": 468,
             "y": 503,
           "radius": 34,
-          "color": "#00ff00"
+          "color": "#0000ff"
         }
       },
       "amenaza9": {
-        "url": "https://qr.me-qr.com/example3",
+        "url": "https://qr.me-qr.com/O7Fq9dmo",
         "circle": {
           "x": 815,
           "y": 503,
@@ -97,12 +97,12 @@
     },
     "level3": {
       "amenaza10": {
-        "url": "https://qr.me-qr.com/DztL6B0c",
+        "url": "https://qr.me-qr.com/Ewx1ruws",
         "circle": {
             "x": 468,
           "y": 895,
           "radius": 34,
-          "color": "#ff0000"
+          "color": "#00ff00"
         }
       }
     }

@@ -209,9 +209,18 @@ const { translations, lang } = Astro.props;
                     const currentUpToState = (window as any).currentUpToState ?? 5;
                     const currentOwaspState = (window as any).currentOwaspState || '';
                     
+                    // Obtener el boardid de la URL actual
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const boardid = urlParams.get('boardid');
+                    
                     // Construir la URL con los parámetros
                     const baseUrl = window.location.origin + window.location.pathname;
                     const params = new URLSearchParams();
+                    
+                    // Incluir boardid si existe
+                    if (boardid) {
+                        params.set('boardid', boardid);
+                    }
                     
                     if (currentUpToState !== 5) {
                         params.set('upto', currentUpToState.toString());
@@ -257,8 +266,18 @@ const { translations, lang } = Astro.props;
                     try {
                         const currentUpToState = (window as any).currentUpToState ?? 5;
                         const currentOwaspState = (window as any).currentOwaspState || '';
+                        
+                        // Obtener el boardid de la URL actual
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const boardid = urlParams.get('boardid');
+                        
                         const baseUrl = window.location.origin + window.location.pathname;
                         const params = new URLSearchParams();
+                        
+                        // Incluir boardid si existe
+                        if (boardid) {
+                            params.set('boardid', boardid);
+                        }
                         
                         if (currentUpToState !== 5) {
                             params.set('upto', currentUpToState.toString());
@@ -309,7 +328,8 @@ const { translations, lang } = Astro.props;
                     } catch (fallbackError) {
                         console.error('Error en fallback:', fallbackError);
                         // Último recurso: mostrar la URL
-                        alert(`URL para compartir: ${shareUrl}`);
+                        const finalShareUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+                        alert(`URL para compartir: ${finalShareUrl}`);
                     }
                 }
             });

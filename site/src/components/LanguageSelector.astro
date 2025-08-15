@@ -16,7 +16,7 @@ const { lang } = Astro.props;
 </div>
 
 <script>
-  // Interceptar clicks en los enlaces de idioma para mantener la posición
+  // Interceptar clicks en los enlaces de idioma para mantener la página actual
   document.addEventListener('DOMContentLoaded', () => {
     const langLinks = document.querySelectorAll('.lang-selector a[data-lang]');
     
@@ -26,15 +26,23 @@ const { lang } = Astro.props;
         
         const targetLang = link.getAttribute('data-lang');
         const currentPath = window.location.pathname;
+        const currentSearch = window.location.search;
         
-        // Obtener la sección actual (hash)
-        const currentHash = window.location.hash || '#home';
-        
-        // Construir la nueva URL manteniendo la sección
-        const newUrl = `/OWASPTop10TheGame/${targetLang}${currentHash}`;
-        
-        // Navegar a la nueva URL
-        window.location.href = newUrl;
+        // Detectar si estamos en una página específica
+        if (currentPath.includes('/game')) {
+          // Estamos en la página de game
+          const newUrl = `/OWASPTop10TheGame/${targetLang}/game${currentSearch}`;
+          window.location.href = newUrl;
+        } else if (currentPath.includes('/virtual-table')) {
+          // Estamos en la página de virtual-table
+          const newUrl = `/OWASPTop10TheGame/${targetLang}/virtual-table${currentSearch}`;
+          window.location.href = newUrl;
+        } else {
+          // Estamos en la página principal, mantener la sección (hash)
+          const currentHash = window.location.hash || '#home';
+          const newUrl = `/OWASPTop10TheGame/${targetLang}${currentHash}`;
+          window.location.href = newUrl;
+        }
       });
     });
   });

@@ -19,7 +19,8 @@ export const translations = {
       characters: "Personajes",
       components: "Componentes",
       rules: "Reglamento",
-      team_building: "Extension-Team Building"
+      team_building: "Extension-Team Building",
+      create_game: "Partida Digital"
     },
     game: {
       title: "Sala de Partida",
@@ -46,9 +47,10 @@ export const translations = {
       add_new_player_desc: "Genera una nueva oferta para conectar a otro jugador",
       new_player: "Nuevo Jugador",
       player_setup: "Configuración del Jugador",
-      player_setup_desc: "Establece tu nombre antes de continuar",
+      player_setup_desc: "Establece tu nombre antes de continuar (teléfono opcional)",
       player_setup_desc2: "Tu nombre será visible para otros jugadores en la partida",
       enter_name: "Ingresa tu nombre...",
+      enter_phone: "Ingresa tu teléfono móvil...",
       continue: "Continuar",
       player_registration: "Registro de Jugadores",
       player_registration_desc: "Registra a todos los jugadores que participarán",
@@ -69,7 +71,15 @@ export const translations = {
       increase: "Subir",
       map: "Mapa:",
       set_uuid: "Establecer UUID",
-      set_owasp: "Establecer OWASP"
+      set_owasp: "Establecer OWASP",
+      select_map: "Seleccionar Mapa",
+      select_map_desc: "Elige el mapa que quieres usar para esta partida",
+      loading_maps: "Cargando mapas...",
+      maps_error: "Error al cargar los mapas. Inténtalo de nuevo.",
+      retry: "Reintentar",
+      play_full_digital: "Juego Digital",
+      view_digital_map: "Juego Digital (solo mapa)",
+      map_fixed: "Mapa seleccionado al crear la partida"
     },
     home: {
       title: "La Ciberseguridad <br>Nunca fue tan divertida.",
@@ -523,7 +533,8 @@ export const translations = {
       characters: "Characters",
       components: "Components",
       rules: "Rules",
-      team_building: "Extension-Team Building"
+      team_building: "Extension-Team Building",
+      create_game: "Digital Game"
     },
     game: {
       title: "Game Room",
@@ -550,9 +561,10 @@ export const translations = {
       add_new_player_desc: "Generate a new offer to connect another player",
       new_player: "New Player",
       player_setup: "Player Setup",
-      player_setup_desc: "Set your name before continuing",
+      player_setup_desc: "Set your name before continuing (phone optional)",
       player_setup_desc2: "Your name will be visible to other players in the game",
       enter_name: "Enter your name...",
+      enter_phone: "Enter your mobile phone...",
       continue: "Continue",
       player_registration: "Player Registration",
       player_registration_desc: "Register all players who will participate",
@@ -573,7 +585,15 @@ export const translations = {
       increase: "Increase",
       map: "Map:",
       set_uuid: "Set UUID",
-      set_owasp: "Set OWASP"
+      set_owasp: "Set OWASP",
+      select_map: "Select Map",
+      select_map_desc: "Choose the map you want to use for this game",
+      loading_maps: "Loading maps...",
+      maps_error: "Error loading maps. Please try again.",
+      retry: "Retry",
+      play_full_digital: "Digital Game",
+      view_digital_map: "Digital Game (map only)",
+      map_fixed: "Map selected when creating the game"
     },
     home: {
       title: "Cybersecurity<br>Has Never Been This Fun.",
