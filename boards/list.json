@@ -1,0 +1,12 @@
+{
+    "boards": [
+        {
+            "uuid":"0198aa28-bd59-7275-8da5-3794d5e02fdf",
+            "id": "1",
+            "path":"/boards/Prowler",
+            "name": "Prowler Board",
+            "description": "Prowler Product Board",
+            "difficulty": 3
+        }
+    ]
+}
