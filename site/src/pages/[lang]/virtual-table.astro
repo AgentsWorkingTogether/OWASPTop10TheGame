@@ -20,7 +20,6 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const boardid = Astro.url.searchParams.get('boardid');
 const translations = await getTranslations(lang as Language);
 ---
 
@@ -31,7 +30,7 @@ const translations = await getTranslations(lang as Language);
 >
     <Header translations={translations} lang={lang as Language} />
 
-    <VirtualTableComponent lang={lang as Language} translations={translations} boardid={boardid} />
+    <VirtualTableComponent lang={lang as Language} translations={translations} />
 
     <Footer translations={translations} lang={lang as Language} />
 </Layout> 

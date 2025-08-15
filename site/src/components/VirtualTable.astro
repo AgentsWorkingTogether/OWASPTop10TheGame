@@ -19,10 +19,9 @@ import owaspRedImage from '../assets/images/owasp-red-token.png';
 interface Props {
   lang: Language;
   translations: any;
-  boardid?: string | null;
 }
 
-const { lang, translations, boardid } = Astro.props;
+const { lang, translations } = Astro.props;
 
 // Definir los personajes disponibles
 const characters = [
@@ -327,14 +326,26 @@ const characters = [
   }
 </style>
 
-<script define:vars={{ characters, translations, lang, boardid }}>
+<script define:vars={{ characters, translations, lang }}>
   // Cargar configuración del tablero dinámicamente
   let mapConfig = null;
   let boardImage = null;
   
+  // Obtener boardid del lado del cliente
+  function getBoardId() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('boardid');
+  }
+  
   async function loadBoardConfiguration() {
+    const boardid = getBoardId();
+    
     console.log('🔄 Loading board configuration...');
     console.log('📋 Board ID received:', boardid);
+    console.log('📋 Board ID type:', typeof boardid);
+    console.log('📋 Board ID length:', boardid ? boardid.length : 0);
+    console.log('📋 Current URL:', window.location.href);
+    console.log('📋 Search params:', window.location.search);
     
     if (!boardid) {
       console.error('❌ Board ID is required but not provided');
