@@ -12,7 +12,7 @@
     "lint:fix": "eslint . --ext .astro,.js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write .",
     "type-check": "astro check",
-    "prepare": "husky install"
+    "prepare": "if [ -d .git ]; then husky install; fi"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
