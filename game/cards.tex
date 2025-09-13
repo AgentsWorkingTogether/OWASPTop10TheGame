@@ -863,6 +863,12 @@
     \end{tikzpicture}
 }
 
+% Comando para generar un token individual
+% Parámetros: #1=token_id, #2=width, #3=height
+\newcommand{\generateToken}[3]{
+    \includegraphics[width=#2,height=#3,keepaspectratio]{images/tokens/#1.png}
+}
+
 \begin{document}
 \pagestyle{empty}
 
@@ -990,6 +996,86 @@
     % Fila 3
     \node[anchor=north west] at (13.0,-18.0) {\generateAccessCardBack{threat_hunter}};
 \end{tikzpicture}
+\end{center}
+
+\newpage
+
+% ===== PÁGINA 7: TOKENS =====
+\begin{center}
+\generateToken{leader}{5.83cm}{5.83cm}
+
+\vspace{1cm}
+
+\generateToken{trust_indicator}{11.35cm}{6.81cm}
+
+\vspace{1cm}
+
+% 5 tokens team_blue en fila horizontal
+\generateToken{team_blue}{1.56cm}{1.56cm} \hspace{0.5cm}
+\generateToken{team_blue}{1.56cm}{1.56cm} \hspace{0.5cm}
+\generateToken{team_blue}{1.56cm}{1.56cm} \hspace{0.5cm}
+\generateToken{team_blue}{1.56cm}{1.56cm} \hspace{0.5cm}
+\generateToken{team_blue}{1.56cm}{1.56cm}
+
+\vspace{0.5cm}
+
+% 6 tokens owasp-green-token en fila horizontal
+\generateToken{owasp-green-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-green-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-green-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-green-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-green-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-green-token}{1.56cm}{1.56cm}
+
+\vspace{0.5cm}
+
+% 6 tokens owasp-red-token en fila horizontal
+\generateToken{owasp-red-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-red-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-red-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-red-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-red-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-red-token}{1.56cm}{1.56cm}
+\end{center}
+
+\newpage
+
+% ===== PÁGINA 8: TOKENS (COPIA DE PÁGINA 7) =====
+\begin{center}
+\generateToken{leader}{5.83cm}{5.83cm}
+
+\vspace{1cm}
+
+\generateToken{trust_indicator}{11.35cm}{6.81cm}
+
+\vspace{1cm}
+
+% 5 tokens team_blue en fila horizontal
+\generateToken{team_blue}{1.56cm}{1.56cm} \hspace{0.5cm}
+\generateToken{team_blue}{1.56cm}{1.56cm} \hspace{0.5cm}
+\generateToken{team_blue}{1.56cm}{1.56cm} \hspace{0.5cm}
+\generateToken{team_blue}{1.56cm}{1.56cm} \hspace{0.5cm}
+\generateToken{team_blue}{1.56cm}{1.56cm}
+
+\vspace{0.5cm}
+
+% 6 tokens owasp-green-token en fila horizontal
+\generateToken{owasp-green-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-green-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-green-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-green-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-green-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-green-token}{1.56cm}{1.56cm}
+
+\vspace{0.5cm}
+
+% 6 tokens owasp-red-token en fila horizontal
+\generateToken{owasp-red-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-red-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-red-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-red-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-red-token}{1.56cm}{1.56cm} \hspace{0.3cm}
+\generateToken{owasp-red-token}{1.56cm}{1.56cm}
 \end{center}
 
 \end{document} 

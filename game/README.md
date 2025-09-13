@@ -2,7 +2,7 @@
 
 ## 📋 Descripción
 
-Sistema completo para generar cartas del juego **OWASP TOP 10 THE GAME** con caras y traseras en un solo PDF, optimizado para impresión por ambas caras. Incluye personajes, cartas de acción (attacked/protected) y cartas de acceso.
+Sistema completo para generar cartas del juego **OWASP TOP 10 THE GAME** con caras y traseras en un solo PDF, optimizado para impresión por ambas caras. Incluye personajes, cartas de acción (attacked/protected), cartas de acceso y tokens del juego.
 
 ## 🎯 Características
 
@@ -11,6 +11,7 @@ Sistema completo para generar cartas del juego **OWASP TOP 10 THE GAME** con car
 - ✅ **Fuente moderna**: Roboto Slab
 - ✅ **10 personajes**: Todos los personajes del juego
 - ✅ **Cartas de acción**: Attacked, Protected y Access
+- ✅ **Tokens del juego**: Leader, Trust Indicator, Team Blue, OWASP tokens
 - ✅ **Impresión optimizada**: Organizado para doble cara
 - ✅ **Imágenes ampliadas**: Personajes con mejor visibilidad
 
@@ -27,7 +28,8 @@ game/
 │   ├── backgrounds/             # Fondos de cartas
 │   ├── actions/                 # Iconos de acciones
 │   ├── access/                  # Iconos de acceso
-│   └── backs/                   # Fondos de cartas traseras
+│   ├── backs/                   # Fondos de cartas traseras
+│   └── tokens/                  # Tokens del juego
 └── README.md                    # Este archivo
 ```
 
@@ -41,7 +43,7 @@ game/
    - Calidad: Alta (300 DPI mínimo)
    - Impresión por ambas caras: ✅ Activado
    - Escalado: 100% (sin ajustar a página)
-3. **Imprimir**: Todo el documento (6 páginas)
+3. **Imprimir**: Todo el documento (8 páginas)
 
 ### Estructura del PDF
 
@@ -51,6 +53,8 @@ game/
 - **Página 4**: 9 cartas traseras mixtas (1 normal + 8 action-card-back)
 - **Página 5**: 7 cartas de acción (2 protected + 5 access)
 - **Página 6**: 7 cartas traseras (2 action-card-back + 5 access-card-back)
+- **Página 7**: Tokens (1 Leader + 1 Trust Indicator + 5 Team Blue + 6 Green + 6 Red)
+- **Página 8**: Tokens traseros (copia de página 7)
 
 ### Alineación Automática
 
@@ -86,6 +90,13 @@ El PDF está diseñado para que al imprimir por ambas caras:
 ### Cartas Traseras
 - **Action Card Back**: Trasera para cartas de acción
 - **Access Card Back**: Trasera para cartas de acceso
+
+### Tokens del Juego
+- **Leader**: Token de líder (5.83cm x 5.83cm)
+- **Trust Indicator**: Indicador de confianza (11.35cm x 6.81cm)
+- **Team Blue**: 5 tokens de equipo azul (1.56cm x 1.56cm cada uno)
+- **OWASP Green Token**: 6 tokens verdes (1.56cm x 1.56cm cada uno)
+- **OWASP Red Token**: 6 tokens rojos (1.56cm x 1.56cm cada uno)
 
 ## 🛠️ Uso del Sistema
 
@@ -168,8 +179,9 @@ sudo apt-get install fonts-roboto-slab
 - **Tamaño de cartas**: 5.7cm x 8.6cm
 - **Distribución**: 9 cartas por página (3x3)
 - **Total de cartas**: 25 cartas (10 personajes + 15 de acción)
-- **Páginas**: 6 (3 hojas con doble cara)
-- **Tamaño del PDF**: ~14MB
+- **Total de tokens**: 19 tokens (1 Leader + 1 Trust Indicator + 5 Team Blue + 6 Green + 6 Red)
+- **Páginas**: 8 (4 hojas con doble cara + 2 hojas de tokens)
+- **Tamaño del PDF**: ~17MB
 - **Fuente**: Roboto Slab 16pt
 - **Imágenes**: 6.2cm x 6.6cm (personajes ampliados)
 
@@ -180,6 +192,8 @@ sudo apt-get install fonts-roboto-slab
 - ✅ **Reorganización**: Cartas 1 y 3 intercambiadas en páginas 4 y 6
 - ✅ **Posicionamiento**: Carta 7 movida a posición 9 en página 6
 - ✅ **Optimización**: Mejor distribución visual
+- ✅ **Tokens añadidos**: Páginas 7 y 8 con todos los tokens del juego
+- ✅ **Dimensiones específicas**: Cada token con su tamaño optimizado
 
 ## 🎉 Resultado Final
 
@@ -187,9 +201,11 @@ Al final del proceso tendrás:
 - ✅ 10 cartas de personajes con sus respectivas traseras
 - ✅ 10 cartas de acción (attacked, protected)
 - ✅ 6 cartas de acceso
+- ✅ 19 tokens del juego (Leader, Trust Indicator, Team Blue, OWASP tokens)
 - ✅ Tamaño optimizado para el juego
 - ✅ Diseño profesional y legible
 - ✅ Imágenes de personajes ampliadas y visibles
+- ✅ Tokens con dimensiones específicas para cada tipo
 - ✅ Listo para jugar OWASP TOP 10 THE GAME
 
 ## 📞 Soporte
