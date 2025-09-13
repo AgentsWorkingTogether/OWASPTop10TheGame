@@ -13,6 +13,8 @@ import threatHunterImage from '../assets/images/threat_hunter.png';
 import hacktivistImage from '../assets/images/hacktivist.png';
 import malwareAnalystImage from '../assets/images/malware_analyst.png';
 import incidentResponderImage from '../assets/images/incident-responder.png';
+import moderatorManImage from '../assets/images/moderator_man.png';
+import moderatorWomanImage from '../assets/images/moderator_worman.png';
 import owaspGreenImage from '../assets/images/owasp-green-token.png';
 import owaspRedImage from '../assets/images/owasp-red-token.png';
 
@@ -34,7 +36,9 @@ const characters = [
   { key: 'threat_hunter', image: threatHunterImage },
   { key: 'hacktivist', image: hacktivistImage },
   { key: 'malware_analyst', image: malwareAnalystImage },
-  { key: 'incident_responder', image: incidentResponderImage }
+  { key: 'incident_responder', image: incidentResponderImage },
+  { key: 'moderator_man', image: moderatorManImage },
+  { key: 'moderator_woman', image: moderatorWomanImage }
 ];
 ---
 
@@ -475,7 +479,7 @@ const characters = [
   document.addEventListener('DOMContentLoaded', loadBoardConfiguration);
   
   // Definir quiénes son "buenos" (defensores) y "no tan buenos" (atacantes)
-  const goodGuys = ['pentester', 'ciso', 'cloud_security', 'threat_hunter', 'malware_analyst', 'incident_responder'];
+  const goodGuys = ['pentester', 'ciso', 'cloud_security', 'threat_hunter', 'malware_analyst', 'incident_responder', 'moderator_man', 'moderator_woman'];
   const badGuys = ['script_kiddie', 'cracker', 'cyberterrorist', 'hacktivist'];
 
   // Datos de los personajes
@@ -528,6 +532,16 @@ const characters = [
     incident_responder: {
       image: characters[9].image.src,
       name: translations.characters.incident_responder.name,
+      type: 'good'
+    },
+    moderator_man: {
+      image: characters[10].image.src,
+      name: lang === 'es' ? 'MODERATOR' : 'MODERATOR',
+      type: 'good'
+    },
+    moderator_woman: {
+      image: characters[11].image.src,
+      name: lang === 'es' ? 'MODERATOR' : 'MODERATOR',
       type: 'good'
     }
   };
