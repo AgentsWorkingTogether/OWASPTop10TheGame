@@ -265,15 +265,18 @@ export const translations = {
          standard_procedure: {
            title: "Procedimiento estándar:",
            step1: "Se cierran los ojos y solo los no tan buenos abren los ojos. De esta forma conocen a sus compañeros.",
-           step2: "Ahora cierran los ojos y levantan el pulgar los no tan buenos para que el CISO abra los ojos y descubra quienes son los no tan buenos.",
-           step3: "El CISO deberá nuevamente cerrar los ojos y los no tan bueno deberán de bajar los pulgares.",
-           step4: "Finalmente todos los empleados abren los ojos."
+           step2: "Ahora cierran los ojos y los no tan buenos se señalan a sí mismos con el dedo índice para que el CISO abra los ojos y descubra quienes son los no tan buenos.",
+           step3: "El CISO deberá nuevamente cerrar los ojos y los no tan buenos deberán dejar de señalarse con el dedo índice.",
+           step4: "Finalmente todos los empleados abren los ojos.",
+           audio_title: "Escuchar procedimiento estándar:",
+           play_audio: "Reproducir audio",
+           pause_audio: "Pausar audio"
          },
          blind_variant: {
            title: "Variante a ciegas:",
            step1: "Inicias con todos con los ojos cerrados.",
-           step2: "Los no tan buenos levantan el pulgar sin abrir los ojos y el CISO abre los ojos.",
-           step3: "El CISO deberá nuevamente cerrar los ojos y los no tan bueno deberán de bajar los pulgares."
+           step2: "Los no tan buenos se señalan a sí mismos con el dedo índice sin abrir los ojos y el CISO abre los ojos.",
+           step3: "El CISO deberá nuevamente cerrar los ojos y los no tan buenos deberán dejar de señalarse con el dedo índice."
          },
                     note: "Nota:",
            secrets_note: "Puede darse el caso que nadie tuviera la carta de CISO pero hay que seguir haciendo este procedimiento porque esto no se sabrá hasta que termine el juego."
@@ -779,15 +782,18 @@ export const translations = {
          standard_procedure: {
            title: "Standard procedure:",
            step1: "Everyone closes their eyes and only the bad guys open their eyes. This way they know their companions.",
-           step2: "Now they close their eyes and the bad guys raise their thumbs so the CISO opens their eyes and discovers who the bad guys are.",
-           step3: "The CISO must close their eyes again and the bad guys must lower their thumbs.",
-           step4: "Finally all employees open their eyes."
+           step2: "Now they close their eyes and the bad guys point to themselves with their index finger so the CISO opens their eyes and discovers who the bad guys are.",
+           step3: "The CISO must close their eyes again and the bad guys must stop pointing to themselves with their index finger.",
+           step4: "Finally all employees open their eyes.",
+           audio_title: "Listen to standard procedure:",
+           play_audio: "Play audio",
+           pause_audio: "Pause audio"
          },
          blind_variant: {
            title: "Blind variant:",
            step1: "You start with everyone with their eyes closed.",
-           step2: "The bad guys raise their thumbs without opening their eyes and the CISO opens their eyes.",
-           step3: "The CISO must close their eyes again and the bad guys must lower their thumbs."
+           step2: "The bad guys point to themselves with their index finger without opening their eyes and the CISO opens their eyes.",
+           step3: "The CISO must close their eyes again and the bad guys must stop pointing to themselves with their index finger."
          },
                     note: "Note:",
            secrets_note: "It may be the case that no one has the CISO card, but this procedure must continue to be followed because this will not be known until the game ends."

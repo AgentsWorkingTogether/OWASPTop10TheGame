@@ -1,0 +1,137 @@
+---
+import { getTranslationKey } from '../utils/i18n';
+
+const { lang, translations } = Astro.props;
+---
+
+<!-- Iconos de audio integrados con el título existente -->
+<div class="flex items-center space-x-2">
+  <!-- Iconos de hombre y mujer con hover para play -->
+  <div class="flex space-x-1">
+    <!-- Icono Hombre (♂) -->
+    <button 
+      id="play-male-btn" 
+      class="group relative p-2 rounded-full bg-blue-100 hover:bg-blue-200 transition-all duration-200 hover:scale-110"
+      title={lang === 'es' ? 'Reproducir versión masculina' : 'Play male version'}
+    >
+      <span id="male-symbol" class="text-lg text-blue-600 group-hover:hidden">♂</span>
+      <span id="male-play" class="text-lg text-blue-600 hidden group-hover:block">▶</span>
+    </button>
+    
+    <!-- Icono Mujer (♀) -->
+    <button 
+      id="play-female-btn" 
+      class="group relative p-2 rounded-full bg-pink-100 hover:bg-pink-200 transition-all duration-200 hover:scale-110"
+      title={lang === 'es' ? 'Reproducir versión femenina' : 'Play female version'}
+    >
+      <span id="female-symbol" class="text-lg text-pink-600 group-hover:hidden">♀</span>
+      <span id="female-play" class="text-lg text-pink-600 hidden group-hover:block">▶</span>
+    </button>
+  </div>
+</div>
+
+<audio 
+  id="standard-procedure-audio" 
+  preload="metadata"
+  class="hidden"
+>
+  <source src={`/OWASPTop10TheGame/audio/${lang === 'es' ? 'spanish' : 'english'}man.mp3`} type="audio/mpeg">
+  <source src={`/OWASPTop10TheGame/audio/${lang === 'es' ? 'spanish' : 'english'}woman.mp3`} type="audio/mpeg">
+  Tu navegador no soporta el elemento de audio.
+</audio>
+
+<script define:vars={{ lang }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('standard-procedure-audio');
+    const playMaleBtn = document.getElementById('play-male-btn');
+    const playFemaleBtn = document.getElementById('play-female-btn');
+    const maleSymbol = document.getElementById('male-symbol');
+    const malePlay = document.getElementById('male-play');
+    const femaleSymbol = document.getElementById('female-symbol');
+    const femalePlay = document.getElementById('female-play');
+
+    if (!audio || !playMaleBtn || !playFemaleBtn) return;
+
+    // Set initial audio source to male version
+    const maleSource = `/OWASPTop10TheGame/audio/${lang === 'es' ? 'spanish' : 'english'}man.mp3`;
+    const femaleSource = `/OWASPTop10TheGame/audio/${lang === 'es' ? 'spanish' : 'english'}woman.mp3`;
+    
+    audio.src = maleSource;
+    let currentSource = maleSource;
+    let isPlaying = false;
+
+    // Function to update button states
+    function updateButtonStates() {
+      if (isPlaying) {
+        // Show pause icon when playing
+        malePlay.textContent = '⏸';
+        femalePlay.textContent = '⏸';
+      } else {
+        // Show play icon when paused/stopped
+        malePlay.textContent = '▶';
+        femalePlay.textContent = '▶';
+      }
+    }
+
+    // Male version button
+    playMaleBtn.addEventListener('click', () => {
+      if (isPlaying && currentSource === maleSource) {
+        // Pause if same source is playing
+        audio.pause();
+        isPlaying = false;
+      } else if (!isPlaying && currentSource === maleSource) {
+        // Resume if same source is paused
+        audio.play();
+        isPlaying = true;
+      } else {
+        // Play or switch to male source
+        audio.src = maleSource;
+        audio.load();
+        audio.play();
+        currentSource = maleSource;
+        isPlaying = true;
+      }
+      updateButtonStates();
+    });
+
+    // Female version button
+    playFemaleBtn.addEventListener('click', () => {
+      if (isPlaying && currentSource === femaleSource) {
+        // Pause if same source is playing
+        audio.pause();
+        isPlaying = false;
+      } else if (!isPlaying && currentSource === femaleSource) {
+        // Resume if same source is paused
+        audio.play();
+        isPlaying = true;
+      } else {
+        // Play or switch to female source
+        audio.src = femaleSource;
+        audio.load();
+        audio.play();
+        currentSource = femaleSource;
+        isPlaying = true;
+      }
+      updateButtonStates();
+    });
+
+    // Audio events
+    audio.addEventListener('play', () => {
+      isPlaying = true;
+      updateButtonStates();
+    });
+
+    audio.addEventListener('pause', () => {
+      isPlaying = false;
+      updateButtonStates();
+    });
+
+    audio.addEventListener('ended', () => {
+      isPlaying = false;
+      updateButtonStates();
+    });
+
+    // Initialize button states
+    updateButtonStates();
+  });
+</script>

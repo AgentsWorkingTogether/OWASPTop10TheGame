@@ -13,6 +13,8 @@ import shadowerImage from '../assets/images/shadower.png';
 import bustedImage from '../assets/images/busted.png';
 import perseveranceImage from '../assets/images/perseverance.png';
 import securityToolImage from '../assets/images/security_tool.png';
+import StandardProcedureAudio from './StandardProcedureAudio.astro';
+import BlindVariantAudio from './BlindVariantAudio.astro';
 
 interface Props {
   lang: Language;
@@ -85,8 +87,12 @@ const { lang, translations } = Astro.props;
         <h3 class="text-2xl font-bold mb-4" style="color: var(--color-primary);" set:html={getTranslationKey(translations, 'rules.secrets.title')}></h3>
         <div class="space-y-4">
           <div class="bg-blue-100 border-l-4 border-blue-500 p-4">
-            <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.secrets.standard_procedure.title')}></strong></p>
-            <ol class="list-decimal list-inside space-y-1 mt-2">
+            <div class="flex items-center space-x-3 mb-2">
+              <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.secrets.standard_procedure.title')}></strong></p>
+              <!-- Audio component for standard procedure -->
+              <StandardProcedureAudio lang={lang} translations={translations} />
+            </div>
+            <ol class="list-decimal list-inside space-y-1">
               <li set:html={getTranslationKey(translations, 'rules.secrets.standard_procedure.step1')}></li>
               <li set:html={getTranslationKey(translations, 'rules.secrets.standard_procedure.step2')}></li>
               <li set:html={getTranslationKey(translations, 'rules.secrets.standard_procedure.step3')}></li>
@@ -94,8 +100,12 @@ const { lang, translations } = Astro.props;
             </ol>
           </div>
           <div class="bg-green-100 border-l-4 border-green-500 p-4">
-            <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.title')}></strong></p>
-            <ol class="list-decimal list-inside space-y-1 mt-2">
+            <div class="flex items-center space-x-3 mb-2">
+              <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.title')}></strong></p>
+              <!-- Audio component for blind variant -->
+              <BlindVariantAudio lang={lang} translations={translations} />
+            </div>
+            <ol class="list-decimal list-inside space-y-1">
               <li set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.step1')}></li>
               <li set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.step2')}></li>
               <li set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.step3')}></li>
