@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { getTranslationKey, type Language } from '../utils/i18n';
 import whatsappImage from '../assets/images/128px-WhatsApp.svg.png';
 import telegramImage from '../assets/images/128px-Telegram_logo.svg.png';
+import GameStateManager from './GameStateManager.astro';
 
 interface Props {
   translations: any;
@@ -12,136 +13,8 @@ interface Props {
 const { translations, lang } = Astro.props;
 ---
 
-  <div id="game-setup" class="space-y-8">
-    <!-- Game Creation Section -->
-    <div class="max-w-md mx-auto card-bg rounded-lg p-6 text-center">
-      <h2 class="text-2xl font-bold mb-4 section-title">
-        {getTranslationKey(translations, 'game.create_new_game')}
-      </h2>
-      <p class="mb-6">
-        {getTranslationKey(translations, 'game.create_new_game_desc')}
-      </p>
-      <button 
-        id="create-game-btn"
-        class="btn-primary py-3 px-8 text-lg"
-      >
-        {getTranslationKey(translations, 'game.create_game')}
-      </button>
-    </div>
-
-
-  </div>
-
-  <!-- Map Selection Section -->
-  <div id="map-selection" class="hidden space-y-8 mt-12">
-    <div class="max-w-4xl mx-auto card-bg rounded-lg p-6 text-center">
-      <h3 class="text-xl font-bold mb-4 section-title">
-        {getTranslationKey(translations, 'game.select_map')}
-      </h3>
-      <p class="mb-6">
-        {getTranslationKey(translations, 'game.select_map_desc')}
-      </p>
-      
-      <!-- Map Grid -->
-      <div id="maps-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        <!-- Maps will be loaded here dynamically -->
-      </div>
-      
-      <!-- Loading State -->
-      <div id="maps-loading" class="text-center py-8">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-        <p>{getTranslationKey(translations, 'game.loading_maps')}</p>
-      </div>
-      
-      <!-- Error State -->
-      <div id="maps-error" class="hidden text-center py-8">
-        <p class="text-red-400 mb-4">{getTranslationKey(translations, 'game.maps_error')}</p>
-        <button 
-          id="retry-maps-btn"
-          class="btn-primary py-2 px-4"
-        >
-          {getTranslationKey(translations, 'game.retry')}
-        </button>
-      </div>
-      
-      <!-- Action Buttons -->
-      <div id="map-action-buttons" class="hidden space-y-4">
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button 
-            id="continue-to-player-setup-btn"
-            class="btn-primary py-3 px-8 text-lg"
-          >
-            {getTranslationKey(translations, 'game.play_full_digital')}
-          </button>
-          <button 
-            id="go-to-virtual-table-btn"
-            class="btn-primary py-3 px-8 text-lg"
-          >
-            {getTranslationKey(translations, 'game.view_digital_map')}
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Player Name Setup Section -->
-  <div id="player-name-setup" class="hidden space-y-8 mt-12">
-    <div class="max-w-md mx-auto card-bg rounded-lg p-6 text-center">
-      <h3 class="text-xl font-bold mb-4 section-title">
-        {getTranslationKey(translations, 'game.player_setup')}
-      </h3>
-      <div class="mb-6">
-        <p class="text-lg font-semibold mb-2">
-          {getTranslationKey(translations, 'game.player_setup_desc')}
-        </p>
-        <p>
-          {getTranslationKey(translations, 'game.player_setup_desc2')}
-        </p>
-      </div>
-
-      <!-- Player Name and Phone Input -->
-      <div class="flex flex-col gap-4">
-        <input 
-          type="text" 
-          id="setup-player-name-input"
-          placeholder={getTranslationKey(translations, 'game.enter_name')}
-          class="w-full bg-white/90 border-2 border-black rounded-lg px-4 py-2 placeholder-gray-600 focus:outline-none focus:border-blue-400"
-          style="color: var(--color-text); font-family: 'Special Elite', monospace;"
-        />
-        <div class="relative">
-          <div class="flex items-center bg-white/90 border-2 border-black rounded-lg overflow-hidden">
-            <button 
-              type="button"
-              id="country-selector"
-              class="flex items-center px-3 py-2 bg-gray-100 border-r-2 border-black hover:bg-gray-200 transition-colors"
-            >
-              <span id="selected-flag" class="text-lg mr-2">🇪🇸</span>
-              <span id="selected-code" class="text-sm font-medium">+34</span>
-              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            <input 
-              type="tel" 
-              id="setup-player-phone-input"
-              placeholder={getTranslationKey(translations, 'game.enter_phone')}
-              class="flex-1 px-4 py-2 bg-transparent border-none outline-none placeholder-gray-600"
-              style="color: var(--color-text); font-family: 'Special Elite', monospace;"
-            />
-          </div>
-          <div id="country-dropdown" class="hidden absolute top-full left-0 w-full bg-white border-2 border-black rounded-lg mt-1 max-h-48 overflow-y-auto z-50">
-            <!-- Countries will be populated here -->
-          </div>
-        </div>
-        <button 
-          id="setup-name-btn"
-          class="btn-primary py-3 px-8 text-lg"
-        >
-          {getTranslationKey(translations, 'game.continue')}
-        </button>
-      </div>
-    </div>
-  </div>
+<div class="space-y-8">
+  <GameStateManager translations={translations} lang={lang} />
 
   <!-- WebRTC and Player Registration Section -->
   <div id="webrtc-signaling" class="hidden mt-12">
@@ -511,6 +384,10 @@ const { translations, lang } = Astro.props;
     private gameStarted: boolean = false;
     private mapaValue: string = '';
     private owaspValue: string = '';
+    private lang: string = 'es'; // Default language
+    // MapService is used instead of these properties
+    // private selectedBoardId: string = '';
+    // private selectedBoardName: string = '';
     // QR modal elements
     private qrModal: HTMLElement | null = null;
     private qrImage: HTMLImageElement | null = null;
@@ -529,16 +406,17 @@ const { translations, lang } = Astro.props;
     private mapsLoading: HTMLElement | null = null;
     private mapsError: HTMLElement | null = null;
     private retryMapsBtn: HTMLButtonElement | null = null;
-    private continueToPlayerSetupBtn: HTMLButtonElement | null = null;
-    private goToVirtualTableBtn: HTMLButtonElement | null = null;
+    // These buttons are no longer needed as map selection is handled by MapSelection.tsx
     private mapActionButtons: HTMLElement | null = null;
-    private selectedBoardId: string = '';
-    private selectedBoardName: string = '';
+    // Map selection is now handled by MapSelection.tsx component
 
     constructor() {
       this.initializeElements();
       this.bindEvents();
       this.checkURLParameters();
+      
+      // Set language from document or default
+      this.lang = document.documentElement.lang || 'es';
     }
 
     checkURLParameters() {
@@ -704,8 +582,7 @@ const { translations, lang } = Astro.props;
       this.mapsLoading = document.getElementById('maps-loading');
       this.mapsError = document.getElementById('maps-error');
       this.retryMapsBtn = document.getElementById('retry-maps-btn') as HTMLButtonElement;
-      this.continueToPlayerSetupBtn = document.getElementById('continue-to-player-setup-btn') as HTMLButtonElement;
-      this.goToVirtualTableBtn = document.getElementById('go-to-virtual-table-btn') as HTMLButtonElement;
+      // These buttons are no longer needed as map selection is handled by MapSelection.tsx
       this.mapActionButtons = document.getElementById('map-action-buttons');
     }
 
@@ -718,17 +595,7 @@ const { translations, lang } = Astro.props;
       this.telegramBtn?.addEventListener('click', () => this.openTelegram());
       this.pasteBtn?.addEventListener('click', () => this.pasteData());
 
-      this.setupNameBtn?.addEventListener('click', () => this.setupPlayerName());
-      this.setupPlayerNameInput?.addEventListener('keypress', (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-          this.setupPlayerName();
-        }
-      });
-      this.setupPlayerPhoneInput?.addEventListener('keypress', (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-          this.setupPlayerName();
-        }
-      });
+
       this.decreaseUptoBtn?.addEventListener('click', () => this.decreaseUpto());
       this.increaseUptoBtn?.addEventListener('click', () => this.increaseUpto());
 
@@ -736,8 +603,7 @@ const { translations, lang } = Astro.props;
       
       // Map selection events
       this.retryMapsBtn?.addEventListener('click', () => this.loadMaps());
-      this.continueToPlayerSetupBtn?.addEventListener('click', () => this.continueToPlayerSetup());
-      this.goToVirtualTableBtn?.addEventListener('click', () => this.goToVirtualTable());
+      // These event listeners are no longer needed as map selection is handled by MapSelection.tsx
       
 
       
@@ -773,10 +639,55 @@ const { translations, lang } = Astro.props;
       
       // Show map selection first
       this.gameSetup?.classList.add('hidden');
-      this.mapSelection?.classList.remove('hidden');
       
-      // Load available maps
-      this.loadMaps();
+      // Use the MapSelection component
+      if (window.mapSelection) {
+        window.mapSelection.show();
+      }
+    }
+
+
+
+    handlePlayerSetupComplete(playerName: string, playerPhone: string, countryCode: string) {
+      this.playerName = playerName;
+      this.playerPhone = playerPhone;
+      
+      // Update current player name display
+      if (this.currentPlayerName) {
+        this.currentPlayerName.textContent = playerName;
+      }
+      
+      // For initial setup, we don't add to local players list yet
+      // The players list will be populated by the players_update message
+      
+      // Set leader if creator
+      if (this.isCreator) {
+        this.leaderName = playerName;
+        this.isLeader = true;
+        this.updateLeaderDisplay();
+        this.updateUptoDisplay(); // Enable upTo buttons for leader
+        this.updateOwaspDisplay(); // Enable OWASP button for leader
+        
+        // Send leader information to all connected players
+        this.sendGameVariableUpdate('leader', this.leaderName);
+      }
+      
+      // Hide setup section and show appropriate next section
+      if (this.isCreator) {
+        // Add creator to the players array
+        this.allPlayersNames = [playerName];
+        
+        // Continue with game creation
+        this.continueWithGameCreation();
+        
+        // Send initial players update with just the creator
+        this.sendPlayersUpdateToAll();
+      } else {
+        // Continue with game joining
+        this.continueWithGameJoining();
+      }
+      
+      console.log('Player setup completed:', { playerName, playerPhone, countryCode });
     }
 
 
@@ -2570,8 +2481,7 @@ const { translations, lang } = Astro.props;
               </div>
             `;
             
-            // Add click event
-            mapCard.addEventListener('click', () => this.selectMap(board.id, board.name));
+            // Map selection is now handled by MapSelection.tsx component
             
             this.mapsGrid.appendChild(mapCard);
           });
@@ -2586,124 +2496,11 @@ const { translations, lang } = Astro.props;
       }
     }
 
-    selectMap(boardId: string, boardName: string) {
-      // Remove previous selection
-      const previousSelected = this.mapsGrid?.querySelector('.border-blue-500');
-      if (previousSelected) {
-        previousSelected.classList.remove('border-blue-500', 'bg-blue-50');
-        previousSelected.classList.add('border-black', 'bg-white/90');
-      }
-      
-      // Select new map
-      const selectedCard = this.mapsGrid?.querySelector(`[data-board-id="${boardId}"]`);
-      if (selectedCard) {
-        selectedCard.classList.remove('border-black', 'bg-white/90');
-        selectedCard.classList.add('border-blue-500', 'bg-blue-50');
-      }
-      
-      // Store selection
-      this.selectedBoardId = boardId;
-      this.selectedBoardName = boardName;
-      
-      // Show action buttons
-      if (this.mapActionButtons) {
-        this.mapActionButtons.classList.remove('hidden');
-      }
-      
-      console.log('Map selected:', boardId, boardName);
-    }
+    // Map selection is now handled by MapSelection.tsx component
 
-    continueToPlayerSetup() {
-      if (!this.selectedBoardId) {
-        alert('Por favor selecciona un mapa primero');
-        return;
-      }
-      
-      // Set the selected map as the fixed map value
-      this.mapaValue = this.selectedBoardId;
-      this.updateMapaDisplay();
-      
-      // Hide map selection, show player name setup
-      this.mapSelection?.classList.add('hidden');
-      const setupSection = document.getElementById('player-name-setup');
-      if (setupSection) {
-        setupSection.classList.remove('hidden');
-      }
-    }
+    // Map selection and navigation are now handled by MapSelection.tsx component
 
-    goToVirtualTable() {
-      if (!this.selectedBoardId) {
-        alert('Por favor selecciona un mapa primero');
-        return;
-      }
-      
-      // Redirect to virtual table with the selected board
-      const currentLang = window.location.pathname.includes('/en/') ? 'en' : 'es';
-      const virtualTableUrl = `/OWASPTop10TheGame/${currentLang}/virtual-table/?boardid=${this.selectedBoardId}`;
-      window.location.href = virtualTableUrl;
-    }
 
-    setupPlayerName() {
-      const name = this.setupPlayerNameInput?.value.trim();
-      const phoneNumber = this.setupPlayerPhoneInput?.value.trim() || '';
-      const dialCode = this.selectedCode?.textContent || '+34';
-      const phone = phoneNumber ? `${dialCode} ${phoneNumber}` : '';
-      
-      if (name) {
-        this.playerName = name;
-        this.playerPhone = phone;
-        
-        // Update current player name display
-        if (this.currentPlayerName) {
-          this.currentPlayerName.textContent = name;
-        }
-        
-        // For initial setup, we don't add to local players list yet
-        // The players list will be populated by the players_update message
-        
-        // Set leader if creator
-        if (this.isCreator) {
-          this.leaderName = name;
-          this.isLeader = true;
-          this.updateLeaderDisplay();
-          this.updateUptoDisplay(); // Enable upTo buttons for leader
-          this.updateOwaspDisplay(); // Enable OWASP button for leader
-          
-          // Send leader information to all connected players
-          this.sendGameVariableUpdate('leader', this.leaderName);
-        }
-        
-        // Hide setup section and show appropriate next section
-        const setupSection = document.getElementById('player-name-setup');
-        if (setupSection) {
-          setupSection.classList.add('hidden');
-        }
-        
-        if (this.isCreator) {
-          // Add creator to the players array
-          this.allPlayersNames = [name];
-          
-          // Continue with game creation
-          this.continueWithGameCreation();
-          
-          // Send initial players update with just the creator
-          this.sendPlayersUpdateToAll();
-        } else {
-          // Continue with game joining
-          this.continueWithGameJoining();
-        }
-        
-        // Clear inputs
-        if (this.setupPlayerNameInput) {
-          this.setupPlayerNameInput.value = '';
-        }
-        if (this.setupPlayerPhoneInput) {
-          this.setupPlayerPhoneInput.value = '';
-        }
-      } else {
-        alert('Por favor ingresa un nombre');
-      }
-    }
 
     updatePlayersList() {
       console.log('🔄 Actualizando lista de jugadores...');
@@ -3412,6 +3209,19 @@ const { translations, lang } = Astro.props;
   // Initialize the game when the page loads
   document.addEventListener('DOMContentLoaded', () => {
     const game = new WebRTCGame();
+    
+    // Add event listeners for the new components
+    window.addEventListener('createGame', () => {
+      game.createGame();
+    });
+    
+          // These event listeners are no longer needed as map selection is handled by MapSelection.tsx
+    
+    window.addEventListener('playerSetupComplete', (event: any) => {
+      if (event.detail) {
+        game.handlePlayerSetupComplete(event.detail.playerName, event.detail.playerPhone, event.detail.countryCode);
+      }
+    });
     
     // Clean up resources when page is unloaded
     window.addEventListener('beforeunload', () => {

@@ -1,0 +1,16 @@
+---
+import { GameStateManager } from './GameStateManager';
+
+interface Props {
+  translations: any;
+  lang: string;
+}
+
+const { translations, lang } = Astro.props;
+---
+
+<GameStateManager 
+  client:load
+  translations={translations}
+  lang={lang}
+/>
