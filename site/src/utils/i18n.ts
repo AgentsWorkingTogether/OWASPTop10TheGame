@@ -517,8 +517,8 @@ export const translations = {
          }
        },
        footer: {
-         copy: "&copy; 2025 OWASP Top 10 \"The Game\". Licencia Open Source.",
-         owasp: "Un proyecto inspirado y en colaboración con la comunidad <a href='https://owasp.org/' target='_blank' rel='noopener noreferrer' class='font-bold hover:underline' style='color: var(--color-primary);'>OWASP</a>."
+         copy: "&copy; 2025 OWASP Top 10 The Game. Licencia Creative Commons Attribution-ShareAlike 4.0.",
+         owasp: "Un proyecto inspirado y en colaboración con la comunidad <a href='https://owasp.org/www-project-top-10-the-game/' target='_blank' rel='noopener noreferrer' class='font-bold hover:underline' style='color: var(--color-primary);'>OWASP</a>."
        }
      },
      en: {
@@ -964,8 +964,8 @@ export const translations = {
          }
        },
        footer: {
-         copy: "&copy; 2025 OWASP Top 10 \"The Game\". Open Source License.",
-         owasp: "A project inspired by and in collaboration with the <a href='https://owasp.org/' target='_blank' rel='noopener noreferrer' class='font-bold hover:underline' style='color: var(--color-primary);'>OWASP</a> community."
+         copy: "&copy; 2025 OWASP Top 10 The Game. Creative Commons Attribution-ShareAlike 4.0 License.",
+         owasp: "A project inspired by and in collaboration with the <a href='https://owasp.org/www-project-top-10-the-game/' target='_blank' rel='noopener noreferrer' class='font-bold hover:underline' style='color: var(--color-primary);'>OWASP</a> community."
        }
   }
 } as const;
