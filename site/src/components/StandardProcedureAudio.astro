@@ -35,8 +35,8 @@ const { lang, translations } = Astro.props;
   preload="metadata"
   class="hidden"
 >
-  <source src={`/OWASPTop10TheGame/audio/${lang === 'es' ? 'spanish' : 'english'}man.mp3`} type="audio/mpeg">
-  <source src={`/OWASPTop10TheGame/audio/${lang === 'es' ? 'spanish' : 'english'}woman.mp3`} type="audio/mpeg">
+  <source src={`/audio/${lang === 'es' ? 'spanish' : 'english'}man.mp3`} type="audio/mpeg">
+  <source src={`/audio/${lang === 'es' ? 'spanish' : 'english'}woman.mp3`} type="audio/mpeg">
   Tu navegador no soporta el elemento de audio.
 </audio>
 
@@ -53,8 +53,8 @@ const { lang, translations } = Astro.props;
     if (!audio || !playMaleBtn || !playFemaleBtn) return;
 
     // Set initial audio source to male version
-    const maleSource = `/OWASPTop10TheGame/audio/${lang === 'es' ? 'spanish' : 'english'}man.mp3`;
-    const femaleSource = `/OWASPTop10TheGame/audio/${lang === 'es' ? 'spanish' : 'english'}woman.mp3`;
+    const maleSource = `/audio/${lang === 'es' ? 'spanish' : 'english'}man.mp3`;
+    const femaleSource = `/audio/${lang === 'es' ? 'spanish' : 'english'}woman.mp3`;
     
     audio.src = maleSource;
     let currentSource = maleSource;

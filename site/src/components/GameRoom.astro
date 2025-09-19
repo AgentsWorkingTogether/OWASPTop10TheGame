@@ -2639,7 +2639,7 @@ const { translations, lang } = Astro.props;
       
       // Redirect to virtual table with the selected board
       const currentLang = window.location.pathname.includes('/en/') ? 'en' : 'es';
-      const virtualTableUrl = `/OWASPTop10TheGame/${currentLang}/virtual-table/?boardid=${this.selectedBoardId}`;
+      const virtualTableUrl = `/${currentLang}/virtual-table/?boardid=${this.selectedBoardId}`;
       window.location.href = virtualTableUrl;
     }
 

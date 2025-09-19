@@ -10,8 +10,8 @@ const { lang } = Astro.props;
 
 <div class="flex items-center gap-4 ml-12">
     <div class="lang-selector">
-        <a href="/OWASPTop10TheGame/es" class={`${lang === 'es' ? 'active' : ''}`} data-lang="es">ES</a>
-        <a href="/OWASPTop10TheGame/en" class={`${lang === 'en' ? 'active' : ''}`} data-lang="en">EN</a>
+        <a href="/es" class={`${lang === 'es' ? 'active' : ''}`} data-lang="es">ES</a>
+        <a href="/en" class={`${lang === 'en' ? 'active' : ''}`} data-lang="en">EN</a>
     </div>
 </div>
 
@@ -31,16 +31,16 @@ const { lang } = Astro.props;
         // Detectar si estamos en una página específica
         if (currentPath.includes('/game')) {
           // Estamos en la página de game
-          const newUrl = `/OWASPTop10TheGame/${targetLang}/game${currentSearch}`;
+          const newUrl = `/${targetLang}/game${currentSearch}`;
           window.location.href = newUrl;
         } else if (currentPath.includes('/virtual-table')) {
           // Estamos en la página de virtual-table
-          const newUrl = `/OWASPTop10TheGame/${targetLang}/virtual-table${currentSearch}`;
+          const newUrl = `/${targetLang}/virtual-table${currentSearch}`;
           window.location.href = newUrl;
         } else {
           // Estamos en la página principal, mantener la sección (hash)
           const currentHash = window.location.hash || '#home';
-          const newUrl = `/OWASPTop10TheGame/${targetLang}${currentHash}`;
+          const newUrl = `/${targetLang}${currentHash}`;
           window.location.href = newUrl;
         }
       });

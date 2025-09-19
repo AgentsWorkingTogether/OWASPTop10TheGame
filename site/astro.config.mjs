@@ -9,9 +9,7 @@ export default defineConfig({
     tailwind(),
     react()
   ],
-  site: 'https://agentsworkingtogether.github.io',
-  base: '/OWASPTop10TheGame',
-  trailingSlash: 'ignore',
+  site: 'https://top10thegame.org',
   build: {
     assets: 'assets'
   },

@@ -354,7 +354,7 @@ const characters = [
     if (!boardid) {
       console.error('❌ Board ID is required but not provided');
       console.log('🔄 Redirecting to game page...');
-      window.location.href = `/OWASPTop10TheGame/${lang}/game`;
+      window.location.href = `/${lang}/game`;
       return;
     }
     
@@ -372,7 +372,7 @@ const characters = [
         console.error(`❌ Board with ID "${boardid}" not found in boards list`);
         console.log('📋 Available boards:', boardsData.boards.map(b => ({ id: b.id, name: b.name, path: b.path, uuid: b.uuid })));
         console.log('🔄 Redirecting to game page...');
-        window.location.href = `/OWASPTop10TheGame/${lang}/game`;
+        window.location.href = `/${lang}/game`;
         return;
       }
       
@@ -409,7 +409,7 @@ const characters = [
       console.error('❌ Error loading board configuration:', error);
       console.error('❌ Cannot continue without board configuration');
       console.log('🔄 Redirecting to game page due to error...');
-      window.location.href = `/OWASPTop10TheGame/${lang}/game`;
+      window.location.href = `/${lang}/game`;
     }
   }
   

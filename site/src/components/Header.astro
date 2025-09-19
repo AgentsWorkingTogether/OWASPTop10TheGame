@@ -15,7 +15,7 @@ const { translations, lang } = Astro.props;
         <div class="flex justify-between items-center">
             <!-- Logo y título -->
             <div class="flex items-center">
-                <a href={`/OWASPTop10TheGame/${lang}`} class="hover:text-red-700 transition-colors duration-300 cursor-pointer">
+                <a href={`/${lang}`} class="hover:text-red-700 transition-colors duration-300 cursor-pointer">
                     <h1 class="text-lg sm:text-xl md:text-2xl font-black tracking-tighter">
                         <span set:html={getTranslationKey(translations, 'header.title')}></span> 
                         <span class="text-xs sm:text-sm" set:html={getTranslationKey(translations, 'header.subtitle')}></span>
@@ -25,12 +25,12 @@ const { translations, lang } = Astro.props;
 
             <!-- Navegación desktop -->
             <nav class="hidden lg:flex space-x-4 xl:space-x-8 font-bold">
-                <a href={`/OWASPTop10TheGame/${lang}#about`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.game')}></a>
-                <a href={`/OWASPTop10TheGame/${lang}#characters`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.characters')}></a>
-                <a href={`/OWASPTop10TheGame/${lang}#components`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.components')}></a>
-                <a href={`/OWASPTop10TheGame/${lang}#how-to-play`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.rules')}></a>
-                <a href={`/OWASPTop10TheGame/${lang}#team-building`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.team_building')}></a>
-                <a href={`/OWASPTop10TheGame/${lang}/game`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.create_game')}></a>
+                <a href={`/${lang}#about`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.game')}></a>
+                <a href={`/${lang}#characters`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.characters')}></a>
+                <a href={`/${lang}#components`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.components')}></a>
+                <a href={`/${lang}#how-to-play`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.rules')}></a>
+                <a href={`/${lang}#team-building`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.team_building')}></a>
+                <a href={`/${lang}/game`} class="hover:text-red-700 transition-colors duration-300 text-sm xl:text-base" set:html={getTranslationKey(translations, 'nav.create_game')}></a>
             </nav>
 
             <!-- Selector de idioma y menú móvil -->
@@ -49,12 +49,12 @@ const { translations, lang } = Astro.props;
         <!-- Menú móvil -->
         <div id="mobile-menu" class="lg:hidden hidden mt-4 pb-4 border-t border-gray-200">
             <nav class="flex flex-col space-y-3 pt-4">
-                <a href={`/OWASPTop10TheGame/${lang}#about`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.game')}></a>
-                <a href={`/OWASPTop10TheGame/${lang}#characters`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.characters')}></a>
-                <a href={`/OWASPTop10TheGame/${lang}#components`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.components')}></a>
-                <a href={`/OWASPTop10TheGame/${lang}#how-to-play`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.rules')}></a>
-                <a href={`/OWASPTop10TheGame/${lang}#team-building`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.team_building')}></a>
-                <a href={`/OWASPTop10TheGame/${lang}/game`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.create_game')}></a>
+                <a href={`/${lang}#about`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.game')}></a>
+                <a href={`/${lang}#characters`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.characters')}></a>
+                <a href={`/${lang}#components`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.components')}></a>
+                <a href={`/${lang}#how-to-play`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.rules')}></a>
+                <a href={`/${lang}#team-building`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.team_building')}></a>
+                <a href={`/${lang}/game`} class="hover:text-red-700 transition-colors duration-300 font-bold text-lg" set:html={getTranslationKey(translations, 'nav.create_game')}></a>
             </nav>
         </div>
     </div>
