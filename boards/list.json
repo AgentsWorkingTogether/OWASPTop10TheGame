@@ -7,6 +7,14 @@
             "name": "Prowler Board",
             "description": "Prowler Product Board",
             "difficulty": 3
+        },
+        {
+            "uuid":"019970f5-4b83-79e4-9f0c-3536a6cd3fb8",
+            "id": "2",
+            "path":"/boards/OWASP",
+            "name": "OWASP TOP 10 GenAI Board",
+            "description": "OWASP TOP 10 GenAI Board with list",
+            "difficulty": 3
         }
     ]
 }
