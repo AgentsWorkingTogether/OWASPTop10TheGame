@@ -447,8 +447,22 @@ const characters = [
         circle.className = 'threat-circle absolute rounded-full cursor-pointer hover:bg-gray-300 transition-colors duration-200 z-30';
         circle.style.width = `${radius}px`;
         circle.style.height = `${radius}px`;
-        circle.style.backgroundColor = 'transparent';
-        circle.style.border = '2px solid rgba(0, 0, 0, 0.3)';
+        // Solo aplicar colores si el parámetro color está presente en la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const colorParam = urlParams.get('color');
+        
+        if (colorParam && amenazaData.circle.color) {
+          const circleColor = amenazaData.circle.color;
+          const backgroundColor = circleColor + '30'; // Agregar transparencia (30 en hex = ~0.19 de opacidad)
+          const borderColor = circleColor;
+          
+          circle.style.backgroundColor = backgroundColor;
+          circle.style.border = `2px solid ${borderColor}`;
+        } else {
+          // Si no hay parámetro color en la URL, mantener transparente como antes
+          circle.style.backgroundColor = 'transparent';
+          circle.style.border = '2px solid rgba(0, 0, 0, 0.3)';
+        }
         circle.style.left = `${(amenazaData.circle.x / 1969) * 100}%`;
         circle.style.top = `${(amenazaData.circle.y / 1113) * 100}%`;
         circle.style.transform = 'translate(-50%, -50%)';
