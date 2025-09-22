@@ -1,9 +1,8 @@
 {
-  
   "mapInfo": {
-    "uuid":"019970f5-4b83-79e4-9f0c-3536a6cd3fb8",
+    "uuid": "019970f5-4b83-79e4-9f0c-3536a6cd3fb8",
     "id": "2",
-    "path":"/boards/OWASP",
+    "path": "/boards/OWASP",
     "name": "OWASP TOP 10 GenAI Board",
     "description": "OWASP TOP 10 GenAI Board with list",
     "difficulty": 3,
@@ -14,8 +13,8 @@
       "amenaza1": {
         "url": "https://qr.me-qr.com/pJ6aoe86",
         "circle": {
-          "x": 1125,
-          "y": 275,
+          "x": 220,
+          "y": 245,
           "radius": 34,
           "color": "#ff0000"
         }
@@ -23,8 +22,8 @@
       "amenaza4": {
         "url": "https://q.me-qr.com/XFkHNZ2J",
         "circle": {
-          "x": 1450,
-          "y": 115,
+          "x": 795,
+          "y": 835,
           "radius": 34,
           "color": "#ff0000"
         }
@@ -32,8 +31,8 @@
       "amenaza10": {
         "url": "https://q.me-qr.com/YrXBdJwy",
         "circle": {
-          "x": 1770,
-          "y": 275,
+          "x": 1170,
+          "y": 530,
           "radius": 34,
           "color": "#ff0000"
         }
@@ -43,44 +42,44 @@
       "amenaza2": {
         "url": "https://q.me-qr.com/BZMk7OPC",
         "circle": {
-          "x": 1770,
-          "y": 740,
+          "x": 615,
+          "y": 245,
           "radius": 34,
-          "color": "#ff0000"
+          "color": "#ffff00"
         }
       },
       "amenaza3": {
         "url": "https://q.me-qr.com/ysE6VbpS",
         "circle": {
-          "x": 1450,
-          "y": 900,
+          "x": 820,
+          "y": 460,
           "radius": 34,
-          "color": "#ff0000"
+          "color": "#ffff00"
         }
       },
       "amenaza5": {
         "url": "https://q.me-qr.com/HoVGJf87",
         "circle": {
-          "x": 1125,
-          "y": 740,
+          "x": 1315,
+          "y": 850,
           "radius": 34,
-          "color": "#ff0000"
+          "color": "#ff00ff"
         }
       },
       "amenaza6": {
         "url": "https://q.me-qr.com/YBKzuJFb",
         "circle": {
-          "x": 1125,
-          "y": 740,
+          "x": 1625,
+          "y": 850,
           "radius": 34,
-          "color": "#ff0000"
+          "color": "#ff00ff"
         }
       },
       "amenaza7": {
         "url": "https://q.me-qr.com/lowMcHpC",
         "circle": {
-          "x": 1125,
-          "y": 740,
+          "x": 1720,
+          "y": 430,
           "radius": 34,
           "color": "#ff0000"
         }
@@ -88,8 +87,8 @@
       "amenaza8": {
         "url": "https://q.me-qr.com/r85aIgOS",
         "circle": {
-          "x": 1125,
-          "y": 740,
+          "x": 1510,
+          "y": 220,
           "radius": 34,
           "color": "#ff0000"
         }
@@ -97,8 +96,8 @@
       "amenaza9": {
         "url": "https://q.me-qr.com/2JJ2lMgU",
         "circle": {
-          "x": 1125,
-          "y": 740,
+          "x": 1215,
+          "y": 220,
           "radius": 34,
           "color": "#ff0000"
         }
