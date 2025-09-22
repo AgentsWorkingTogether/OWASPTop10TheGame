@@ -960,7 +960,7 @@
 
 \newpage
 
-% ===== PÁGINA 5: CARTAS DE ACCIÓN (7 cartas) - 2 PROTECTED + 5 ACCESS =====
+% ===== PÁGINA 5: CARTAS DE ACCIÓN (8 cartas) - 2 ACTION-CARD-BACK + 6 ACCESS =====
 \begin{center}
 \begin{tikzpicture}
     % Fila 1
@@ -975,12 +975,13 @@
     
     % Fila 3
     \node[anchor=north west] at (0,-18.0) {\generateAccessCard{threat_hunter}};
+    \node[anchor=north west] at (13.0,-18.0) {\generateAccessCard{hacktivist}};
 \end{tikzpicture}
 \end{center}
 
 \newpage
 
-% ===== PÁGINA 6: BACKS DE ACCIÓN (7 cartas) - 2 ACTION-CARD-BACK + 5 ACCESS-CARD-BACK =====
+% ===== PÁGINA 6: BACKS DE ACCIÓN (8 cartas) - 2 PROTECTED + 6 ACCESS-CARD-BACK =====
 \begin{center}
 \begin{tikzpicture}
     % Fila 1
@@ -994,7 +995,8 @@
     \node[anchor=north west] at (13.0,-9.0) {\generateAccessCardBack{cyberterrorist}};
     
     % Fila 3
-    \node[anchor=north west] at (13.0,-18.0) {\generateAccessCardBack{threat_hunter}};
+    \node[anchor=north west] at (0,-18.0) {\generateAccessCardBack{threat_hunter}};
+    \node[anchor=north west] at (13.0,-18.0) {\generateAccessCardBack{hacktivist}};
 \end{tikzpicture}
 \end{center}
 

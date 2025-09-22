@@ -51,8 +51,8 @@ game/
 - **Página 2**: 9 cartas traseras (correspondientes a página 1)
 - **Página 3**: 9 cartas mixtas (1 incident_responder + 5 attacked + 3 protected)
 - **Página 4**: 9 cartas traseras mixtas (1 normal + 8 action-card-back)
-- **Página 5**: 7 cartas de acción (2 protected + 5 access)
-- **Página 6**: 7 cartas traseras (2 action-card-back + 5 access-card-back)
+- **Página 5**: 8 cartas de acción (2 protected + 6 access)
+- **Página 6**: 8 cartas traseras (2 action-card-back + 6 access-card-back)
 - **Página 7**: Tokens (1 Leader + 1 Trust Indicator + 5 Team Blue + 6 Green + 6 Red)
 - **Página 8**: Tokens traseros (copia de página 7)
 
@@ -178,7 +178,7 @@ sudo apt-get install fonts-roboto-slab
 
 - **Tamaño de cartas**: 5.7cm x 8.6cm
 - **Distribución**: 9 cartas por página (3x3)
-- **Total de cartas**: 25 cartas (10 personajes + 15 de acción)
+- **Total de cartas**: 26 cartas (10 personajes + 16 de acción)
 - **Total de tokens**: 19 tokens (1 Leader + 1 Trust Indicator + 5 Team Blue + 6 Green + 6 Red)
 - **Páginas**: 8 (4 hojas con doble cara + 2 hojas de tokens)
 - **Tamaño del PDF**: ~17MB

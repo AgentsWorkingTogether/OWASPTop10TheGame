@@ -301,12 +301,12 @@ export const translations = {
              title: "Selección de Amenaza y Equipo",
              desc1: "El líder ahora será el que decida qué amenaza será la primera en proteger y si alguien tiene alguna duda sobre esa amenaza será el encargado de explicarla.",
              desc2: "Una vez seleccionada debe elegir el equipo que se encargará de protegerla. El número de integrantes de ese equipo tendrá que ser el valor de la base cuyo exponente esté dentro del rango o sea el valor de los empleados que ha contratado la empresa.",
-             desc3: "Para elegirlos el líder deberá entregarles a cada uno una carta de credenciales de acceso y dos cartas de acción: la carta de ataque y la carta de protección."
+             desc3: "Para elegirlos el líder deberá entregarles a cada uno una carta de credenciales de acceso y dos cartas de acción: la carta de ataque y la carta de protección. En el caso que el equipo fuera de 6 integrantes el lider deberá elegir a 2 integrantes de esos 6 y entregar solo un juego de cartas de acción."
            }
          },
          action_phase: {
            title: "Fase de Acción",
-           desc: "Es el momento de proteger el sistema de esa amenaza latente. Para ello los integrantes del equipo elegidos deberán seleccionar en secreto entre una de las cartas de acción.",
+             desc: "Es el momento de proteger el sistema de esa amenaza latente. Para ello los integrantes del equipo elegidos deberán seleccionar en secreto entre una de las cartas de acción. En el caso del equipo de 6 participantes los dos empleados que comparten un juego de cartas de acción cogeran una cada uno y debatirán cual elegir en público, sin mostrar las cartas y sin indicar cúal tiene cada uno.",
            good_guys: "Los Buenos",
            good_guys_desc: "Que pertenecen al equipo, es decir, que tienen la carta de credencial de acceso, como es de esperar, elegirán la carta de acción de proteger aunque nada les impide elegir la carta de atacar si así lo entienden por estrategia.",
            bad_guys: "Los No Tan Buenos",
@@ -482,7 +482,7 @@ export const translations = {
              },
              peer_review: {
                title: "Peer Review (1 solo uso)",
-               desc: "Si tienes esta carta y te seleccionan para un equipo podrás elegir a otra persona que no está dentro del equipo para que sea parte de él y se le entregue una carta de credenciales de acceso siendo integrante de pleno derecho aunque se supere el número de integrantes de equipo indicado en la amenaza (Excepto en equipos que ya son de 5 integrantes que no tendrán efecto).<br>Al usarla devuelve tu carta al mazo de descartes."
+               desc: "Si tienes esta carta y te seleccionan para un equipo podrás elegir a otra persona que no está dentro del equipo para que sea parte de él y se le entregue una carta de credenciales de acceso siendo integrante de pleno derecho aunque se supere el número de integrantes de equipo indicado en la amenaza (Excepto en equipos que ya son de 6 integrantes que no tendrán efecto).<br>Al usarla devuelve tu carta al mazo de descartes."
              },
              accept_responsibility: {
                title: "To Accept Responsibility (1 solo uso)",
@@ -818,12 +818,12 @@ export const translations = {
              title: "Threat and Team Selection",
              desc1: "The leader will now be the one who decides which threat will be the first to protect and if anyone has any doubts about that threat, they will be responsible for explaining it.",
              desc2: "Once selected, they must choose the team that will be responsible for protecting it. The number of members of that team will have to be the value of the base whose exponent is within the range or is the value of the employees that the company has hired.",
-             desc3: "To choose them, the leader must give each one an access credentials card and two action cards: the attack card and the protection card."
+             desc3: "To choose them, the leader must give each one an access credentials card and two action cards: the attack card and the protection card. In the case that the team has 6 members, the leader must choose 2 members from those 6 and give only one set of action cards."
            }
          },
          action_phase: {
            title: "Action Phase",
-           desc: "It's time to protect the system from that latent threat. For this, the selected team members must secretly choose between one of the action cards.",
+             desc: "It's time to protect the system from that latent threat. For this, the selected team members must secretly choose between one of the action cards. In the case of a 6-member team, the two employees who share a set of action cards will each take one and debate which one to choose in public, without showing the cards and without indicating which one each has.",
            good_guys: "The Good Guys",
            good_guys_desc: "Who belong to the team, that is, who have the access credentials card, as expected, will choose the protection action card, although nothing prevents them from choosing the attack card if they understand it as strategy.",
            bad_guys: "The Bad Guys",
@@ -929,7 +929,7 @@ export const translations = {
              },
              peer_review: {
                title: "Peer Review (1 use only)",
-               desc: "If you have this card and you are selected for a team, you can choose another person who is not on the team to be part of it and be given an access credentials card, being a full member even if the number of team members indicated in the threat is exceeded (Except for teams that are already 5 members, which will have no effect).<br>When used, return your card to the discard deck."
+               desc: "If you have this card and you are selected for a team, you can choose another person who is not on the team to be part of it and be given an access credentials card, being a full member even if the number of team members indicated in the threat is exceeded (Except for teams that are already 6 members, which will have no effect).<br>When used, return your card to the discard deck."
              },
              accept_responsibility: {
                title: "To Accept Responsibility (1 use only)",
