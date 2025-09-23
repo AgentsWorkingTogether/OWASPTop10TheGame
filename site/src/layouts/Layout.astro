@@ -24,7 +24,17 @@ const { title, description = "OWASP Top 10 The Game - El Juego de Mesa de Cibers
     <meta name="description" content={description} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/favicon.ico">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-24L3EDCDCW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-24L3EDCDCW');
+    </script>
 </head>
+
 <body class="antialiased min-h-screen">
     <slot />
 </body>
