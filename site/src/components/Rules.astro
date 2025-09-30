@@ -101,15 +101,20 @@ const { lang, translations } = Astro.props;
           </div>
           <div class="bg-green-100 border-l-4 border-green-500 p-4">
             <div class="flex items-center space-x-3 mb-2">
-              <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.title')}></strong></p>
+              <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.secrets.variant.title')}></strong></p>
               <!-- Audio component for blind variant -->
               <BlindVariantAudio lang={lang} translations={translations} />
             </div>
             <ol class="list-decimal list-inside space-y-1">
-              <li set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.step1')}></li>
-              <li set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.step2')}></li>
-              <li set:html={getTranslationKey(translations, 'rules.secrets.blind_variant.step3')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.secrets.variant.step1')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.secrets.variant.step2')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.secrets.variant.step3')}></li>
+              <li set:html={getTranslationKey(translations, 'rules.secrets.variant.step4')}></li>
             </ol>
+            <p class="mt-2 text-sm">
+              <strong set:html={getTranslationKey(translations, 'rules.secrets.variant.note')}></strong>
+              <span set:html={getTranslationKey(translations, 'rules.secrets.variant.note_desc')}></span>
+            </p>
           </div>
           <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.secrets.note')}></strong> <span set:html={getTranslationKey(translations, 'rules.secrets.secrets_note')}></span></p>
         </div>
@@ -189,7 +194,6 @@ const { lang, translations } = Astro.props;
           <p class="text-lg"><strong set:html={getTranslationKey(translations, 'rules.results_phase.important_notes.title')}></strong></p>
           <ul class="list-disc list-inside space-y-1 mt-2">
             <li set:html={getTranslationKey(translations, 'rules.results_phase.important_notes.note1')}></li>
-            <li><strong set:html={getTranslationKey(translations, 'rules.results_phase.important_notes.variant_title')}></strong> <span set:html={getTranslationKey(translations, 'rules.results_phase.important_notes.variant_desc')}></span></li>
           </ul>
         </div>
         

@@ -262,22 +262,25 @@ export const translations = {
        },
        secrets: {
          title: "Fase de Secretos",
-         standard_procedure: {
-           title: "Procedimiento estándar:",
-           step1: "Se cierran los ojos y solo los no tan buenos abren los ojos. De esta forma conocen a sus compañeros.",
-           step2: "Ahora cierran los ojos y los no tan buenos se señalan a sí mismos con el dedo índice para que el CISO abra los ojos y descubra quienes son los no tan buenos.",
-           step3: "El CISO deberá nuevamente cerrar los ojos y los no tan buenos deberán dejar de señalarse con el dedo índice.",
-           step4: "Finalmente todos los empleados abren los ojos.",
-           audio_title: "Escuchar procedimiento estándar:",
-           play_audio: "Reproducir audio",
-           pause_audio: "Pausar audio"
-         },
-         blind_variant: {
-           title: "Variante a ciegas:",
-           step1: "Inicias con todos con los ojos cerrados.",
-           step2: "Los no tan buenos se señalan a sí mismos con el dedo índice sin abrir los ojos y el CISO abre los ojos.",
-           step3: "El CISO deberá nuevamente cerrar los ojos y los no tan buenos deberán dejar de señalarse con el dedo índice."
-         },
+        standard_procedure: {
+          title: "Procedimiento estándar:",
+          step1: "Inicias con todos con los ojos cerrados.",
+          step2: "Los no tan buenos se señalan a sí mismos con el dedo índice sin abrir los ojos y el CISO abre los ojos.",
+          step3: "El CISO deberá nuevamente cerrar los ojos y los no tan buenos deberán dejar de señalarse con el dedo índice.",
+          step4: "Finalmente todos los empleados abren los ojos.",
+          audio_title: "Escuchar procedimiento estándar:",
+          play_audio: "Reproducir audio",
+          pause_audio: "Pausar audio"
+        },
+        variant: {
+          title: "Variante:",
+          step1: "Se cierran los ojos y solo los no tan buenos abren los ojos. De esta forma conocen a sus compañeros.",
+          step2: "Ahora cierran los ojos y los no tan buenos se señalan a sí mismos con el dedo índice para que el CISO abra los ojos y descubra quienes son los no tan buenos.",
+          step3: "El CISO deberá nuevamente cerrar los ojos y los no tan buenos deberán dejar de señalarse con el dedo índice.",
+          step4: "Finalmente todos los empleados abren los ojos.",
+          note: "Nota:",
+          note_desc: "Este procedimiento favorece a los no tan buenos debido a que se conocen entre ellos desde el principio."
+        },
                     note: "Nota:",
            secrets_note: "Puede darse el caso que nadie tuviera la carta de CISO pero hay que seguir haciendo este procedimiento porque esto no se sabrá hasta que termine el juego."
          },
@@ -315,7 +318,7 @@ export const translations = {
          },
          results_phase: {
            title: "Fase Informe de Resultados",
-           desc: "El líder reúne a todos los empleados y comienza a levantar las cartas de acción de una en una.",
+           desc: "El líder reúne a todos los empleados y comienza a levantar las cartas de acción de una en una, pero este puede decidir, si ya se ha explotado la amenaza, no seguir levantando cartas. Si hace esta acción deberá quitarse una ficha azul del marcador de confianza. En el caso que ya no queden fichas para quitar, los no tan buenos habrán ganado la partida.",
            threat_exploited: {
              title: "Amenaza Explotada",
              desc: "Si al menos una de las cartas de acción que muestra es una carta de ataque la amenaza ha sido explotada y se coloca una ficha de OWASP de color rojo sobre el círculo de dicha amenaza."
@@ -325,10 +328,10 @@ export const translations = {
              desc: "Por el contrario si todas las cartas de acción levantadas son de protección la amenaza se ha contenido y mitigado y se debe colocar una ficha de OWASP verde."
            },
            important_notes: {
-             title: "Notas importantes:",
-             note1: "En algunas amenazas explotarlas será mucho más complicado de lo normal siendo necesario al menos dos cartas de acción de ataque. Estas amenazas están marcadas con un doble círculo.",
+            title: "Nota importante:",
+             note1: "En algunas amenazas explotarlas será mucho más complicado de lo normal siendo necesario al menos dos cartas de acción de ataque. Estas amenazas están marcadas con un doble círculo con línea discontinua.",
              variant_title: "Variante:",
-             variant_desc: "Las cartas de acción serán levantadas de una en una pero el líder puede decidir si ya se ha explotado la amenaza no seguir levantando cartas. Si hace esta acción deberá quitarse una ficha azul del marcador de confianza."
+            
            },
            protection_layers: {
              title: "Capas de Protección",
@@ -348,8 +351,8 @@ export const translations = {
            bad_guys_victory_desc: "Si el número de amenazas explotadas es mayor o igual al número de amenazas protegidas más las que quedan por hacer algo entonces los no tan buenos han hackeado el sistema.",
            last_chance: "Última Oportunidad de los No Tan Buenos",
            last_chance_desc: "En el caso que el sistema haya sido protegido, los no tan buenos tienen una última oportunidad: decir quién entre todos los empleados es el CISO.",
-           last_chance_step1: "Para ello todos los empleados tendrán que votar al unísono apuntando con el dedo.",
-           last_chance_step2: "Solo contarán los votos de los no tan buenos que revelarán su carta después de que todos los empleados hayan votado.",
+           last_chance_step1: "Para ello todos los empleados tendrán que votar al unísono apuntando con el dedo si se realizó el procedimiento estandar en la fase de secretos o solo los no tan buenos si se hizo la variante.",
+           last_chance_step2: "En todo caso solo contarán los votos de los no tan buenos aunque se iran revelando las cartas de todos los empleados el orden del sentido de las agujas del reloj desde el último lider elegido.",
            last_chance_step3: "Si todos los no tan buenos apuntan al CISO, son los ganadores.",
            last_chance_step4: "Si uno o más de los no tan buenos fallan, habrán perdido definitivamente.",
            last_chance_step5: "Si cada uno de los no tan buenos apunta a sí mismo y no hay CISO contratado como empleado, los no tan buenos habrán ganado la partida.",
@@ -361,7 +364,7 @@ export const translations = {
            desc: "En el caso que no se cumplan los criterios para activar la reunión de retrospectiva se activan las reuniones de seguimiento.",
            procedure_title: "Procedimiento:",
            step1: "Estas reuniones reinician la ronda.",
-           step2: "Provocan que se añada una ficha azul al marcador de confianza.",
+          step2: "Provocan que se añada una ficha azul al marcador de confianza si la amenaza en la ronda anterior fue contenida o se quite una ficha azul del marcador de confianza si fue explotada. En el caso que se tenga que quitar una ficha azul al marcador de confianza y ya no quedan, los no tan buenos habrán ganado la partida.",
            step3: "Las cartas de credenciales de acceso se devuelven al líder y las cartas de acción también se le devuelven sin que nadie las vea.",
            step4: "El líder debe mezclarlas al recibirlas junto con las que ya tenía.",
            step5: "Es momento de elegir un nuevo líder de nuevo y empezar el proceso."
@@ -376,7 +379,7 @@ export const translations = {
            },
            results_phase: {
              title: "Fase Informe de Resultados",
-             desc: "El líder reúne a todos los empleados y comienza a levantar las cartas de acción de una en una.",
+             desc: "El líder reúne a todos los empleados y comienza a levantar las cartas de acción de una en una, pero este puede decidir, si ya se ha explotado la amenaza, no seguir levantando cartas. Si hace esta acción deberá quitarse una ficha azul del marcador de confianza. En el caso que ya no queden fichas para quitar, los no tan buenos habrán ganado la partida.",
              threat_exploited: {
                title: "Amenaza Explotada",
                desc: "Si al menos una de las cartas de acción que muestra es una carta de ataque la amenaza ha sido explotada y se coloca una ficha de OWASP de color rojo sobre el círculo de dicha amenaza."
@@ -386,10 +389,10 @@ export const translations = {
                desc: "Por el contrario si todas las cartas de acción levantadas son de protección la amenaza se ha contenido y mitigado y se debe colocar una ficha de OWASP verde."
              },
              important_notes: {
-               title: "Notas importantes:",
-               note1: "En algunas amenazas explotarlas será mucho más complicado de lo normal siendo necesario al menos dos cartas de acción de ataque. Estas amenazas están marcadas con un doble círculo.",
+              title: "Nota importante:",
+               note1: "En algunas amenazas explotarlas será mucho más complicado de lo normal siendo necesario al menos dos cartas de acción de ataque. Estas amenazas están marcadas con un doble círculo con línea discontinua.",
                variant_title: "Variante:",
-               variant_desc: "Las cartas de acción serán levantadas de una en una pero el líder puede decidir si ya se ha explotado la amenaza no seguir levantando cartas. Si hace esta acción deberá quitarse una ficha azul del marcador de confianza."
+              
              },
              protection_layers: {
                title: "Capas de Protección",
@@ -429,7 +432,7 @@ export const translations = {
              procedure: {
                title: "Procedimiento:",
                step1: "Estas reuniones reinician la ronda.",
-               step2: "Hacen que se añada una ficha azul al marcador de confianza.",
+              step2: "Hacen que se añada una ficha azul al marcador de confianza si la amenaza en la ronda anterior fue contenida o se quite una ficha azul del marcador de confianza si fue explotada. En el caso que se tenga que quitar una ficha azul al marcador de confianza y ya no quedan, los no tan buenos habrán ganado la partida.",
                step3: "Se devuelven al líder las cartas de credencial de acceso y también se le devuelven las cartas de acción sin que nadie las vea.",
                step4: "El líder deberá mezclarlas al recibirlas junto con las que ya tenía.",
                step5: "Es hora de volver a elegir a un nuevo líder y comenzar de nuevo el proceso."
@@ -779,22 +782,25 @@ export const translations = {
        },
        secrets: {
          title: "Secrets Phase",
-         standard_procedure: {
-           title: "Standard procedure:",
-           step1: "Everyone closes their eyes and only the bad guys open their eyes. This way they know their companions.",
-           step2: "Now they close their eyes and the bad guys point to themselves with their index finger so the CISO opens their eyes and discovers who the bad guys are.",
-           step3: "The CISO must close their eyes again and the bad guys must stop pointing to themselves with their index finger.",
-           step4: "Finally all employees open their eyes.",
-           audio_title: "Listen to standard procedure:",
-           play_audio: "Play audio",
-           pause_audio: "Pause audio"
-         },
-         blind_variant: {
-           title: "Blind variant:",
-           step1: "You start with everyone with their eyes closed.",
-           step2: "The bad guys point to themselves with their index finger without opening their eyes and the CISO opens their eyes.",
-           step3: "The CISO must close their eyes again and the bad guys must stop pointing to themselves with their index finger."
-         },
+        standard_procedure: {
+          title: "Standard procedure:",
+          step1: "You start with everyone with their eyes closed.",
+          step2: "The bad guys point to themselves with their index finger without opening their eyes and the CISO opens their eyes.",
+          step3: "The CISO must close their eyes again and the bad guys must stop pointing to themselves with their index finger.",
+          step4: "Finally all employees open their eyes.",
+          audio_title: "Listen to standard procedure:",
+          play_audio: "Play audio",
+          pause_audio: "Pause audio"
+        },
+        variant: {
+          title: "Variant:",
+          step1: "Everyone closes their eyes and only the bad guys open their eyes. This way they know their companions.",
+          step2: "Now they close their eyes and the bad guys point to themselves with their index finger so the CISO opens their eyes and discovers who the bad guys are.",
+          step3: "The CISO must close their eyes again and the bad guys must stop pointing to themselves with their index finger.",
+          step4: "Finally all employees open their eyes.",
+          note: "Note:",
+          note_desc: "This procedure favors the bad guys because they know each other from the beginning."
+        },
                     note: "Note:",
            secrets_note: "It may be the case that no one has the CISO card, but this procedure must continue to be followed because this will not be known until the game ends."
          },
@@ -832,7 +838,7 @@ export const translations = {
          },
          results_phase: {
            title: "Results Report Phase",
-           desc: "The leader gathers all employees and begins to reveal the action cards one by one.",
+           desc: "The leader gathers all employees and begins to reveal the action cards one by one, but they can decide, if the threat has already been exploited, not to continue revealing cards. If this action is taken, a blue token must be removed from the trust indicator. If there are no tokens left to remove, the bad guys will have won the game.",
            threat_exploited: {
              title: "Threat Exploited",
              desc: "If at least one of the action cards shown is an attack card, the threat has been exploited and a red OWASP token is placed on the circle of that threat."
@@ -843,9 +849,9 @@ export const translations = {
            },
            important_notes: {
              title: "Important notes:",
-             note1: "In some threats, exploiting them will be much more complicated than normal, requiring at least two attack action cards. These threats are marked with a double circle.",
+             note1: "In some threats, exploiting them will be much more complicated than normal, requiring at least two attack action cards. These threats are marked with a double circle with a dashed line.",
              variant_title: "Variant:",
-             variant_desc: "The action cards will be revealed one by one, but the leader can decide if the threat has already been exploited not to continue revealing cards. If they do this action, they must remove a blue token from the trust indicator."
+            
            },
            protection_layers: {
              title: "Protection Layers",
@@ -865,8 +871,8 @@ export const translations = {
            bad_guys_victory_desc: "If the number of exploited threats is greater than or equal to the number of protected threats plus those remaining to do something, then the bad guys have hacked the system.",
            last_chance: "Last Chance for the Bad Guys",
            last_chance_desc: "In the case that the system has been protected, the bad guys have one last chance: to say who among all the employees is the CISO.",
-           last_chance_step1: "For this, all employees will have to vote unanimously by pointing with their finger.",
-           last_chance_step2: "Only the votes of the bad guys who will reveal their card after all employees have voted will count.",
+           last_chance_step1: "For this, all employees will have to vote unanimously by pointing with their finger if the standard procedure was performed in the secrets phase, or only the bad guys if the variant was used.",
+           last_chance_step2: "In any case, only the votes of the bad guys will count, although all employees' cards will be revealed in clockwise order starting from the last chosen leader.",
            last_chance_step3: "If all the bad guys point to the CISO, they are the winners.",
            last_chance_step4: "If one or more of the bad guys fail, they will have lost definitively.",
            last_chance_step5: "If each of the bad guys points to themselves and there is no CISO hired as an employee, the bad guys will have won the game.",
@@ -878,7 +884,7 @@ export const translations = {
            desc: "In the case that the criteria to activate the retrospective meeting are not met, follow-up meetings are activated.",
            procedure_title: "Procedure:",
            step1: "These meetings restart the round.",
-           step2: "They cause a blue token to be added to the trust indicator.",
+          step2: "They cause a blue token to be added to the trust indicator if the threat in the previous round was contained or a blue token to be removed from the trust indicator if it was exploited. If a blue token must be removed from the trust indicator and there are none left, the bad guys will have won the game.",
            step3: "The access credentials cards are returned to the leader and the action cards are also returned to him without anyone seeing them.",
            step4: "The leader must shuffle them when receiving them along with the ones he already had.",
            step5: "It's time to choose a new leader again and start the process over."
