@@ -1,12 +1,6 @@
 ---
 import '../styles/global.css';
 
-export interface Props {
-  title: string;
-  description?: string;
-  lang?: string;
-}
-
 const { title, description = "OWASP Top 10 The Game - El Juego de Mesa de Ciberseguridad", lang = "es" } = Astro.props;
 ---
 
@@ -24,14 +18,88 @@ const { title, description = "OWASP Top 10 The Game - El Juego de Mesa de Cibers
     <meta name="description" content={description} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/favicon.ico">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-24L3EDCDCW"></script>
-    <script>
+    <!-- CookieConsent v3 - styles & script -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.css">
+    <script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.umd.js"></script>
+    <!-- Google tag (gtag.js) - blocked until analytics consent -->
+    <script type="text/plain" data-category="analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-24L3EDCDCW"></script>
+    <script type="text/plain" data-category="analytics">
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(){ window.dataLayer.push(arguments); }
       gtag('js', new Date());
-
       gtag('config', 'G-24L3EDCDCW');
+    </script>
+    
+    <!-- Initialize CookieConsent -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const defaultLang = (document.documentElement.lang || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
+        // @ts-ignore - injected by CookieConsent script
+        const CC = (window && (window).CookieConsent) || undefined;
+        if (CC && typeof CC.run === 'function') {
+          CC.run({
+          guiOptions: {
+            consentModal: { layout: 'cloud inline', position: 'bottom center', flipButtons: false },
+            preferencesModal: { layout: 'bar', position: 'right' }
+          },
+          categories: {
+            necessary: { enabled: true, readOnly: true },
+            analytics: {},
+            functionality: {}
+          },
+          language: {
+            default: defaultLang,
+            autoDetect: 'document',
+            translations: {
+              es: {
+                consentModal: {
+                  title: 'Tu privacidad',
+                  description: 'Usamos cookies necesarias para el funcionamiento del sitio y cookies analíticas opcionales para mejorar tu experiencia.',
+                  acceptAllBtn: 'Aceptar todo',
+                  acceptNecessaryBtn: 'Solo necesarias',
+                  showPreferencesBtn: 'Preferencias'
+                },
+                preferencesModal: {
+                  title: 'Preferencias de cookies',
+                  acceptAllBtn: 'Aceptar todo',
+                  acceptNecessaryBtn: 'Solo necesarias',
+                  savePreferencesBtn: 'Guardar preferencias',
+                  closeIconLabel: 'Cerrar',
+                  sections: [
+                    { title: 'Configuración de Privacidad y Cookies', description: 'A continuación, puedes personalizar tus preferencias de cookies. Marca las casillas de las categorías que aceptas. Ten en cuenta que las cookies técnicas son necesarias para el funcionamiento básico del sitio web y no se pueden desactivar. Para más información, consulta nuestra Política de Cookies.' },
+                    { title: 'Uso de cookies', description: 'Las cookies se usan para asegurar el funcionamiento básico del sitio y, de forma opcional, para análisis y funcionalidades adicionales.' },
+                    { title: 'Cookies Técnicas (Siempre Activas)', description: 'Son esenciales para que el sitio web funcione correctamente. Permiten la navegación, el uso de áreas seguras, la gestión del carrito de compra y otras funciones básicas. No almacenan información personal identificable.', linkedCategory: 'necessary' },
+                    { title: 'Cookies de Rendimiento o Análisis', description: 'Nos ayudan a entender cómo interactúan los visitantes con nuestro sitio web. Recopilan información de forma anónima sobre el número de visitantes, las páginas que visitan y el tiempo que pasan en ellas. Utilizamos estos datos para mejorar nuestros servicios y tu experiencia.', linkedCategory: 'analytics' },
+                    { title: 'Cookies de Preferencias o Funcionalidad', description: 'Permiten al sitio web recordar tus elecciones (como el nombre de usuario, el idioma o la región) para proporcionar una experiencia más personalizada. Por ejemplo, pueden evitar que tengas que introducir tus datos cada vez que nos visitas.', linkedCategory: 'functionality' }
+                  ]
+                }
+              },
+              en: {
+                consentModal: {
+                  title: 'Your privacy',
+                  description: 'We use necessary cookies to make this site work and optional analytics cookies to improve your experience.',
+                  acceptAllBtn: 'Accept all',
+                  acceptNecessaryBtn: 'Only necessary',
+                  showPreferencesBtn: 'Preferences'
+                },
+                preferencesModal: {
+                  title: 'Cookie preferences',
+                  acceptAllBtn: 'Accept all',
+                  acceptNecessaryBtn: 'Only necessary',
+                  savePreferencesBtn: 'Save preferences',
+                  closeIconLabel: 'Close',
+                  sections: [
+                    { title: 'Privacy & Cookies Settings', description: 'Below you can customize your cookie preferences. Check the boxes for the categories you accept. Please note that technical cookies are necessary for the basic operation of the website and cannot be disabled. For more information, please refer to our Cookies Policy.' },
+                    { title: 'Technical Cookies (Always Active)', description: 'They are essential for the website to function properly. They allow navigation, the use of secure areas, shopping cart management and other basic functions. They do not store personally identifiable information.', linkedCategory: 'necessary' },
+                    { title: 'Performance or Analytics Cookies', description: 'They help us understand how visitors interact with our website. They collect information anonymously about the number of visitors, the pages they visit and the time they spend on them. We use this data to improve our services and your experience.', linkedCategory: 'analytics' },
+                    { title: 'Preferences or Functionality Cookies', description: 'They allow the website to remember your choices (such as username, language or region) to provide a more personalized experience. For example, they can prevent you from having to enter your data every time you visit us.', linkedCategory: 'functionality' }
+                  ]
+                }
+              }
+            }
+          }});
+        }
+      });
     </script>
 </head>
 
